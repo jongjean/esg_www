@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기업 ESG 사례 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo-symbol.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+        .case-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .filter-chip {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        .filter-chip:hover {
+            border-color: #1e7e34;
+        }
+        .filter-chip.active {
+            background: #1e7e34;
+            color: white;
+            border-color: #1e7e34;
+        }
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .case-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .case-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        .case-company-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+            color: white;
+        }
+        .case-company-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .case-industry {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        .case-content {
+            padding: 20px;
+        }
+        .case-category-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .case-category-tag {
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .case-category-tag.env {
+            background: #e8f5e9;
+            color: #1e7e34;
+        }
+        .case-category-tag.social {
+            background: #e3f2fd;
+            color: #2874a6;
+        }
+        .case-category-tag.gov {
+            background: #f5f5f5;
+            color: #555;
+        }
+        .case-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .case-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        .case-achievements {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .achievement-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .achievement-list {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .achievement-item {
+            font-size: 13px;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .achievement-item i {
+            color: #1e7e34;
+            font-size: 10px;
+        }
+        .case-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        .case-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .case-rating-badge {
+            padding: 5px 12px;
+            background: #ffd700;
+            color: #333;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .case-more-btn {
+            padding: 8px 16px;
+            background: #1e7e34;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.3s;
+        }
+        .case-more-btn:hover {
+            background: #155724;
+        }
+        
+        /* 검색 섹션 스타일 */
+        .search-section {
+            margin-bottom: 25px;
+        }
+        .search-box {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+        .search-form {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .search-select {
+            padding: 12px 20px;
+            border: 2px solid var(--bg-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            min-width: 120px;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        .search-select:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 20px;
+            border: 2px solid var(--bg-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+        .search-btn {
+            padding: 12px 30px;
+            background: var(--primary-green);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .search-btn:hover {
+            background: #155724;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(30, 126, 52, 0.3);
+        }
+        .search-btn i {
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .case-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 010-4263-7715</span>
+                        <span><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</span>
+                    </div>
+                    <div class="quick-links">
+                        <a href="../member/process.html">회원가입</a>
+                        <a href="../mypage/profile.html">로그인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    <button class="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">핵심사업</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학술지·논문</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">자료실</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">마이페이지</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-building"></i> 기업 ESG 사례</h1>
+            <p>국내외 우수 ESG 경영 사례를 소개합니다</p>
+        </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../../index.html"><i class="fas fa-home"></i> 홈</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="#">ESG뉴스</a>
+            <i class="fas fa-chevron-right"></i>
+            <span class="current">기업 ESG 사례</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Content Area -->
+                <div class="content-area">
+                    <!-- 검색 기능 -->
+                    <div class="search-section">
+                        <div class="search-box">
+                            <div class="search-form">
+                                <select class="search-select" id="searchType">
+                                    <option value="all">전체</option>
+                                    <option value="company">기업명</option>
+                                    <option value="title">제목</option>
+                                    <option value="category">카테고리</option>
+                                </select>
+                                <input type="text" class="search-input" id="searchInput" placeholder="검색어를 입력하세요...">
+                                <button class="search-btn" onclick="performSearch()">
+                                    <i class="fas fa-search"></i> 검색
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="case-filters">
+                        <button class="filter-chip active" data-filter="all">전체</button>
+                        <button class="filter-chip" data-filter="environment">환경 (E)</button>
+                        <button class="filter-chip" data-filter="social">사회 (S)</button>
+                        <button class="filter-chip" data-filter="governance">거버넌스 (G)</button>
+                        <button class="filter-chip" data-filter="domestic">국내기업</button>
+                        <button class="filter-chip" data-filter="global">글로벌기업</button>
+                    </div>
+
+                    <!-- Case Grid -->
+                    <div class="case-grid">
+                        <!-- Case 1 -->
+                        <div class="case-card">
+                            <div class="case-company-header">
+                                <div class="case-company-name">삼성전자</div>
+                                <div class="case-industry">전자·IT | 대기업</div>
+                            </div>
+                            <div class="case-content">
+                                <div class="case-category-tags">
+                                    <span class="case-category-tag env">환경</span>
+                                    <span class="case-category-tag social">사회</span>
+                                </div>
+                                <h3 class="case-title">2050 탄소중립 로드맵 발표 및 RE100 가입</h3>
+                                <p class="case-description">
+                                    삼성전자가 2050년까지 전 사업장에서 탄소중립을 달성하겠다는 목표를 발표하고 RE100에 가입했습니다. 
+                                    반도체 제조공정의 에너지 효율 향상과 재생에너지 사용 확대를 추진하고 있습니다.
+                                </p>
+                                <div class="case-achievements">
+                                    <div class="achievement-title">
+                                        <i class="fas fa-trophy"></i> 주요 성과
+                                    </div>
+                                    <div class="achievement-list">
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>온실가스 배출량 2030년까지 50% 감축 목표</span>
+                                        </div>
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>재생에너지 사용률 2030년 100% 달성 계획</span>
+                                        </div>
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>친환경 제품 라인업 확대: 갤럭시 시리즈 재생 소재 사용</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="case-footer">
+                                    <div class="case-rating">
+                                        <span class="case-rating-badge">ESG A+ 등급</span>
+                                    </div>
+                                    <button class="case-more-btn">상세보기 <i class="fas fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Case 2 -->
+                        <div class="case-card">
+                            <div class="case-company-header" style="background: linear-gradient(135deg, #2874a6 0%, #1a5276 100%);">
+                                <div class="case-company-name">현대자동차</div>
+                                <div class="case-industry">자동차 | 대기업</div>
+                            </div>
+                            <div class="case-content">
+                                <div class="case-category-tags">
+                                    <span class="case-category-tag env">환경</span>
+                                    <span class="case-category-tag social">사회</span>
+                                </div>
+                                <h3 class="case-title">수소 생태계 구축 및 전동화 전환 가속</h3>
+                                <p class="case-description">
+                                    현대자동차가 수소전기차와 전기차 중심의 친환경 모빌리티 전환을 선도하고 있습니다. 
+                                    2045년 탄소중립 목표 하에 전 밸류체인에서 탄소배출을 줄이는 노력을 전개 중입니다.
+                                </p>
+                                <div class="case-achievements">
+                                    <div class="achievement-title">
+                                        <i class="fas fa-trophy"></i> 주요 성과
+                                    </div>
+                                    <div class="achievement-list">
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>2030년 전동화 차량 비중 80% 달성 목표</span>
+                                        </div>
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>수소상용차 글로벌 점유율 1위 달성</span>
+                                        </div>
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>공급망 ESG 관리 시스템 도입</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="case-footer">
+                                    <div class="case-rating">
+                                        <span class="case-rating-badge">ESG A 등급</span>
+                                    </div>
+                                    <button class="case-more-btn">상세보기 <i class="fas fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Case 3 -->
+                        <div class="case-card">
+                            <div class="case-company-header" style="background: linear-gradient(135deg, #868f96 0%, #596164 100%);">
+                                <div class="case-company-name">SK하이닉스</div>
+                                <div class="case-industry">반도체 | 대기업</div>
+                            </div>
+                            <div class="case-content">
+                                <div class="case-category-tags">
+                                    <span class="case-category-tag env">환경</span>
+                                    <span class="case-category-tag gov">거버넌스</span>
+                                </div>
+                                <h3 class="case-title">저전력 반도체 개발 및 ESG 위원회 신설</h3>
+                                <p class="case-description">
+                                    SK하이닉스가 저전력·고성능 반도체 기술 개발을 통해 환경 영향을 최소화하고, 
+                                    이사회 내 ESG 위원회를 신설해 지속가능경영 의사결정 체계를 강화했습니다.
+                                </p>
+                                <div class="case-achievements">
+                                    <div class="achievement-title">
+                                        <i class="fas fa-trophy"></i> 주요 성과
+                                    </div>
+                                    <div class="achievement-list">
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>2050년 탄소중립 선언 및 로드맵 수립</span>
+                                        </div>
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>저전력 DDR5 반도체 개발로 에너지 효율 36% 향상</span>
+                                        </div>
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>이사회 ESG 위원회 중심 지속가능경영 강화</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="case-footer">
+                                    <div class="case-rating">
+                                        <span class="case-rating-badge">ESG A 등급</span>
+                                    </div>
+                                    <button class="case-more-btn">상세보기 <i class="fas fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Case 4 -->
+                        <div class="case-card">
+                            <div class="case-company-header">
+                                <div class="case-company-name">네이버</div>
+                                <div class="case-industry">IT·플랫폼 | 대기업</div>
+                            </div>
+                            <div class="case-content">
+                                <div class="case-category-tags">
+                                    <span class="case-category-tag env">환경</span>
+                                    <span class="case-category-tag social">사회</span>
+                                    <span class="case-category-tag gov">거버넌스</span>
+                                </div>
+                                <h3 class="case-title">그린 데이터센터 구축 및 AI 윤리 원칙 수립</h3>
+                                <p class="case-description">
+                                    네이버가 재생에너지로 운영되는 그린 데이터센터를 구축하고, AI 기술 개발과 활용에 있어 
+                                    윤리 원칙을 수립하여 책임 있는 기술 발전을 추구하고 있습니다.
+                                </p>
+                                <div class="case-achievements">
+                                    <div class="achievement-title">
+                                        <i class="fas fa-trophy"></i> 주요 성과
+                                    </div>
+                                    <div class="achievement-list">
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>재생에너지 100% 사용 데이터센터 '각 세종' 완공</span>
+                                        </div>
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>AI 윤리 원칙 수립 및 AI 윤리위원회 운영</span>
+                                        </div>
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>네이버 커넥트재단 통해 디지털 교육 격차 해소</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="case-footer">
+                                    <div class="case-rating">
+                                        <span class="case-rating-badge">ESG A+ 등급</span>
+                                    </div>
+                                    <button class="case-more-btn">상세보기 <i class="fas fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Case 5 -->
+                        <div class="case-card">
+                            <div class="case-company-header" style="background: linear-gradient(135deg, #2874a6 0%, #1a5276 100%);">
+                                <div class="case-company-name">포스코</div>
+                                <div class="case-industry">철강 | 대기업</div>
+                            </div>
+                            <div class="case-content">
+                                <div class="case-category-tags">
+                                    <span class="case-category-tag env">환경</span>
+                                    <span class="case-category-tag social">사회</span>
+                                </div>
+                                <h3 class="case-title">수소환원제철 기술 개발 및 철강 순환경제 구축</h3>
+                                <p class="case-description">
+                                    포스코가 수소를 활용한 친환경 제철 기술 'HyREX'를 개발하고, 
+                                    철강 부산물을 자원화하는 순환경제 모델을 구축해 탄소배출을 획기적으로 줄이고 있습니다.
+                                </p>
+                                <div class="case-achievements">
+                                    <div class="achievement-title">
+                                        <i class="fas fa-trophy"></i> 주요 성과
+                                    </div>
+                                    <div class="achievement-list">
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>2050년 탄소중립 선언 및 수소환원제철 기술 개발</span>
+                                        </div>
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>슬래그 재활용으로 연간 1,200만톤 CO2 감축</span>
+                                        </div>
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>그린 철강 제품 라인업 확대 및 공급</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="case-footer">
+                                    <div class="case-rating">
+                                        <span class="case-rating-badge">ESG A 등급</span>
+                                    </div>
+                                    <button class="case-more-btn">상세보기 <i class="fas fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Case 6: Global Case -->
+                        <div class="case-card">
+                            <div class="case-company-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                <div class="case-company-name">Patagonia</div>
+                                <div class="case-industry">의류·패션 | 글로벌 기업</div>
+                            </div>
+                            <div class="case-content">
+                                <div class="case-category-tags">
+                                    <span class="case-category-tag env">환경</span>
+                                    <span class="case-category-tag social">사회</span>
+                                    <span class="case-category-tag gov">거버넌스</span>
+                                </div>
+                                <h3 class="case-title">"지구가 우리 유일한 주주" 환경보호 중심 경영</h3>
+                                <p class="case-description">
+                                    파타고니아가 회사 소유권을 환경단체에 이전하며 "지구를 위한 비즈니스"를 실천하고 있습니다. 
+                                    매출의 100%를 기후위기 대응에 사용하는 파격적인 결정으로 ESG 경영의 새로운 패러다임을 제시했습니다.
+                                </p>
+                                <div class="case-achievements">
+                                    <div class="achievement-title">
+                                        <i class="fas fa-trophy"></i> 주요 성과
+                                    </div>
+                                    <div class="achievement-list">
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>회사 소유권 환경단체 이전, 수익 전액 환경보호 활동</span>
+                                        </div>
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>재활용 소재 100% 사용 제품 라인 확대</span>
+                                        </div>
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>'Worn Wear' 프로그램으로 의류 재사용 문화 확산</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="case-footer">
+                                    <div class="case-rating">
+                                        <span class="case-rating-badge" style="background: #4caf50; color: white;">Best Practice</span>
+                                    </div>
+                                    <button class="case-more-btn">상세보기 <i class="fas fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Case 7 -->
+                        <div class="case-card">
+                            <div class="case-company-header">
+                                <div class="case-company-name">LG에너지솔루션</div>
+                                <div class="case-industry">배터리 | 대기업</div>
+                            </div>
+                            <div class="case-content">
+                                <div class="case-category-tags">
+                                    <span class="case-category-tag env">환경</span>
+                                    <span class="case-category-tag social">사회</span>
+                                </div>
+                                <h3 class="case-title">배터리 순환경제 구축 및 안전경영 체계 강화</h3>
+                                <p class="case-description">
+                                    LG에너지솔루션이 폐배터리 재활용 기술을 개발하고, 
+                                    엄격한 안전관리 시스템을 구축해 지속가능한 배터리 생태계를 만들고 있습니다.
+                                </p>
+                                <div class="case-achievements">
+                                    <div class="achievement-title">
+                                        <i class="fas fa-trophy"></i> 주요 성과
+                                    </div>
+                                    <div class="achievement-list">
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>폐배터리 재활용율 90% 이상 달성 기술 개발</span>
+                                        </div>
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>배터리 안전 인증 최고 등급 획득</span>
+                                        </div>
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>2050 탄소중립 로드맵 및 재생에너지 전환 가속</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="case-footer">
+                                    <div class="case-rating">
+                                        <span class="case-rating-badge">ESG A 등급</span>
+                                    </div>
+                                    <button class="case-more-btn">상세보기 <i class="fas fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Case 8 -->
+                        <div class="case-card">
+                            <div class="case-company-header" style="background: linear-gradient(135deg, #868f96 0%, #596164 100%);">
+                                <div class="case-company-name">롯데케미칼</div>
+                                <div class="case-industry">화학 | 대기업</div>
+                            </div>
+                            <div class="case-content">
+                                <div class="case-category-tags">
+                                    <span class="case-category-tag env">환경</span>
+                                </div>
+                                <h3 class="case-title">플라스틱 순환경제 선도 및 바이오 플라스틱 개발</h3>
+                                <p class="case-description">
+                                    롯데케미칼이 폐플라스틱을 원료로 재활용하는 화학적 재활용 기술을 개발하고, 
+                                    식물 유래 바이오 플라스틱 생산을 확대해 플라스틱 순환경제를 실현하고 있습니다.
+                                </p>
+                                <div class="case-achievements">
+                                    <div class="achievement-title">
+                                        <i class="fas fa-trophy"></i> 주요 성과
+                                    </div>
+                                    <div class="achievement-list">
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>2030년까지 재생 플라스틱 100만톤 생산 목표</span>
+                                        </div>
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>화학적 재활용 기술 개발로 폐플라스틱 재자원화</span>
+                                        </div>
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>바이오 플라스틱 '롯데케미칼 그린' 시리즈 출시</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="case-footer">
+                                    <div class="case-rating">
+                                        <span class="case-rating-badge">ESG B+ 등급</span>
+                                    </div>
+                                    <button class="case-more-btn">상세보기 <i class="fas fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Case 9 -->
+                        <div class="case-card">
+                            <div class="case-company-header" style="background: linear-gradient(135deg, #2874a6 0%, #1a5276 100%);">
+                                <div class="case-company-name">카카오</div>
+                                <div class="case-industry">IT·플랫폼 | 대기업</div>
+                            </div>
+                            <div class="case-content">
+                                <div class="case-category-tags">
+                                    <span class="case-category-tag social">사회</span>
+                                    <span class="case-category-tag gov">거버넌스</span>
+                                </div>
+                                <h3 class="case-title">디지털 포용 확대 및 플랫폼 투명성 강화</h3>
+                                <p class="case-description">
+                                    카카오가 디지털 소외계층을 위한 교육 프로그램을 확대하고, 
+                                    알고리즘 투명성 보고서를 발간하는 등 책임 있는 플랫폼 운영을 강화하고 있습니다.
+                                </p>
+                                <div class="case-achievements">
+                                    <div class="achievement-title">
+                                        <i class="fas fa-trophy"></i> 주요 성과
+                                    </div>
+                                    <div class="achievement-list">
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>카카오임팩트재단 통해 사회문제 해결 프로젝트 지원</span>
+                                        </div>
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>알고리즘 투명성 보고서 정기 발간</span>
+                                        </div>
+                                        <div class="achievement-item">
+                                            <i class="fas fa-circle"></i>
+                                            <span>데이터 윤리 위원회 운영 및 개인정보 보호 강화</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="case-footer">
+                                    <div class="case-rating">
+                                        <span class="case-rating-badge">ESG A 등급</span>
+                                    </div>
+                                    <button class="case-more-btn">상세보기 <i class="fas fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>한국ESG학회</h3>
+                    <p>지속가능한 미래를 위한<br>ESG 연구와 실천</p>
+                </div>
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <ul>
+                        <li><a href="../about/intro.html">학회소개</a></li>
+                        <li><a href="../journal/intro.html">학술지</a></li>
+                        <li><a href="../member/process.html">회원가입</a></li>
+                        <li><a href="../community/notice.html">공지사항</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>연락처</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 서울특별시 동작구 상도로 369</li>
+                        <li><i class="fas fa-phone"></i> 010-4263-7715</li>
+                        <li><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Korean ESG Association. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        // 검색 기능
+        function performSearch() {
+            const searchType = document.getElementById('searchType').value;
+            const searchInput = document.getElementById('searchInput').value.trim();
+            
+            if (!searchInput) {
+                alert('검색어를 입력해주세요.');
+                return;
+            }
+            
+            console.log(`검색 유형: ${searchType}, 검색어: ${searchInput}`);
+            
+            // 실제 검색 로직 구현 예정
+            alert(`"${searchInput}" 검색 결과를 표시합니다.\\n(검색 기능은 추후 구현 예정)`);
+        }
+        
+        // Enter 키로 검색
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        performSearch();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="한국ESG학회 - 관리자 포스팅툴">
+    <title>포스팅툴 - 한국ESG학회</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../../images/logo.png">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../css/style.css?v=20250120-EDITOR-DIV">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <link rel="stylesheet" href="../../css/posting-tool.css">
+    
+    <style>
+        /* 포스팅툴 전용 스타일 */
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .posting-tool-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        /* 헤더 */
+        .tool-header {
+            background: linear-gradient(135deg, #1e7e34 0%, #27ae60 100%);
+            padding: 30px 40px;
+            color: white;
+        }
+        
+        .tool-header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .tool-header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .header-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .header-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* 메인 콘텐츠 */
+        .tool-content {
+            padding: 40px;
+        }
+        
+        .slides-container {
+            display: grid;
+            gap: 25px;
+        }
+        
+        /* 슬라이드 카드 */
+        .slide-card {
+            background: #f8f9fa;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .slide-card.expanded {
+            border-color: #1e7e34;
+            box-shadow: 0 8px 24px rgba(30, 126, 52, 0.15);
+        }
+        
+        .slide-header {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .slide-header:hover {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        }
+        
+        .slide-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .slide-number {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        .slide-toggle {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+        
+        .slide-card.expanded .slide-toggle {
+            transform: rotate(180deg);
+        }
+        
+        .slide-body {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+        }
+        
+        .slide-card.expanded .slide-body {
+            padding: 30px;
+            max-height: 2000px;
+        }
+        
+        /* 이미지 업로드 영역 */
+        .image-upload-area {
+            background: white;
+            border: 3px dashed #cbd5e0;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .image-upload-area:hover {
+            border-color: #6366f1;
+            background: #f7fafc;
+        }
+        
+        .image-upload-area.has-image {
+            padding: 0;
+            border: none;
+        }
+        
+        .image-preview {
+            width: 100%;
+            height: 300px;
+            border-radius: 12px;
+            display: none;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .image-upload-area.has-image .image-preview {
+            display: block;
+        }
+        
+        .image-upload-area.has-image .upload-placeholder {
+            display: none;
+        }
+        
+        .upload-placeholder i {
+            font-size: 3rem;
+            color: #a0aec0;
+            margin-bottom: 15px;
+        }
+        
+        .upload-placeholder p {
+            margin: 0;
+            color: #4a5568;
+            font-size: 0.95rem;
+        }
+        
+        .upload-placeholder small {
+            color: #a0aec0;
+            display: block;
+            margin-top: 8px;
+        }
+        
+        .image-actions {
+            display: none;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            gap: 10px;
+        }
+        
+        .image-upload-area.has-image .image-actions {
+            display: flex;
+        }
+        
+        .image-action-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s;
+        }
+        
+        .image-action-btn:hover {
+            transform: scale(1.1);
+            background: white;
+        }
+        
+        .image-action-btn.delete {
+            color: #e53e3e;
+        }
+        
+        .image-action-btn.change {
+            color: #3182ce;
+        }
+        
+        /* 입력 필드 */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        
+        .form-label i {
+            margin-right: 8px;
+            color: #6366f1;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-family: 'Noto Sans KR', sans-serif;
+            transition: all 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        
+        textarea.form-input {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        /* 버튼 그룹 */
+        .slide-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .action-btn.primary {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+        
+        .action-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+        
+        .action-btn.secondary {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+        
+        .action-btn.secondary:hover {
+            background: #cbd5e0;
+            transform: translateY(-2px);
+        }
+        
+        /* 저장 버튼 영역 */
+        .save-section {
+            background: linear-gradient(135deg, #f7fafc 0%, #e6f2f0 100%);
+            padding: 30px 40px;
+            margin-top: 30px;
+            border-radius: 16px;
+            border: 3px solid #1e7e34;
+        }
+        
+        .save-section h3 {
+            margin: 0 0 10px 0;
+            color: #1e7e34;
+            font-size: 1.3rem;
+        }
+        
+        .save-section p {
+            margin: 0 0 20px 0;
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+        
+        .save-form {
+            display: flex;
+            gap: 15px;
+            align-items: flex-end;
+        }
+        
+        .save-form .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+        
+        .save-btn {
+            padding: 14px 40px;
+            background: linear-gradient(135deg, #1e7e34 0%, #27ae60 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(30, 126, 52, 0.3);
+            white-space: nowrap;
+        }
+        
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 126, 52, 0.4);
+        }
+        
+        /* 모바일 반응형 */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .tool-header {
+                padding: 20px 25px;
+            }
+            
+            .tool-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .tool-content {
+                padding: 25px;
+            }
+            
+            .slide-header {
+                padding: 15px 20px;
+            }
+            
+            .slide-body {
+                padding: 20px;
+            }
+            
+            .save-form {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .save-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .header-actions {
+                flex-direction: column;
+            }
+        }
+        
+        /* 로딩 스피너 */
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* 이미지 편집 모달 */
+        .image-editor-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9000;  /* 🔧 저장 확인 모달보다 아래 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .image-editor-container {
+            background: white;
+            border-radius: 16px;
+            max-width: 1250px;  /* 편집 캔버스 1200px + 여유 */
+            width: 95%;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .image-editor-header {
+            padding: 20px 30px;
+            background: linear-gradient(135deg, #1e7e34 0%, #27ae60 100%);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .image-editor-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .close-editor {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        
+        .close-editor:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .image-editor-body {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        .editor-canvas-wrapper {
+            flex: 1;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .editor-canvas {
+            /* 포스팅 컨테이너와 동일한 크기 */
+            width: 1200px;
+            height: 300px;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+            cursor: move;
+            border: 3px solid #27ae60;
+        }
+        
+        /* 🔥 편집 이미지 (배경 이미지 방식) */
+        .editor-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        /* 🔥 마스크 레이어 (이미지 위에 오버레이) */
+        .mask-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            pointer-events: none;
+            z-index: 5;
+            transition: background 0.2s;
+        }
+        
+        .editor-controls {
+            width: 300px;
+            padding: 30px;
+            background: #fafafa;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .control-group label {
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .control-group input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .control-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #27ae60;
+            cursor: pointer;
+        }
+        
+        .control-group input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #27ae60;
+            cursor: pointer;
+            border: none;
+        }
+        
+        #zoomValue {
+            text-align: center;
+            font-weight: 600;
+            color: #27ae60;
+            font-size: 1.1rem;
+        }
+        
+        .position-controls {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        
+        .position-controls button {
+            padding: 12px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+            color: #666;
+        }
+        
+        .position-controls button:hover {
+            background: #27ae60;
+            color: white;
+            border-color: #27ae60;
+            transform: scale(1.05);
+        }
+        
+        .position-controls button:nth-child(1) {
+            grid-column: 2;
+        }
+        
+        .position-controls button:nth-child(2) {
+            grid-column: 1;
+            grid-row: 2;
+        }
+        
+        .position-controls button:nth-child(3) {
+            grid-column: 2;
+            grid-row: 2;
+        }
+        
+        .position-controls button:nth-child(4) {
+            grid-column: 3;
+            grid-row: 2;
+        }
+        
+        .position-controls button:nth-child(5) {
+            grid-column: 2;
+            grid-row: 3;
+        }
+        
+        .btn-primary, .btn-secondary {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #1e7e34 0%, #27ae60 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 126, 52, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        /* 🔥 저장 확인 알림 모달 */
+        .save-confirm-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 11000;  /* 🔥 모든 모달 위에 표시 */
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        .save-confirm-content {
+            background: white;
+            padding: 50px 60px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 400px;
+            animation: slideDown 0.3s ease-out;
+            /* 🔥 브라우저 정중앙 보장 */
+            position: relative;
+            transform: translate(0, 0);
+        }
+        
+        .save-confirm-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        .save-confirm-icon i {
+            font-size: 3rem;
+            color: white;
+        }
+        
+        .save-confirm-content h3 {
+            font-size: 1.8rem;
+            color: #2d3748;
+            margin: 0 0 15px 0;
+            font-weight: 700;
+        }
+        
+        .save-confirm-content p {
+            font-size: 1.1rem;
+            color: #718096;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="posting-tool-container">
+        <!-- 헤더 -->
+        <div class="tool-header">
+            <h1>
+                <i class="fas fa-edit"></i>
+                포스팅툴
+            </h1>
+            <p>메인페이지 히어로 슬라이더를 쉽고 빠르게 관리하세요</p>
+            
+            <div class="header-actions">
+                <a href="../../index.html" class="header-btn">
+                    <i class="fas fa-home"></i>
+                    메인으로
+                </a>
+                <a href="history-manager.html" class="header-btn">
+                    <i class="fas fa-history"></i>
+                    히스토리 관리
+                </a>
+                <a href="../mypage/profile.html" class="header-btn">
+                    <i class="fas fa-user"></i>
+                    마이페이지
+                </a>
+            </div>
+        </div>
+        
+        <!-- 메인 콘텐츠 -->
+        <div class="tool-content">
+            <div class="slides-container" id="slidesContainer">
+                <!-- 슬라이드 카드들이 JavaScript로 동적 생성됩니다 -->
+            </div>
+            
+            <!-- 저장 섹션 -->
+            <div class="save-section">
+                <h3><i class="fas fa-save"></i> 변경사항 저장</h3>
+                <p>변경사항을 저장하면 메인페이지에 즉시 반영됩니다. 버전 제목을 입력하여 히스토리에 저장하세요.</p>
+                
+                <div class="save-form">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-tag"></i>
+                            버전 제목 (예: 🎉 월드ESG포럼 2025, 🏠 기본 메인페이지)
+                        </label>
+                        <input type="text" 
+                               id="versionTitle" 
+                               class="form-input" 
+                               placeholder="이 버전을 설명하는 제목을 입력하세요">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-align-left"></i>
+                            상세 설명 (선택)
+                        </label>
+                        <input type="text" 
+                               id="versionDescription" 
+                               class="form-input" 
+                               placeholder="변경 내용을 간단히 설명하세요">
+                    </div>
+                    
+                    <button class="save-btn" id="saveAllBtn">
+                        <i class="fas fa-check-circle"></i>
+                        저장 및 게시
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 이미지 편집 모달 -->
+    <div id="imageEditorModal" class="image-editor-modal" style="display: none;">
+        <div class="image-editor-container">
+            <div class="image-editor-header">
+                <h2><i class="fas fa-crop"></i> 이미지 편집</h2>
+                <button class="close-editor" onclick="closeImageEditor()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="image-editor-body">
+                <div class="editor-canvas-wrapper">
+                    <div class="editor-canvas" id="editorCanvas">
+                        <div id="editorImage" class="editor-image"></div>
+                        <!-- 🔥 마스크 레이어 (이미지 위에 오버레이) -->
+                        <div class="mask-layer" id="maskLayer"></div>
+                    </div>
+                </div>
+                
+                <div class="editor-controls">
+                    <div class="control-group">
+                        <label><i class="fas fa-search-plus"></i> 확대/축소</label>
+                        <input type="range" id="zoomSlider" min="50" max="200" value="100" step="1">
+                        <span id="zoomValue">100%</span>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label><i class="fas fa-adjust"></i> 마스크 투명도</label>
+                        <input type="range" id="maskSlider" min="0" max="100" value="40" step="5">
+                        <span id="maskValue">40%</span>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label><i class="fas fa-arrows-alt"></i> 위치 조정</label>
+                        <div class="position-controls">
+                            <button onclick="moveImage('up')" title="위로"><i class="fas fa-arrow-up"></i></button>
+                            <button onclick="moveImage('left')" title="왼쪽"><i class="fas fa-arrow-left"></i></button>
+                            <button onclick="resetImagePosition()" title="초기화"><i class="fas fa-undo"></i></button>
+                            <button onclick="moveImage('right')" title="오른쪽"><i class="fas fa-arrow-right"></i></button>
+                            <button onclick="moveImage('down')" title="아래"><i class="fas fa-arrow-down"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <button class="btn-primary" onclick="saveImageEdits()">
+                            <i class="fas fa-check"></i> 적용
+                        </button>
+                        <button class="btn-secondary" onclick="closeImageEditor()">
+                            <i class="fas fa-times"></i> 취소
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 🔥 이미지 편집 저장 확인 알림 모달 -->
+    <div id="saveConfirmModal" class="save-confirm-modal" style="display: none;">
+        <div class="save-confirm-content">
+            <div class="save-confirm-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>저장 완료!</h3>
+            <p>이미지 편집이 성공적으로 저장되었습니다.</p>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="../../js/permission.js?v=20250121-NO-AUTO"></script>
+    <script src="../../js/custom-alert.js?v=20250120-ALERT"></script>
+    <script src="../../js/reset-slide-1-position.js?v=20250120-FINAL-RESET"></script>
+    <script src="../../js/slide-utils.js?v=20250120-BTN-OUTSIDE"></script>
+    <script src="../../js/posting-tool.js?v=20250120-5SLIDES"></script>
+    <script src="../../js/image-editor.js?v=20250120-DRAG-INVERT"></script>
+    
+    <!-- 관리자 권한 체크 -->
+    <script>
+        // 페이지 접근 권한 체크 (관리자 이상)
+        checkPagePermission('admin');
+    </script>
+    
+</body>
+</html>

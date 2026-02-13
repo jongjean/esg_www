@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>긴급 진단 - 로그인/로그아웃 메뉴</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/login.css">
+    <style>
+        body {
+            padding: 40px;
+            background: #1e1e1e;
+            color: #fff;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .panel {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #2d2d2d;
+            padding: 30px;
+            border-radius: 12px;
+        }
+        h1 { color: #4ec9b0; margin-bottom: 30px; }
+        h2 { color: #dcdcaa; margin-top: 30px; }
+        .success { color: #4ec9b0; }
+        .error { color: #f48771; }
+        .warning { color: #ce9178; }
+        pre {
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 8px;
+            overflow: auto;
+            border-left: 3px solid #4ec9b0;
+            font-size: 13px;
+        }
+        button {
+            padding: 12px 24px;
+            margin: 10px 5px;
+            background: #0e639c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover { background: #1177bb; }
+        .status-box {
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            background: #252525;
+            border-left: 4px solid #4ec9b0;
+        }
+    </style>
+</head>
+<body>
+    <div class="panel">
+        <h1>🔬 긴급 진단: 로그인/로그아웃 메뉴</h1>
+        
+        <div class="status-box">
+            <h3>📍 현재 위치</h3>
+            <pre id="currentUrl">확인 중...</pre>
+        </div>
+        
+        <h2>1. 빠른 액션</h2>
+        <button onclick="forceLogin()">✅ 강제 로그인</button>
+        <button onclick="checkStatus()">🔍 상태 확인</button>
+        <button onclick="goToProfile()">👤 프로필 페이지로 이동</button>
+        
+        <div id="results"></div>
+    </div>
+
+    <script src="../../js/auth.js"></script>
+    <script>
+        // 현재 URL 표시
+        document.getElementById('currentUrl').textContent = window.location.href;
+        
+        function forceLogin() {
+            const userData = {
+                id: 'jongjean@naver.com',
+                name: 'Jongjean',
+                role: 'admin',
+                loginTime: new Date().toISOString()
+            };
+            localStorage.setItem('user', JSON.stringify(userData));
+            document.body.classList.add('user-logged-in');
+            
+            alert('✅ 로그인 완료!\n\n지금 프로필 페이지로 이동하세요.');
+            checkStatus();
+        }
+        
+        function checkStatus() {
+            const results = document.getElementById('results');
+            
+            // 로그인 데이터 확인
+            const localUser = localStorage.getItem('user');
+            const user = localUser ? JSON.parse(localUser) : null;
+            
+            // body 클래스 확인
+            const hasClass = document.body.classList.contains('user-logged-in');
+            
+            let html = '<h2>📊 진단 결과</h2>';
+            html += '<div class="status-box">';
+            html += '<pre>';
+            html += `<span class="${localUser ? 'success' : 'error'}">localStorage.user: ${localUser ? '✅ 있음' : '❌ 없음'}</span>\n`;
+            html += `<span class="${hasClass ? 'success' : 'error'}">body.user-logged-in: ${hasClass ? '✅ 있음' : '❌ 없음'}</span>\n\n`;
+            
+            if (user) {
+                html += `사용자 정보:\n`;
+                html += `  ID: ${user.id}\n`;
+                html += `  Name: ${user.name}\n`;
+                html += `  Role: ${user.role || 'N/A'}\n`;
+            }
+            
+            html += '</pre>';
+            html += '</div>';
+            
+            // 결과 판정
+            html += '<h2>🎯 다음 단계</h2>';
+            html += '<div class="status-box">';
+            if (user && hasClass) {
+                html += '<p class="success">✅ 로그인 완료!</p>';
+                html += '<p>지금 <strong>프로필 페이지</strong>로 이동해서 드롭다운을 확인하세요.</p>';
+                html += '<button onclick="goToProfile()" style="margin-top: 15px;">👤 프로필 페이지로 이동</button>';
+            } else {
+                html += '<p class="error">❌ 로그인 필요</p>';
+                html += '<p>"강제 로그인" 버튼을 클릭하세요.</p>';
+            }
+            html += '</div>';
+            
+            results.innerHTML = html;
+        }
+        
+        function goToProfile() {
+            window.location.href = 'profile.html';
+        }
+        
+        // 페이지 로드 시 자동 체크
+        window.addEventListener('load', () => {
+            checkStatus();
+        });
+    </script>
+</body>
+</html>

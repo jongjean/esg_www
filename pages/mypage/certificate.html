@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원증·증명서 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+        .certificate-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .member-card-section {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #1e7e34;
+        }
+
+        .member-card-preview {
+            background: white;
+            border: 4px solid #1e7e34;
+            border-radius: 15px;
+            padding: 30px;
+            color: #333;
+            margin-bottom: 30px;
+            margin-top: 40px;
+            box-shadow: 0 8px 25px rgba(30, 126, 52, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .member-card-preview::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(30, 126, 52, 0.03);
+            border-radius: 50%;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e7e34;
+        }
+
+        .card-type {
+            padding: 5px 15px;
+            background: #1e7e34;
+            color: white;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .card-body {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-name {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #1e7e34;
+        }
+
+        .card-info {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .card-qr {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-card {
+            flex: 1;
+            min-width: 150px;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #1e7e34;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #166028;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 126, 52, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .certificate-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .certificate-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .certificate-card:hover {
+            border-color: #1e7e34;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+
+        .cert-icon {
+            width: 60px;
+            height: 60px;
+            background: #e8f5e9;
+            border: 2px solid #1e7e34;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #1e7e34;
+            margin-bottom: 15px;
+        }
+
+        .cert-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .cert-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .cert-available {
+            display: inline-block;
+            padding: 5px 12px;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .cert-unavailable {
+            display: inline-block;
+            padding: 5px 12px;
+            background: #f5f5f5;
+            color: #999;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .history-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .history-table thead {
+            background: #f8f9fa;
+        }
+
+        .history-table th,
+        .history-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .history-table th {
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .history-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .btn-download {
+            padding: 8px 16px;
+            background: #1e7e34;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-download:hover {
+            background: #166028;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2874a6;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .info-box-title {
+            font-weight: 600;
+            color: #2874a6;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-box-content {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .request-form {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #1e7e34;
+            box-shadow: 0 0 0 3px rgba(30, 126, 52, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: #1e7e34;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background: #166028;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 126, 52, 0.3);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: #f8f9fa;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: #e9ecef;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e7e34;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .certificate-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-actions {
+                flex-direction: column;
+            }
+
+            .btn-card {
+                width: 100%;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .member-card-preview {
+                padding: 20px;
+            }
+
+            .card-name {
+                font-size: 22px;
+            }
+
+            .card-qr {
+                width: 60px;
+                height: 60px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    
+                    <button class="mobile-menu-btn" aria-label="메뉴 열기">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../about/greeting.html">학회장 인사말</a></li>
+                                <li><a href="../about/purpose.html">설립 목적·비전</a></li>
+                                <li><a href="../about/history.html">연혁</a></li>
+                                <li><a href="../about/constitution.html">정관·규정</a></li>
+                                <li><a href="../about/ci.html">CI·BI</a></li>
+                                <li><a href="../about/location.html">오시는 길</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../organization/executives.html">임원진</a></li>
+                                <li><a href="../organization/committees.html">위원회</a></li>
+                                <li><a href="../organization/divisions.html">분과학회·연구회</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../member/types.html">회원 구분</a></li>
+                                <li><a href="../member/process.html">가입 절차</a></li>
+                                <li><a href="../member/fee.html">회비 안내</a></li>
+                                <li><a href="../member/benefits.html">회원 혜택</a></li>
+                                <li><a href="../member/companies.html">회원사 소개</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">핵심사업</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../core/forum.html">월드ESG포럼</a></li>
+                                <li><a href="../core/award.html">한국ESG대상</a></li>
+                                <li><a href="../core/ordinance.html">한국ESG조례대상</a></li>
+                                <li><a href="../core/seminar.html">월요학술세미나</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학술지·논문</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../journal/about.html">학술지 소개</a></li>
+                                <li><a href="../journal/submission.html">논문 투고 안내</a></li>
+                                <li><a href="../journal/editorial.html">편집위원회</a></li>
+                                <li><a href="../journal/review.html">심사 규정</a></li>
+                                <li><a href="../journal/archive.html">논문 아카이브</a></li>
+                                <li><a href="../journal/dbpia-embed.html">DBPIA 논문 검색</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../policy/research.html">ESG 정책 연구</a></li>
+                                <li><a href="../policy/standards.html">ESG 지표·표준</a></li>
+                                <li><a href="../policy/law.html">법·제도 분석</a></li>
+                                <li><a href="../policy/global.html">국제 ESG 동향</a></li>
+                                <li><a href="../policy/reports.html">연구보고서</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../news/main.html">ESG 주요 뉴스</a></li>
+                                <li><a href="../news/policy.html">정책·입법 동향</a></li>
+                                <li><a href="../news/cases.html">기업 ESG 사례</a></li>
+                                <li><a href="../news/press.html">학회 보도자료</a></li>
+                                <li><a href="../news/column.html">기고·칼럼</a></li>
+                                <li><a href="../news/video.html">영상 콘텐츠</a></li>
+                                <li><a href="../news/esg-news-embed.html">코리아ESG뉴스</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../community/notice.html">공지사항</a></li>
+                                <li><a href="../community/forum.html">자유게시판</a></li>
+                                <li><a href="../community/discussion.html">학술·정책 토론</a></li>
+                                <li><a href="../community/member-news.html">회원 소식</a></li>
+                                <li><a href="../community/qna.html">Q&A</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">자료실</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../materials/academic.html">학술자료</a></li>
+                                <li><a href="../materials/policy.html">정책자료</a></li>
+                                <li><a href="../materials/presentation.html">발표자료</a></li>
+                                <li><a href="../materials/report.html">ESG 리포트</a></li>
+                                <li><a href="../materials/video.html">영상자료</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../support/guide.html">후원 안내</a></li>
+                                <li><a href="../support/corporate.html">기업 후원</a></li>
+                                <li><a href="../support/personal.html">개인 기부</a></li>
+                                <li><a href="../support/usage.html">기부금 사용 내역</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">마이페이지</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="profile.html">회원정보 관리</a></li>
+                                <li><a href="payment.html">회비 납부</a></li>
+                                <li><a href="history.html">납부 내역</a></li>
+                                <li><a href="paper.html">논문 투고 현황</a></li>
+                                <li><a href="event.html">행사·세미나 신청 내역</a></li>
+                                <li><a href="certificate.html">회원증·증명서</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="breadcrumb">
+            <a href="../../index.html"><i class="fas fa-home"></i> 홈</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="#">마이페이지</a>
+            <i class="fas fa-chevron-right"></i>
+            <span class="current">회원증·증명서</span>
+        </div>
+    </header>
+
+    <div class="subpage-container">
+        <main class="content">
+            <div class="page-header">
+                <h1><i class="fas fa-id-card"></i> 회원증·증명서</h1>
+                <p class="page-description">디지털 회원증을 확인하고 각종 증명서를 발급받을 수 있습니다.</p>
+            </div>
+
+            <div class="certificate-container">
+                <!-- 디지털 회원증 -->
+                <div class="member-card-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-id-card-alt"></i>
+                        디지털 회원증
+                    </h2>
+
+                    <div class="member-card-preview">
+                        <div class="card-header">
+                            <div class="card-logo">한국ESG학회</div>
+                            <div class="card-type">정회원</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-name">홍길동</div>
+                            <div class="card-info">회원번호: KESG-2025-1234</div>
+                            <div class="card-info">소속: 숭실대학교 경영학부</div>
+                            <div class="card-info">가입일: 2021.03.15</div>
+                            <div class="card-info">유효기간: 2025.12.31</div>
+                        </div>
+                        <div class="card-qr">
+                            <i class="fas fa-qrcode" style="font-size: 40px; color: #1e7e34;"></i>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-box-title">
+                            <i class="fas fa-info-circle"></i>
+                            디지털 회원증 안내
+                        </div>
+                        <div class="info-box-content">
+                            • 디지털 회원증은 학회 행사 참여 시 신분 확인용으로 사용됩니다.<br>
+                            • QR코드를 스캔하면 회원 인증이 가능합니다.<br>
+                            • 모바일 지갑에 저장하여 편리하게 사용하실 수 있습니다.<br>
+                            • 회원증 분실 시 본 페이지에서 언제든 재발급 가능합니다.
+                        </div>
+                    </div>
+
+                    <div class="card-actions">
+                        <button class="btn-card btn-primary" onclick="downloadMemberCard()">
+                            <i class="fas fa-download"></i> 회원증 다운로드 (PNG)
+                        </button>
+                        <button class="btn-card btn-primary" onclick="saveToWallet()">
+                            <i class="fas fa-wallet"></i> 모바일 지갑에 추가
+                        </button>
+                        <button class="btn-card btn-secondary" onclick="printMemberCard()">
+                            <i class="fas fa-print"></i> 회원증 인쇄
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 발급 가능한 증명서 -->
+                <div class="member-card-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-certificate"></i>
+                        발급 가능한 증명서
+                    </h2>
+
+                    <div class="certificate-grid">
+                        <!-- 회원 증명서 -->
+                        <div class="certificate-card" onclick="openCertificateModal('membership')">
+                            <div class="cert-icon">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <div class="cert-title">회원 증명서</div>
+                            <div class="cert-description">
+                                한국ESG학회 정회원임을 증명하는 공식 문서입니다. 대외 활동 시 제출용으로 사용 가능합니다.
+                            </div>
+                            <span class="cert-available">발급 가능</span>
+                        </div>
+
+                        <!-- 재직 증명서 -->
+                        <div class="certificate-card" onclick="openCertificateModal('employment')">
+                            <div class="cert-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="cert-title">재직 증명서</div>
+                            <div class="cert-description">
+                                학회 임원 또는 위원회 위원으로 재직 중임을 증명하는 문서입니다.
+                            </div>
+                            <span class="cert-available">발급 가능</span>
+                        </div>
+
+                        <!-- 논문 게재 증명서 -->
+                        <div class="certificate-card" onclick="openCertificateModal('paper')">
+                            <div class="cert-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="cert-title">논문 게재 증명서</div>
+                            <div class="cert-description">
+                                한국ESG학회 학술지에 논문을 게재했음을 증명하는 문서입니다. (총 3편)
+                            </div>
+                            <span class="cert-available">발급 가능 (3건)</span>
+                        </div>
+
+                        <!-- 행사 참석 증명서 -->
+                        <div class="certificate-card" onclick="openCertificateModal('attendance')">
+                            <div class="cert-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="cert-title">행사 참석 증명서</div>
+                            <div class="cert-description">
+                                학회 주최 행사 및 세미나에 참석했음을 증명하는 문서입니다.
+                            </div>
+                            <span class="cert-available">발급 가능 (8건)</span>
+                        </div>
+
+                        <!-- 교육 수료증 -->
+                        <div class="certificate-card" onclick="openCertificateModal('education')">
+                            <div class="cert-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="cert-title">교육 수료증</div>
+                            <div class="cert-description">
+                                학회 주최 교육 프로그램을 수료했음을 증명하는 문서입니다.
+                            </div>
+                            <span class="cert-available">발급 가능 (2건)</span>
+                        </div>
+
+                        <!-- 회비 납부 확인서 -->
+                        <div class="certificate-card" onclick="openCertificateModal('payment')">
+                            <div class="cert-icon">
+                                <i class="fas fa-receipt"></i>
+                            </div>
+                            <div class="cert-title">회비 납부 확인서</div>
+                            <div class="cert-description">
+                                연회비 납부 내역을 확인하는 문서입니다. 세액공제 증빙 자료로 활용 가능합니다.
+                            </div>
+                            <span class="cert-available">발급 가능</span>
+                        </div>
+
+                        <!-- 경력 증명서 -->
+                        <div class="certificate-card">
+                            <div class="cert-icon" style="background: #f5f5f5;">
+                                <i class="fas fa-award" style="color: #999;"></i>
+                            </div>
+                            <div class="cert-title">경력 증명서</div>
+                            <div class="cert-description">
+                                학회 활동 경력을 종합하여 증명하는 문서입니다. 임원 경력이 필요합니다.
+                            </div>
+                            <span class="cert-unavailable">발급 불가</span>
+                        </div>
+
+                        <!-- 추천서 -->
+                        <div class="certificate-card" onclick="openCertificateModal('recommendation')">
+                            <div class="cert-icon">
+                                <i class="fas fa-hands-helping"></i>
+                            </div>
+                            <div class="cert-title">추천서 신청</div>
+                            <div class="cert-description">
+                                학회장 명의의 추천서를 신청할 수 있습니다. (심사 후 발급)
+                            </div>
+                            <span class="cert-available">신청 가능</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 발급 내역 -->
+                <div class="history-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-history"></i>
+                        최근 발급 내역
+                    </h2>
+
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>발급일</th>
+                                <th>증명서 종류</th>
+                                <th>발급 목적</th>
+                                <th>상태</th>
+                                <th>재다운로드</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2025.12.20</td>
+                                <td>논문 게재 증명서</td>
+                                <td>승진 심사 제출용</td>
+                                <td><span class="cert-available">발급완료</span></td>
+                                <td>
+                                    <button class="btn-download" onclick="redownloadCert(1)">
+                                        <i class="fas fa-download"></i> 다운로드
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2025.11.15</td>
+                                <td>행사 참석 증명서</td>
+                                <td>연수 학점 인정</td>
+                                <td><span class="cert-available">발급완료</span></td>
+                                <td>
+                                    <button class="btn-download" onclick="redownloadCert(2)">
+                                        <i class="fas fa-download"></i> 다운로드
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2025.10.28</td>
+                                <td>회원 증명서</td>
+                                <td>대외 제출용</td>
+                                <td><span class="cert-available">발급완료</span></td>
+                                <td>
+                                    <button class="btn-download" onclick="redownloadCert(3)">
+                                        <i class="fas fa-download"></i> 다운로드
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2025.09.12</td>
+                                <td>교육 수료증</td>
+                                <td>개인 보관</td>
+                                <td><span class="cert-available">발급완료</span></td>
+                                <td>
+                                    <button class="btn-download" onclick="redownloadCert(4)">
+                                        <i class="fas fa-download"></i> 다운로드
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2025.08.05</td>
+                                <td>회비 납부 확인서</td>
+                                <td>세액공제 제출</td>
+                                <td><span class="cert-available">발급완료</span></td>
+                                <td>
+                                    <button class="btn-download" onclick="redownloadCert(5)">
+                                        <i class="fas fa-download"></i> 다운로드
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 증명서 발급 모달 -->
+    <div class="modal" id="certificateModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <h2 class="modal-title" id="modalTitle">증명서 발급 신청</h2>
+
+            <div class="request-form">
+                <form id="certificateForm">
+                    <div class="form-group">
+                        <label class="form-label">증명서 종류</label>
+                        <input type="text" class="form-control" id="certType" readonly>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">신청인</label>
+                            <input type="text" class="form-control" value="홍길동" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">회원번호</label>
+                            <input type="text" class="form-control" value="KESG-2025-1234" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">발급 용도</label>
+                        <select class="form-control" required>
+                            <option value="">선택하세요</option>
+                            <option value="employment">취업/이직</option>
+                            <option value="promotion">승진/평가</option>
+                            <option value="education">학업/연수</option>
+                            <option value="submission">대외 제출</option>
+                            <option value="tax">세액공제</option>
+                            <option value="personal">개인 보관</option>
+                            <option value="other">기타</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">상세 용도 (선택)</label>
+                        <textarea class="form-control" rows="3" placeholder="발급 용도를 상세히 입력해 주세요."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">발급 부수</label>
+                        <select class="form-control" required>
+                            <option value="1" selected>1부</option>
+                            <option value="2">2부</option>
+                            <option value="3">3부</option>
+                            <option value="4">4부</option>
+                            <option value="5">5부</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">파일 형식</label>
+                        <select class="form-control" required>
+                            <option value="pdf" selected>PDF (추천)</option>
+                            <option value="docx">MS Word (DOCX)</option>
+                            <option value="jpg">이미지 (JPG)</option>
+                        </select>
+                    </div>
+
+                    <button type="button" class="btn-submit" onclick="submitCertificate()">
+                        <i class="fas fa-check"></i> 발급 신청하기
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>한국ESG학회</h3>
+                    <p>지속가능한 미래를 위한 ESG 연구와 실천</p>
+                </div>
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <ul>
+                        <li><a href="../about/greeting.html">학회소개</a></li>
+                        <li><a href="../member/process.html">회원가입</a></li>
+                        <li><a href="../journal/submission.html">논문투고</a></li>
+                        <li><a href="../community/notice.html">공지사항</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>문의</h4>
+                    <p><i class="fas fa-phone"></i> 010-4263-7715</p>
+                    <p><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 서울특별시 동작구 상도로 369<br>숭실대학교 진리관 508호</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Korean ESG Association. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        const certTypeNames = {
+            'membership': '회원 증명서',
+            'employment': '재직 증명서',
+            'paper': '논문 게재 증명서',
+            'attendance': '행사 참석 증명서',
+            'education': '교육 수료증',
+            'payment': '회비 납부 확인서',
+            'recommendation': '추천서'
+        };
+
+        function downloadMemberCard() {
+            alert('디지털 회원증을 PNG 파일로 다운로드합니다.');
+        }
+
+        function saveToWallet() {
+            alert('모바일 지갑에 회원증을 추가합니다.\n\nApple Wallet 또는 Google Pay에서 확인하실 수 있습니다.');
+        }
+
+        function printMemberCard() {
+            alert('회원증 인쇄 화면을 엽니다.');
+            window.print();
+        }
+
+        function openCertificateModal(type) {
+            const modal = document.getElementById('certificateModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const certType = document.getElementById('certType');
+            
+            modalTitle.textContent = certTypeNames[type] + ' 발급 신청';
+            certType.value = certTypeNames[type];
+            
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('certificateModal').classList.remove('active');
+        }
+
+        function submitCertificate() {
+            const certType = document.getElementById('certType').value;
+            alert(certType + ' 발급 신청이 완료되었습니다.\n\n발급된 증명서는 등록하신 이메일로 전송되며,\n본 페이지의 발급 내역에서도 다운로드 가능합니다.');
+            closeModal();
+        }
+
+        function redownloadCert(id) {
+            alert('증명서 ' + id + '번을 다시 다운로드합니다.');
+        }
+
+        // 모달 외부 클릭 시 닫기
+        document.getElementById('certificateModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

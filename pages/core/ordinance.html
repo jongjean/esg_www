@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>한국ESG조례대상 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo-symbol.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+        .ordinance-header {
+            background: linear-gradient(135deg, #2874a6 0%, #1e7e34 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .ordinance-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        
+        .intro-card {
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+        }
+        
+        .intro-card h2 {
+            color: #2874a6;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .eval-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .eval-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 4px solid #2874a6;
+        }
+        
+        .eval-card h3 {
+            color: #2874a6;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .eval-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .eval-card li {
+            padding: 8px 0;
+            color: #666;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .winner-list {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin: 40px 0;
+        }
+        
+        .winner-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            border-left: 5px solid #2874a6;
+            border-radius: 8px;
+        }
+        
+        .winner-item .icon {
+            font-size: 2.5rem;
+            margin-right: 20px;
+            color: #2874a6;
+        }
+        
+        @media (max-width: 768px) {
+            .ordinance-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 010-4263-7715</span>
+                        <span><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</span>
+                    </div>
+                    <div class="quick-links">
+                        <a href="../member/process.html">회원가입</a>
+                        <a href="../mypage/profile.html">로그인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    
+                    <button class="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                        </li>
+                        <li class="nav-item has-dropdown active">
+                            <a href="#" class="nav-link">핵심사업</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학술지·논문</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">자료실</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">마이페이지</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <div class="ordinance-header" style="background: linear-gradient(90deg, #2d8659 0%, #1a7b9c 100%); padding: 60px 20px; text-align: center; margin: 0;">
+        <h1 style="color: white; font-size: 36px; font-weight: 700; margin: 0 0 15px 0;">
+            <i class="fas fa-balance-scale"></i> 한국ESG조례대상
+        </h1>
+        <p style="color: rgba(255, 255, 255, 0.95); font-size: 16px; margin: 0; line-height: 1.6;">
+            우수 ESG 조례를 제정한 지방자치단체를 시상합니다
+        </p>
+    </div>
+
+    <main class="main-content">
+
+        <div class="container" style="margin-top: 20px;">
+            <div class="intro-card">
+                <h2><i class="fas fa-info-circle"></i> 대상 소개</h2>
+                <p style="line-height: 1.8; color: #555; font-size: 1.05rem;">
+                    한국ESG조례대상은 지방자치단체의 ESG 정책 수립과 조례 제정을 장려하고, 지역사회의 지속가능한 발전을 촉진하기 위해 제정된 시상 제도입니다.
+                </p>
+                <p style="line-height: 1.8; color: #555; font-size: 1.05rem; margin-top: 15px;">
+                    ESG 관련 조례를 제정하고 실효성 있게 운영하는 광역 및 기초 지방자치단체를 발굴·시상하며, 우수 사례를 전국에 확산합니다.
+                </p>
+            </div>
+
+            <h2 style="text-align: center; color: #2874a6; margin: 60px 0 40px; font-size: 2.2rem;">
+                <i class="fas fa-clipboard-list"></i> 평가 기준
+            </h2>
+
+            <div class="eval-grid">
+                <div class="eval-card">
+                    <h3><i class="fas fa-file-contract"></i> 조례 내용 (30점)</h3>
+                    <ul>
+                        <li>• ESG 목표의 명확성</li>
+                        <li>• 조례의 구체성 및 실효성</li>
+                        <li>• 지역 특성 반영도</li>
+                        <li>• 혁신성 및 선진성</li>
+                    </ul>
+                </div>
+
+                <div class="eval-card">
+                    <h3><i class="fas fa-tasks"></i> 추진 체계 (25점)</h3>
+                    <ul>
+                        <li>• 전담 조직 구성</li>
+                        <li>• 예산 확보 및 집행</li>
+                        <li>• 이해관계자 참여</li>
+                        <li>• 협력 네트워크 구축</li>
+                    </ul>
+                </div>
+
+                <div class="eval-card">
+                    <h3><i class="fas fa-chart-line"></i> 성과 및 효과 (30점)</h3>
+                    <ul>
+                        <li>• 정책 목표 달성도</li>
+                        <li>• 지역사회 기여도</li>
+                        <li>• 주민 만족도</li>
+                        <li>• 타 지역 파급효과</li>
+                    </ul>
+                </div>
+
+                <div class="eval-card">
+                    <h3><i class="fas fa-sync-alt"></i> 지속가능성 (15점)</h3>
+                    <ul>
+                        <li>• 장기 계획 수립</li>
+                        <li>• 모니터링 체계</li>
+                        <li>• 조례 개선 노력</li>
+                        <li>• 지속 추진 의지</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2 style="text-align: center; color: #2874a6; margin: 60px 0 40px; font-size: 2.2rem;">
+                <i class="fas fa-trophy"></i> 시상 부문
+            </h2>
+
+            <div style="background: white; padding: 40px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+                    <div style="text-align: center; padding: 30px; background: #e3f2fd; border-radius: 10px;">
+                        <i class="fas fa-city" style="font-size: 3rem; color: #2874a6; margin-bottom: 15px;"></i>
+                        <h3 style="color: #2874a6; margin-bottom: 10px;">광역자치단체 부문</h3>
+                        <p style="color: #666;">시·도 ESG 조례 대상</p>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 30px; background: #e8f5e9; border-radius: 10px;">
+                        <i class="fas fa-building" style="font-size: 3rem; color: #1e7e34; margin-bottom: 15px;"></i>
+                        <h3 style="color: #1e7e34; margin-bottom: 10px;">기초자치단체 부문</h3>
+                        <p style="color: #666;">시·군·구 ESG 조례 대상</p>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 30px; background: #fff3e0; border-radius: 10px;">
+                        <i class="fas fa-star" style="font-size: 3rem; color: #f57c00; margin-bottom: 15px;"></i>
+                        <h3 style="color: #f57c00; margin-bottom: 10px;">특별상</h3>
+                        <p style="color: #666;">혁신 ESG 조례 특별상</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="winner-list">
+                <h2 style="color: #2874a6; margin-bottom: 30px; font-size: 2rem;">
+                    <i class="fas fa-crown"></i> 2023년 수상 지자체 (예시)
+                </h2>
+
+                <div class="winner-item">
+                    <div class="icon"><i class="fas fa-trophy"></i></div>
+                    <div>
+                        <h4 style="color: #333; margin-bottom: 5px;">서울특별시</h4>
+                        <p style="color: #666; font-size: 0.95rem;">「서울특별시 ESG 경영 지원 조례」 - 기업 ESG 지원 체계 구축</p>
+                    </div>
+                </div>
+
+                <div class="winner-item">
+                    <div class="icon"><i class="fas fa-trophy"></i></div>
+                    <div>
+                        <h4 style="color: #333; margin-bottom: 5px;">경기도</h4>
+                        <p style="color: #666; font-size: 0.95rem;">「경기도 지속가능발전 기본 조례」 - ESG 통합 추진 체계</p>
+                    </div>
+                </div>
+
+                <div class="winner-item">
+                    <div class="icon"><i class="fas fa-trophy"></i></div>
+                    <div>
+                        <h4 style="color: #333; margin-bottom: 5px;">부산광역시 해운대구</h4>
+                        <p style="color: #666; font-size: 0.95rem;">「해운대구 탄소중립 실현 조례」 - 탄소중립 선도 지역</p>
+                    </div>
+                </div>
+
+                <div class="winner-item">
+                    <div class="icon"><i class="fas fa-trophy"></i></div>
+                    <div>
+                        <h4 style="color: #333; margin-bottom: 5px;">전라남도 순천시</h4>
+                        <p style="color: #666; font-size: 0.95rem;">「순천시 생태도시 ESG 조례」 - 생태 중심 ESG 실천</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #e8f5e9; padding: 40px; border-radius: 15px; margin-top: 40px;">
+                <h3 style="color: #1e7e34; margin-bottom: 20px; font-size: 1.8rem;">
+                    <i class="fas fa-calendar-check"></i> 신청 안내
+                </h3>
+                <p style="line-height: 1.8; color: #555; font-size: 1.05rem;">
+                    • 신청 기간: 매년 4월 1일 ~ 5월 31일<br>
+                    • 신청 대상: 전국 광역 및 기초 지방자치단체<br>
+                    • 제출 서류: 조례 전문, 추진 실적 보고서, 성과 자료<br>
+                    • 심사 방법: 서류 심사 + 현장 실사 + 최종 심사<br>
+                    • 시상식: 매년 11월 (한국ESG학회 추계학술대회)
+                </p>
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="../member/process.html" style="display: inline-block; padding: 15px 40px; background: #1e7e34; color: white; text-decoration: none; border-radius: 50px; font-weight: 600; box-shadow: 0 4px 15px rgba(30,126,52,0.3);">
+                        <i class="fas fa-paper-plane"></i> 신청서 제출하기
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>한국ESG학회</h3>
+                    <p>지속가능한 미래를 위한<br>ESG 연구와 실천</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <ul class="footer-links">
+                        <li><a href="../about/intro.html">학회소개</a></li>
+                        <li><a href="../member/process.html">회원가입</a></li>
+                        <li><a href="../journal/intro.html">학술지</a></li>
+                        <li><a href="../community/notice.html">커뮤니티</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>문의</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-phone"></i> 010-4263-7715</li>
+                        <li><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 서울특별시 동작구 상도로 369<br>숭실대학교 진리관 508호</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 한국ESG학회. All rights reserved.</p>
+                <div class="footer-links-bottom">
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+</body>
+</html>

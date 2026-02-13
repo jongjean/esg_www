@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ESG 지표·표준 - 국내외 ESG 평가 지표 및 국제 표준">
+    <title>ESG 지표·표준 - 한국ESG학회</title>
+    
+    <link rel="icon" type="image/png" href="../../images/logo-symbol.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    
+    <style>
+        .standard-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .standard-card:hover {
+            border-color: var(--primary-blue);
+            box-shadow: 0 5px 20px rgba(40, 116, 166, 0.15);
+            transform: translateY(-3px);
+        }
+        
+        .standard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .standard-logo {
+            max-height: 50px;
+            max-width: 150px;
+        }
+        
+        .standard-type {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .type-global {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .type-domestic {
+            background: #e8f5e9;
+            color: #388e3c;
+        }
+        
+        .type-industry {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        
+        .standard-title {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .standard-subtitle {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+        
+        .standard-description {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .indicator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .indicator-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-green);
+        }
+        
+        .indicator-item h4 {
+            color: var(--primary-green);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .indicator-item ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .indicator-item li {
+            padding: 5px 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .indicator-item li:before {
+            content: "•";
+            color: var(--primary-green);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            margin: 30px 0;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .comparison-table thead {
+            background: linear-gradient(135deg, var(--primary-blue), #1e5a7a);
+            color: white;
+        }
+        
+        .comparison-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .comparison-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .rating-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .rating-aaa { background: #4caf50; color: white; }
+        .rating-aa { background: #8bc34a; color: white; }
+        .rating-a { background: #cddc39; color: #333; }
+        .rating-bbb { background: #ffeb3b; color: #333; }
+        .rating-bb { background: #ffc107; color: #333; }
+        .rating-b { background: #ff9800; color: white; }
+        .rating-c { background: #ff5722; color: white; }
+        
+        .framework-section {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+        
+        .framework-section h3 {
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+        
+        .tabs-horizontal {
+            display: flex;
+            gap: 10px;
+            border-bottom: 3px solid var(--primary-blue);
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 12px 25px;
+            background: #f8f9fa;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            margin-bottom: -3px;
+        }
+        
+        .tab-btn:hover {
+            background: #e9ecef;
+        }
+        
+        .tab-btn.active {
+            background: white;
+            border-bottom-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-table {
+                font-size: 0.85rem;
+            }
+            
+            .comparison-table th,
+            .comparison-table td {
+                padding: 10px 8px;
+            }
+            
+            .indicator-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 010-4263-7715</span>
+                        <span><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</span>
+                    </div>
+                    <div class="quick-links">
+                        <a href="../member/process.html">회원가입</a>
+                        <a href="../mypage/profile.html">로그인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    
+                    <button class="mobile-menu-btn" aria-label="메뉴 열기">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../about/greeting.html">회장인사말</a></li>
+                                <li><a href="../about/overview.html">학회현황</a></li>
+                                <li><a href="../about/constitution.html">학회정관</a></li>
+                                <li><a href="../about/history.html">학회연혁</a></li>
+                                <li><a href="../about/vision.html">비전과 목표</a></li>
+                                <li><a href="../about/ci.html">CI·BI</a></li>
+                                <li><a href="../about/location.html">찾아오는 길</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../organization/leadership.html">임원진</a></li>
+                                <li><a href="../organization/committees.html">위원회</a></li>
+                                <li><a href="../organization/branches.html">지부</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../member/process.html">가입절차</a></li>
+                                <li><a href="../member/types.html">회원유형</a></li>
+                                <li><a href="../member/fees.html">회비안내</a></li>
+                                <li><a href="../member/benefits.html">회원혜택</a></li>
+                                <li><a href="../member/corporate.html">기업회원</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">핵심사업</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../core/forum.html">ESG포럼</a></li>
+                                <li><a href="../core/certification.html">ESG인증</a></li>
+                                <li><a href="../core/consulting.html">ESG컨설팅</a></li>
+                                <li><a href="../core/education.html">ESG교육</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학술지·논문</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../journal/about.html">학술지 소개</a></li>
+                                <li><a href="../journal/submission.html">투고안내</a></li>
+                                <li><a href="../journal/review.html">심사절차</a></li>
+                                <li><a href="../journal/editorial-board.html">편집위원회</a></li>
+                                <li><a href="../journal/archive.html">논문 아카이브</a></li>
+                                <li><a href="../journal/search.html">논문검색</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown active">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="research.html">ESG 정책 연구</a></li>
+                                <li><a href="standards.html">ESG 지표·표준</a></li>
+                                <li><a href="law.html">법·제도 분석</a></li>
+                                <li><a href="global.html">국제 ESG 동향</a></li>
+                                <li><a href="reports.html">연구보고서</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../news/domestic.html">국내뉴스</a></li>
+                                <li><a href="../news/global.html">해외뉴스</a></li>
+                                <li><a href="../news/press.html">언론보도</a></li>
+                                <li><a href="../news/newsletter.html">뉴스레터</a></li>
+                                <li><a href="../news/webzine.html">웹진</a></li>
+                                <li><a href="../news/esg-news-embed.html">ESG뉴스 임베드</a></li>
+                                <li><a href="../news/media.html">미디어센터</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../community/notice.html">공지사항</a></li>
+                                <li><a href="../community/faq.html">FAQ</a></li>
+                                <li><a href="../community/forum.html">학술포럼</a></li>
+                                <li><a href="../community/board.html">자유게시판</a></li>
+                                <li><a href="../community/member-news.html">회원소식</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">자료실</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../materials/publications.html">발간자료</a></li>
+                                <li><a href="../materials/presentations.html">발표자료</a></li>
+                                <li><a href="../materials/forms.html">양식다운로드</a></li>
+                                <li><a href="../materials/photos.html">사진자료</a></li>
+                                <li><a href="../materials/videos.html">영상자료</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../support/sponsors.html">후원안내</a></li>
+                                <li><a href="../support/donations.html">기부하기</a></li>
+                                <li><a href="../support/partners.html">협력기관</a></li>
+                                <li><a href="../support/testimonials.html">후원자의 말</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">마이페이지</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../mypage/profile.html">내 정보</a></li>
+                                <li><a href="../mypage/membership.html">회원증</a></li>
+                                <li><a href="../mypage/activities.html">활동내역</a></li>
+                                <li><a href="../mypage/payments.html">결제내역</a></li>
+                                <li><a href="../mypage/papers.html">내 논문</a></li>
+                                <li><a href="../mypage/certificates.html">증명서 발급</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-chart-bar"></i> ESG 지표·표준</h1>
+            <p>국내외 ESG 평가 지표 및 국제 표준</p>
+        </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../../index.html"><i class="fas fa-home"></i> 홈</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="#">ESG정책·연구</a>
+            <i class="fas fa-chevron-right"></i>
+            <span class="current">ESG 지표·표준</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                
+                <!-- Introduction -->
+                <div class="content-section">
+                    <h2><i class="fas fa-info-circle"></i> ESG 지표·표준 개요</h2>
+                    <p class="lead">
+                        ESG 지표와 표준은 기업의 환경·사회·거버넌스 성과를 측정하고 평가하는 기준입니다. 
+                        전 세계적으로 다양한 평가기관과 표준화 기구가 ESG 지표를 개발하여 활용하고 있으며, 
+                        최근 국제적 통합 및 표준화 노력이 활발히 진행되고 있습니다.
+                    </p>
+                </div>
+
+                <!-- Tabs for Different Standards -->
+                <div class="content-section">
+                    <h2><i class="fas fa-layer-group"></i> 주요 ESG 표준 및 지표</h2>
+                    <div class="tabs-horizontal">
+                        <button class="tab-btn active" onclick="showTab('global')">글로벌 표준</button>
+                        <button class="tab-btn" onclick="showTab('domestic')">국내 지표</button>
+                        <button class="tab-btn" onclick="showTab('rating')">평가기관</button>
+                        <button class="tab-btn" onclick="showTab('sector')">산업별 지표</button>
+                    </div>
+
+                    <!-- Global Standards Tab -->
+                    <div id="global" class="tab-content active">
+                        <div class="standard-card">
+                            <div class="standard-header">
+                                <div>
+                                    <h3 class="standard-title">ISSB (International Sustainability Standards Board)</h3>
+                                    <p class="standard-subtitle">국제지속가능성기준위원회</p>
+                                </div>
+                                <span class="standard-type type-global">글로벌 표준</span>
+                            </div>
+                            <div class="standard-description">
+                                <p>
+                                    IFRS 재단 산하에 설립된 ISSB는 글로벌 지속가능성 공시 기준을 개발하는 기구입니다. 
+                                    2023년 6월 IFRS S1(일반 요구사항)과 IFRS S2(기후 관련 공시) 기준을 발표하였으며, 
+                                    전 세계적으로 채택이 확대되고 있습니다.
+                                </p>
+                                <div class="indicator-grid" style="margin-top: 20px;">
+                                    <div class="indicator-item">
+                                        <h4>IFRS S1</h4>
+                                        <ul>
+                                            <li>일반 요구사항</li>
+                                            <li>거버넌스</li>
+                                            <li>전략</li>
+                                            <li>리스크 관리</li>
+                                            <li>지표 및 목표</li>
+                                        </ul>
+                                    </div>
+                                    <div class="indicator-item">
+                                        <h4>IFRS S2</h4>
+                                        <ul>
+                                            <li>기후 관련 공시</li>
+                                            <li>온실가스 배출</li>
+                                            <li>기후 관련 리스크</li>
+                                            <li>기후 관련 기회</li>
+                                            <li>전환 계획</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="standard-card">
+                            <div class="standard-header">
+                                <div>
+                                    <h3 class="standard-title">GRI (Global Reporting Initiative)</h3>
+                                    <p class="standard-subtitle">글로벌 리포팅 이니셔티브</p>
+                                </div>
+                                <span class="standard-type type-global">글로벌 표준</span>
+                            </div>
+                            <div class="standard-description">
+                                <p>
+                                    가장 널리 사용되는 지속가능성 보고 표준으로, 기업의 경제·환경·사회적 영향을 
+                                    보고하기 위한 포괄적인 프레임워크를 제공합니다. GRI Standards는 
+                                    이해관계자 참여와 중대성 평가를 중심으로 구성됩니다.
+                                </p>
+                                <div class="indicator-grid" style="margin-top: 20px;">
+                                    <div class="indicator-item">
+                                        <h4>경제 (200)</h4>
+                                        <ul>
+                                            <li>경제 성과</li>
+                                            <li>간접 경제 영향</li>
+                                            <li>조달 관행</li>
+                                            <li>반부패</li>
+                                        </ul>
+                                    </div>
+                                    <div class="indicator-item">
+                                        <h4>환경 (300)</h4>
+                                        <ul>
+                                            <li>에너지</li>
+                                            <li>물과 폐수</li>
+                                            <li>배출</li>
+                                            <li>폐기물</li>
+                                            <li>생물다양성</li>
+                                        </ul>
+                                    </div>
+                                    <div class="indicator-item">
+                                        <h4>사회 (400)</h4>
+                                        <ul>
+                                            <li>고용</li>
+                                            <li>산업안전보건</li>
+                                            <li>훈련 및 교육</li>
+                                            <li>다양성과 기회균등</li>
+                                            <li>인권</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="standard-card">
+                            <div class="standard-header">
+                                <div>
+                                    <h3 class="standard-title">SASB (Sustainability Accounting Standards Board)</h3>
+                                    <p class="standard-subtitle">지속가능성회계기준위원회</p>
+                                </div>
+                                <span class="standard-type type-global">글로벌 표준</span>
+                            </div>
+                            <div class="standard-description">
+                                <p>
+                                    산업별 특성을 반영한 재무적으로 중대한(financially material) ESG 이슈에 
+                                    초점을 맞춘 표준입니다. 77개 산업별로 차별화된 지표를 제공하여 
+                                    투자자 중심의 정보 공시를 지원합니다.
+                                </p>
+                                <p style="margin-top: 15px;">
+                                    <strong>11개 섹터, 77개 산업:</strong> 헬스케어, 금융, 기술·통신, 
+                                    비재생자원, 소비재, 운송, 서비스, 자원가공, 재생가능자원, 인프라, 식품·음료
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="standard-card">
+                            <div class="standard-header">
+                                <div>
+                                    <h3 class="standard-title">TCFD (Task Force on Climate-related Financial Disclosures)</h3>
+                                    <p class="standard-subtitle">기후변화 재무정보공개 태스크포스</p>
+                                </div>
+                                <span class="standard-type type-global">글로벌 표준</span>
+                            </div>
+                            <div class="standard-description">
+                                <p>
+                                    금융안정위원회(FSB)가 설립한 TCFD는 기후 관련 재무정보 공시를 위한 
+                                    권고안을 제시합니다. 4개 핵심 영역(거버넌스, 전략, 리스크 관리, 지표 및 목표)으로 
+                                    구성되며, 많은 국가와 기업이 자발적으로 채택하고 있습니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Domestic Standards Tab -->
+                    <div id="domestic" class="tab-content">
+                        <div class="standard-card">
+                            <div class="standard-header">
+                                <div>
+                                    <h3 class="standard-title">K-ESG 가이드라인</h3>
+                                    <p class="standard-subtitle">한국 ESG 기준위원회</p>
+                                </div>
+                                <span class="standard-type type-domestic">국내 지표</span>
+                            </div>
+                            <div class="standard-description">
+                                <p>
+                                    환경부, 산업통상자원부, 금융위원회 등 관계부처 합동으로 개발한 
+                                    한국형 ESG 가이드라인입니다. 국내 기업 특성을 반영하면서도 
+                                    국제 표준과의 정합성을 유지하도록 설계되었습니다.
+                                </p>
+                                <div class="indicator-grid" style="margin-top: 20px;">
+                                    <div class="indicator-item">
+                                        <h4>환경 (E)</h4>
+                                        <ul>
+                                            <li>환경경영 (20점)</li>
+                                            <li>기후변화 대응 (13점)</li>
+                                            <li>환경오염 예방 (8점)</li>
+                                            <li>자원순환 (4점)</li>
+                                        </ul>
+                                    </div>
+                                    <div class="indicator-item">
+                                        <h4>사회 (S)</h4>
+                                        <ul>
+                                            <li>인적자원관리 (12점)</li>
+                                            <li>안전·보건 (8점)</li>
+                                            <li>동반성장 (8점)</li>
+                                            <li>사회공헌 (5점)</li>
+                                            <li>정보보호 (4점)</li>
+                                        </ul>
+                                    </div>
+                                    <div class="indicator-item">
+                                        <h4>거버넌스 (G)</h4>
+                                        <ul>
+                                            <li>이사회 (8점)</li>
+                                            <li>감사기구 (3점)</li>
+                                            <li>주주권리 (3점)</li>
+                                            <li>윤리경영 (4점)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p style="margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 8px;">
+                                    <strong>총점:</strong> 100점 (E: 45점, S: 37점, G: 18점)
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="standard-card">
+                            <div class="standard-header">
+                                <div>
+                                    <h3 class="standard-title">지속가능경영보고서 가이드라인</h3>
+                                    <p class="standard-subtitle">대한상공회의소 지속가능경영원</p>
+                                </div>
+                                <span class="standard-type type-domestic">국내 지표</span>
+                            </div>
+                            <div class="standard-description">
+                                <p>
+                                    국내 기업의 지속가능경영보고서 작성을 지원하기 위한 가이드라인입니다. 
+                                    GRI Standards를 기반으로 하되, 국내 기업 환경과 규제를 고려한 
+                                    실무적 지침을 제공합니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rating Agencies Tab -->
+                    <div id="rating" class="tab-content">
+                        <h3 style="margin-bottom: 20px;">주요 ESG 평가기관 비교</h3>
+                        <div class="table-responsive">
+                            <table class="comparison-table">
+                                <thead>
+                                    <tr>
+                                        <th>평가기관</th>
+                                        <th>국가</th>
+                                        <th>등급 체계</th>
+                                        <th>주요 특징</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>MSCI ESG Ratings</strong></td>
+                                        <td>미국</td>
+                                        <td>AAA ~ CCC (7단계)</td>
+                                        <td>글로벌 기업 대상, 투자자 관점 중심</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>S&P Global ESG Score</strong></td>
+                                        <td>미국</td>
+                                        <td>0~100점</td>
+                                        <td>산업별 상대평가, SAM 평가방법론</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Sustainalytics</strong></td>
+                                        <td>네덜란드</td>
+                                        <td>0~100+ (리스크 점수)</td>
+                                        <td>ESG 리스크 중심, Morningstar 소유</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>한국기업지배구조원 (KCGS)</strong></td>
+                                        <td>한국</td>
+                                        <td>S, A+, A, B+, B, C, D (7단계)</td>
+                                        <td>국내 최대 평가기관, 상장사 대상</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>서스틴베스트</strong></td>
+                                        <td>한국</td>
+                                        <td>AAA ~ D (9단계)</td>
+                                        <td>중소기업 평가 특화</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>CDP (Carbon Disclosure Project)</strong></td>
+                                        <td>영국</td>
+                                        <td>A ~ D- (8단계)</td>
+                                        <td>기후변화·물·산림 전문</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div style="margin-top: 30px; padding: 20px; background: #fff3e0; border-radius: 10px;">
+                            <h4 style="color: #f57c00; margin-bottom: 15px;">
+                                <i class="fas fa-exclamation-triangle"></i> 평가기관별 등급 차이
+                            </h4>
+                            <p>
+                                동일한 기업이라도 평가기관에 따라 ESG 등급이 크게 다를 수 있습니다. 
+                                이는 각 기관의 평가 방법론, 중요도 가중치, 데이터 소스가 다르기 때문입니다. 
+                                따라서 다수의 평가 결과를 종합적으로 검토하는 것이 중요합니다.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Sector-specific Tab -->
+                    <div id="sector" class="tab-content">
+                        <div class="standard-card">
+                            <div class="standard-header">
+                                <div>
+                                    <h3 class="standard-title">금융 섹터</h3>
+                                </div>
+                                <span class="standard-type type-industry">산업별</span>
+                            </div>
+                            <div class="standard-description">
+                                <div class="indicator-grid">
+                                    <div class="indicator-item">
+                                        <h4>주요 지표</h4>
+                                        <ul>
+                                            <li>책임투자 정책</li>
+                                            <li>녹색금융 비중</li>
+                                            <li>고위험 산업 투자 제한</li>
+                                            <li>ESG 통합 프로세스</li>
+                                            <li>기후 시나리오 분석</li>
+                                        </ul>
+                                    </div>
+                                    <div class="indicator-item">
+                                        <h4>관련 표준</h4>
+                                        <ul>
+                                            <li>UNEP FI Principles</li>
+                                            <li>Equator Principles</li>
+                                            <li>PCAF (탄소회계)</li>
+                                            <li>TNFD (자연 관련 공시)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="standard-card">
+                            <div class="standard-header">
+                                <div>
+                                    <h3 class="standard-title">제조업</h3>
+                                </div>
+                                <span class="standard-type type-industry">산업별</span>
+                            </div>
+                            <div class="standard-description">
+                                <div class="indicator-grid">
+                                    <div class="indicator-item">
+                                        <h4>주요 지표</h4>
+                                        <ul>
+                                            <li>Scope 1, 2, 3 배출량</li>
+                                            <li>에너지 효율성</li>
+                                            <li>폐기물 재활용률</li>
+                                            <li>산업안전사고율</li>
+                                            <li>공급망 관리</li>
+                                        </ul>
+                                    </div>
+                                    <div class="indicator-item">
+                                        <h4>관련 표준</h4>
+                                        <ul>
+                                            <li>ISO 14001 (환경경영)</li>
+                                            <li>ISO 45001 (안전보건)</li>
+                                            <li>ISO 50001 (에너지경영)</li>
+                                            <li>LCA (전과정평가)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="standard-card">
+                            <div class="standard-header">
+                                <div>
+                                    <h3 class="standard-title">IT·기술</h3>
+                                </div>
+                                <span class="standard-type type-industry">산업별</span>
+                            </div>
+                            <div class="standard-description">
+                                <div class="indicator-grid">
+                                    <div class="indicator-item">
+                                        <h4>주요 지표</h4>
+                                        <ul>
+                                            <li>데이터 프라이버시</li>
+                                            <li>정보보안 관리</li>
+                                            <li>AI 윤리</li>
+                                            <li>디지털 포용성</li>
+                                            <li>전자폐기물 관리</li>
+                                        </ul>
+                                    </div>
+                                    <div class="indicator-item">
+                                        <h4>관련 표준</h4>
+                                        <ul>
+                                            <li>ISO 27001 (정보보안)</li>
+                                            <li>GDPR 준수</li>
+                                            <li>IEEE 7000 (AI 윤리)</li>
+                                            <li>TCO Certified</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Framework Integration -->
+                <div class="framework-section">
+                    <h3><i class="fas fa-puzzle-piece"></i> 글로벌 ESG 표준 통합 동향</h3>
+                    <p>
+                        최근 국제사회는 산재된 ESG 공시 표준을 통합하려는 노력을 기울이고 있습니다. 
+                        ISSB의 출범과 함께 GRI, SASB, TCFD 등의 주요 표준이 상호 연계되고 있으며, 
+                        기업의 보고 부담을 줄이면서도 비교 가능성을 높이는 방향으로 발전하고 있습니다.
+                    </p>
+                    <div style="margin-top: 20px; padding: 20px; background: white; border-radius: 8px;">
+                        <h4 style="margin-bottom: 15px;">주요 통합 이니셔티브</h4>
+                        <ul style="line-height: 2;">
+                            <li><strong>ISSB:</strong> 투자자 중심의 재무적 지속가능성 정보 공시</li>
+                            <li><strong>GRI:</strong> 이해관계자 중심의 영향(impact) 보고</li>
+                            <li><strong>ESRS (유럽):</strong> EU 역내 통합 공시 기준</li>
+                            <li><strong>상호운용성:</strong> 각 표준 간 연계 및 매핑 작업 진행</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Guide for Companies -->
+                <div class="content-section">
+                    <h2><i class="fas fa-lightbulb"></i> 기업을 위한 활용 가이드</h2>
+                    <div class="info-box">
+                        <h4>ESG 지표 선택 시 고려사항</h4>
+                        <ol style="line-height: 2; margin-top: 15px;">
+                            <li><strong>산업 특성:</strong> 업종에 맞는 중요 지표 선정 (예: 제조업은 환경, IT는 정보보안)</li>
+                            <li><strong>이해관계자:</strong> 주요 이해관계자(투자자, 고객, 규제기관)가 요구하는 정보</li>
+                            <li><strong>국제 정합성:</strong> 글로벌 사업 시 국제 표준 준수 필요</li>
+                            <li><strong>규제 요구사항:</strong> 법적 의무사항 우선 반영</li>
+                            <li><strong>단계적 도입:</strong> 중요도가 높은 지표부터 순차적으로 적용</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Related Links -->
+                <div class="content-section">
+                    <h2><i class="fas fa-link"></i> 관련 페이지</h2>
+                    <div class="button-group" style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
+                        <a href="research.html" class="btn-primary">
+                            <i class="fas fa-search"></i> ESG 정책 연구
+                        </a>
+                        <a href="law.html" class="btn-primary">
+                            <i class="fas fa-gavel"></i> 법·제도 분석
+                        </a>
+                        <a href="global.html" class="btn-secondary">
+                            <i class="fas fa-globe"></i> 국제 ESG 동향
+                        </a>
+                        <a href="reports.html" class="btn-secondary">
+                            <i class="fas fa-file-alt"></i> 연구보고서
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="../../images/logo.png" alt="한국ESG학회" class="footer-logo-img">
+                    <p class="footer-tagline">지속가능한 미래를 위한 ESG 연구와 실천</p>
+                </div>
+                
+                <div class="footer-info">
+                    <h4>사단법인 한국ESG학회</h4>
+                    <p><strong>회장:</strong> 고문현 | <strong>Tel.</strong> 010-4263-7715</p>
+                    <p><strong>주소:</strong> [06978] 서울특별시 동작구 상도로 369, 숭실대학교 진리관 508호</p>
+                    <p><strong>개인정보관리책임자:</strong> 고문현 (kohmh@ssu.ac.kr)</p>
+                    <p><strong>홈페이지관리책임자:</strong> 강종진 (mail@iuci.kr)</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Korean ESG Association. All Rights Reserved.</p>
+                <p class="footer-credit">Design by Korean ESG Association</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="scroll-to-top" aria-label="맨 위로 가기">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        // Tab switching
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

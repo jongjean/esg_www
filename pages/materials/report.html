@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESG 리포트 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo-symbol.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+        .materials-header {
+            background: linear-gradient(135deg, #7b1fa2 0%, #2874a6 100%);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .materials-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .filter-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #f0f0f0;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .tab.active {
+            color: #7b1fa2;
+            border-bottom: 3px solid #7b1fa2;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        
+        .report-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .report-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        
+        .report-cover {
+            height: 180px;
+            background: linear-gradient(135deg, #7b1fa2 0%, #9c27b0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .report-cover i {
+            font-size: 4rem;
+            color: rgba(255,255,255,0.3);
+        }
+        
+        .report-year {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.9);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #7b1fa2;
+        }
+        
+        .report-content {
+            padding: 20px;
+        }
+        
+        .report-content h3 {
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+            color: #333;
+            line-height: 1.4;
+        }
+        
+        .report-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            color: #666;
+            font-size: 0.9rem;
+            margin: 12px 0;
+            padding: 12px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .report-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-download {
+            flex: 1;
+            padding: 10px;
+            background: #7b1fa2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.3s ease;
+        }
+        
+        .btn-download:hover {
+            background: #6a1b9a;
+        }
+        
+        @media (max-width: 768px) {
+            .materials-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .report-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* 검색 섹션 스타일 */
+        .search-section {
+            margin-bottom: 25px;
+        }
+        .search-box {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+        .search-form {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .search-select {
+            padding: 12px 20px;
+            border: 2px solid var(--bg-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            min-width: 120px;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        .search-select:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 20px;
+            border: 2px solid var(--bg-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+        .search-btn {
+            padding: 12px 30px;
+            background: var(--primary-green);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .search-btn:hover {
+            background: #155724;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(30, 126, 52, 0.3);
+        }
+        .search-btn i {
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 010-4263-7715</span>
+                        <span><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</span>
+                    </div>
+                    <div class="quick-links">
+                        <a href="../member/process.html">회원가입</a>
+                        <a href="../mypage/profile.html">로그인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    
+                    <button class="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">핵심사업</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학술지·논문</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                        </li>
+                        <li class="nav-item has-dropdown active">
+                            <a href="#" class="nav-link">자료실</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">마이페이지</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <div class="materials-header" style="background: linear-gradient(90deg, #2d8659 0%, #1a7b9c 100%); padding: 60px 20px; text-align: center; margin: 0;">
+        <h1 style="color: white; font-size: 36px; font-weight: 700; margin: 0 0 15px 0;">
+            <i class="fas fa-file-pdf"></i> ESG 리포트
+        </h1>
+        <p style="color: rgba(255, 255, 255, 0.95); font-size: 16px; margin: 0; line-height: 1.6;">
+            ESG 연구보고서, 백서, 사례집을 제공합니다
+        </p>
+    </div>
+
+    <main class="main-content">
+
+        <div class="container" style="margin-top: 40px;">
+            <!-- 검색 기능 -->
+            <div class="search-section">
+                <div class="search-box">
+                    <div class="search-form">
+                        <select class="search-select" id="searchType">
+                            <option value="all">전체</option>
+                            <option value="title">제목</option>
+                            <option value="author">저자</option>
+                            <option value="year">연도</option>
+                        </select>
+                        <input type="text" class="search-input" id="searchInput" placeholder="검색어를 입력하세요...">
+                        <button class="search-btn" onclick="performSearch()">
+                            <i class="fas fa-search"></i> 검색
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <div class="tabs">
+                    <button class="tab active" data-tab="research">연구보고서</button>
+                    <button class="tab" data-tab="whitepaper">백서</button>
+                    <button class="tab" data-tab="casestudy">사례집</button>
+                    <button class="tab" data-tab="annual">연례보고서</button>
+                </div>
+
+                <div class="tab-content active" id="research">
+                    <div class="report-grid">
+                        <div class="report-card">
+                            <div class="report-cover">
+                                <i class="fas fa-file-pdf"></i>
+                                <span class="report-year">2025</span>
+                            </div>
+                            <div class="report-content">
+                                <h3>국내 기업의 ESG 경영 현황과 과제</h3>
+                                <div class="report-meta">
+                                    <span><i class="fas fa-user"></i> 한국ESG학회</span>
+                                    <span><i class="fas fa-calendar"></i> 2025.11</span>
+                                    <span><i class="fas fa-file"></i> 152p</span>
+                                </div>
+                                <div class="report-actions">
+                                    <button class="btn-download">
+                                        <i class="fas fa-download"></i> 다운로드
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="report-card">
+                            <div class="report-cover">
+                                <i class="fas fa-file-pdf"></i>
+                                <span class="report-year">2025</span>
+                            </div>
+                            <div class="report-content">
+                                <h3>ESG 공시 의무화 영향 분석</h3>
+                                <div class="report-meta">
+                                    <span><i class="fas fa-user"></i> 한국ESG학회</span>
+                                    <span><i class="fas fa-calendar"></i> 2025.09</span>
+                                    <span><i class="fas fa-file"></i> 98p</span>
+                                </div>
+                                <div class="report-actions">
+                                    <button class="btn-download">
+                                        <i class="fas fa-download"></i> 다운로드
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="report-card">
+                            <div class="report-cover">
+                                <i class="fas fa-file-pdf"></i>
+                                <span class="report-year">2025</span>
+                            </div>
+                            <div class="report-content">
+                                <h3>탄소중립 시나리오와 기업 전략</h3>
+                                <div class="report-meta">
+                                    <span><i class="fas fa-user"></i> 기후변화연구팀</span>
+                                    <span><i class="fas fa-calendar"></i> 2025.07</span>
+                                    <span><i class="fas fa-file"></i> 186p</span>
+                                </div>
+                                <div class="report-actions">
+                                    <button class="btn-download">
+                                        <i class="fas fa-download"></i> 다운로드
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="report-card">
+                            <div class="report-cover">
+                                <i class="fas fa-file-pdf"></i>
+                                <span class="report-year">2023</span>
+                            </div>
+                            <div class="report-content">
+                                <h3>공급망 ESG 리스크 관리 연구</h3>
+                                <div class="report-meta">
+                                    <span><i class="fas fa-user"></i> 한국ESG학회</span>
+                                    <span><i class="fas fa-calendar"></i> 2023.12</span>
+                                    <span><i class="fas fa-file"></i> 124p</span>
+                                </div>
+                                <div class="report-actions">
+                                    <button class="btn-download">
+                                        <i class="fas fa-download"></i> 다운로드
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="whitepaper">
+                    <div class="report-grid">
+                        <div class="report-card">
+                            <div class="report-cover">
+                                <i class="fas fa-file-pdf"></i>
+                                <span class="report-year">2025</span>
+                            </div>
+                            <div class="report-content">
+                                <h3>ESG 투자 백서 2025</h3>
+                                <div class="report-meta">
+                                    <span><i class="fas fa-user"></i> 한국ESG학회</span>
+                                    <span><i class="fas fa-calendar"></i> 2025.10</span>
+                                    <span><i class="fas fa-file"></i> 210p</span>
+                                </div>
+                                <div class="report-actions">
+                                    <button class="btn-download">
+                                        <i class="fas fa-download"></i> 다운로드
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="report-card">
+                            <div class="report-cover">
+                                <i class="fas fa-file-pdf"></i>
+                                <span class="report-year">2025</span>
+                            </div>
+                            <div class="report-content">
+                                <h3>지속가능금융 백서</h3>
+                                <div class="report-meta">
+                                    <span><i class="fas fa-user"></i> 금융연구팀</span>
+                                    <span><i class="fas fa-calendar"></i> 2025.06</span>
+                                    <span><i class="fas fa-file"></i> 178p</span>
+                                </div>
+                                <div class="report-actions">
+                                    <button class="btn-download">
+                                        <i class="fas fa-download"></i> 다운로드
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="casestudy">
+                    <div class="report-grid">
+                        <div class="report-card">
+                            <div class="report-cover">
+                                <i class="fas fa-file-pdf"></i>
+                                <span class="report-year">2025</span>
+                            </div>
+                            <div class="report-content">
+                                <h3>국내 ESG 우수기업 사례집</h3>
+                                <div class="report-meta">
+                                    <span><i class="fas fa-user"></i> 한국ESG학회</span>
+                                    <span><i class="fas fa-calendar"></i> 2025.11</span>
+                                    <span><i class="fas fa-file"></i> 164p</span>
+                                </div>
+                                <div class="report-actions">
+                                    <button class="btn-download">
+                                        <i class="fas fa-download"></i> 다운로드
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="report-card">
+                            <div class="report-cover">
+                                <i class="fas fa-file-pdf"></i>
+                                <span class="report-year">2025</span>
+                            </div>
+                            <div class="report-content">
+                                <h3>글로벌 ESG 혁신 사례</h3>
+                                <div class="report-meta">
+                                    <span><i class="fas fa-user"></i> 국제협력팀</span>
+                                    <span><i class="fas fa-calendar"></i> 2025.08</span>
+                                    <span><i class="fas fa-file"></i> 142p</span>
+                                </div>
+                                <div class="report-actions">
+                                    <button class="btn-download">
+                                        <i class="fas fa-download"></i> 다운로드
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="annual">
+                    <div class="report-grid">
+                        <div class="report-card">
+                            <div class="report-cover">
+                                <i class="fas fa-file-pdf"></i>
+                                <span class="report-year">2023</span>
+                            </div>
+                            <div class="report-content">
+                                <h3>한국ESG학회 2023 연례보고서</h3>
+                                <div class="report-meta">
+                                    <span><i class="fas fa-user"></i> 한국ESG학회</span>
+                                    <span><i class="fas fa-calendar"></i> 2025.03</span>
+                                    <span><i class="fas fa-file"></i> 96p</span>
+                                </div>
+                                <div class="report-actions">
+                                    <button class="btn-download">
+                                        <i class="fas fa-download"></i> 다운로드
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="report-card">
+                            <div class="report-cover">
+                                <i class="fas fa-file-pdf"></i>
+                                <span class="report-year">2022</span>
+                            </div>
+                            <div class="report-content">
+                                <h3>한국ESG학회 2022 연례보고서</h3>
+                                <div class="report-meta">
+                                    <span><i class="fas fa-user"></i> 한국ESG학회</span>
+                                    <span><i class="fas fa-calendar"></i> 2023.03</span>
+                                    <span><i class="fas fa-file"></i> 88p</span>
+                                </div>
+                                <div class="report-actions">
+                                    <button class="btn-download">
+                                        <i class="fas fa-download"></i> 다운로드
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>한국ESG학회</h3>
+                    <p>지속가능한 미래를 위한<br>ESG 연구와 실천</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <ul class="footer-links">
+                        <li><a href="../about/intro.html">학회소개</a></li>
+                        <li><a href="../member/process.html">회원가입</a></li>
+                        <li><a href="../journal/intro.html">학술지</a></li>
+                        <li><a href="../community/notice.html">커뮤니티</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>문의</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-phone"></i> 010-4263-7715</li>
+                        <li><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 서울특별시 동작구 상도로 369<br>숭실대학교 진리관 508호</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 한국ESG학회. All rights reserved.</p>
+                <div class="footer-links-bottom">
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        // 검색 기능
+        function performSearch() {
+            const searchType = document.getElementById('searchType').value;
+            const searchInput = document.getElementById('searchInput').value.trim();
+            
+            if (!searchInput) {
+                alert('검색어를 입력해주세요.');
+                return;
+            }
+            
+            console.log(`검색 유형: ${searchType}, 검색어: ${searchInput}`);
+            
+            // 실제 검색 로직 구현 예정
+            alert(`"${searchInput}" 검색 결과를 표시합니다.\\n(검색 기능은 추후 구현 예정)`);
+        }
+        
+        // Enter 키로 검색
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        performSearch();
+                    }
+                });
+            }
+        });
+        
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

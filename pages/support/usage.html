@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기부금 사용 내역 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo-symbol.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .stat-card {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .stat-card .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #1e7e34, #2874a6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-card .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e7e34;
+            margin-bottom: 10px;
+        }
+        .stat-card .label {
+            color: #6c757d;
+            font-size: 1.05rem;
+        }
+
+        .tabs-container {
+            margin: 60px 0;
+        }
+        .tabs {
+            display: flex;
+            gap: 15px;
+            border-bottom: 2px solid #e9ecef;
+            margin-bottom: 40px;
+            overflow-x: auto;
+        }
+        .tab-btn {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            font-size: 1.05rem;
+            color: #6c757d;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .tab-btn.active {
+            color: #1e7e34;
+            border-bottom-color: #1e7e34;
+            font-weight: 600;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .supporters-grid {
+            display: grid;
+            gap: 20px;
+        }
+        .supporter-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            transition: all 0.3s ease;
+        }
+        .supporter-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .supporter-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #e8f5e9, #e3f2fd);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .supporter-logo i {
+            font-size: 2.5rem;
+            color: #1e7e34;
+        }
+        .supporter-info {
+            flex: 1;
+        }
+        .supporter-info h4 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+        .supporter-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+        .supporter-badge.diamond {
+            background: linear-gradient(135deg, #b9f2ff, #6dd5fa);
+            color: #0c5273;
+        }
+        .supporter-badge.platinum {
+            background: linear-gradient(135deg, #f5f5f5, #c0c0c0);
+            color: #4a4a4a;
+        }
+        .supporter-badge.gold {
+            background: linear-gradient(135deg, #ffd700, #ffb900);
+            color: #6b4800;
+        }
+        .supporter-badge.silver {
+            background: linear-gradient(135deg, #e8e8e8, #b8b8b8);
+            color: #4a4a4a;
+        }
+        .supporter-badge.bronze {
+            background: linear-gradient(135deg, #e8d4b0, #cd7f32);
+            color: #6b4800;
+        }
+        .supporter-meta {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .gratitude-section {
+            background: linear-gradient(135deg, #e8f5e9, #e3f2fd);
+            padding: 60px 40px;
+            border-radius: 16px;
+            text-align: center;
+            margin: 60px 0;
+        }
+        .gratitude-section h2 {
+            color: #1e7e34;
+            margin-bottom: 20px;
+        }
+        .gratitude-section .message {
+            font-size: 1.15rem;
+            color: #495057;
+            line-height: 1.9;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        .gratitude-plaques {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .plaque-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        .plaque-card .trophy {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        .plaque-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .plaque-card p {
+            color: #6c757d;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .receipt-section {
+            background: white;
+            padding: 50px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin: 60px 0;
+        }
+        .receipt-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .step-card {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 12px;
+            background: #f8f9fa;
+        }
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1e7e34, #2874a6);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+        .step-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .step-card p {
+            color: #6c757d;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2874a6;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        .info-box h4 {
+            color: #2874a6;
+            margin-bottom: 15px;
+        }
+        .info-box ul {
+            padding-left: 20px;
+        }
+        .info-box li {
+            color: #495057;
+            padding: 5px 0;
+            line-height: 1.6;
+        }
+        .cta-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #1e7e34, #2874a6);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(30, 126, 52, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .stats-overview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .supporter-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            .receipt-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 010-4263-7715</span>
+                        <span><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</span>
+                    </div>
+                    <div class="quick-links">
+                        <a href="../member/process.html">회원가입</a>
+                        <a href="../mypage/profile.html">로그인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    <button class="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../about/greeting.html">학회장 인사말</a></li>
+                                <li><a href="../about/purpose.html">설립 목적·비전</a></li>
+                                <li><a href="../about/history.html">연혁</a></li>
+                                <li><a href="../about/constitution.html">정관·규정</a></li>
+                                <li><a href="../about/ci.html">CI·BI</a></li>
+                                <li><a href="../about/location.html">오시는 길</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../organization/executives.html">임원진</a></li>
+                                <li><a href="../organization/committees.html">위원회</a></li>
+                                <li><a href="../organization/divisions.html">분과학회·연구회</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../member/types-new.html">회원 구분</a></li>
+                                <li><a href="../member/process.html">가입 절차</a></li>
+                                <li><a href="../member/fee.html">회비 안내</a></li>
+                                <li><a href="../member/benefits.html">회원 혜택</a></li>
+                                <li><a href="../member/companies.html">회원사 소개</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">핵심사업</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../core/forum-new.html">월드ESG포럼</a></li>
+                                <li><a href="../core/award.html">한국ESG대상</a></li>
+                                <li><a href="../core/ordinance.html">한국ESG조례대상</a></li>
+                                <li><a href="../core/seminar.html">월요학술세미나</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학술지·논문</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../journal/about.html">학술지 소개</a></li>
+                                <li><a href="../journal/submission.html">논문 투고 안내</a></li>
+                                <li><a href="../journal/editorial.html">편집위원회</a></li>
+                                <li><a href="../journal/review.html">심사 규정</a></li>
+                                <li><a href="../journal/archive.html">논문 아카이브</a></li>
+                                <li><a href="../journal/dbpia-embed.html">DBPIA 논문 검색</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../policy/research.html">ESG 정책 연구</a></li>
+                                <li><a href="../policy/standards.html">ESG 지표·표준</a></li>
+                                <li><a href="../policy/law.html">법·제도 분석</a></li>
+                                <li><a href="../policy/global.html">국제 ESG 동향</a></li>
+                                <li><a href="../policy/reports.html">연구보고서</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../news/main.html">ESG 주요 뉴스</a></li>
+                                <li><a href="../news/policy.html">정책·입법 동향</a></li>
+                                <li><a href="../news/cases.html">기업 ESG 사례</a></li>
+                                <li><a href="../news/press.html">학회 보도자료</a></li>
+                                <li><a href="../news/column.html">기고·칼럼</a></li>
+                                <li><a href="../news/video.html">영상 콘텐츠</a></li>
+                                <li><a href="../news/esg-news-embed.html">코리아ESG뉴스</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../community/notice.html">공지사항</a></li>
+                                <li><a href="../community/forum.html">자유게시판</a></li>
+                                <li><a href="../community/discussion.html">학술·정책 토론</a></li>
+                                <li><a href="../community/member-news.html">회원 소식</a></li>
+                                <li><a href="../community/qna.html">Q&A</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">자료실</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../materials/academic.html">학술자료</a></li>
+                                <li><a href="../materials/policy.html">정책자료</a></li>
+                                <li><a href="../materials/presentation.html">발표자료</a></li>
+                                <li><a href="../materials/report.html">ESG 리포트</a></li>
+                                <li><a href="../materials/video.html">영상자료</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="guide.html">후원 안내</a></li>
+                                <li><a href="corporate.html">기업 후원</a></li>
+                                <li><a href="personal.html">개인 기부</a></li>
+                                <li><a href="usage.html">기부금 사용 내역</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">마이페이지</a>
+                            <ul class="dropdown-menu">
+                                <!-- 로그인 전 메뉴 -->
+                                <li class="auth-only logged-out"><a href="../auth/signup.html"><i class="fas fa-user-plus"></i> 회원가입</a></li>
+                                <li class="auth-only logged-out"><a href="../auth/login.html"><i class="fas fa-sign-in-alt"></i> 로그인</a></li>
+                                <li class="auth-only logged-out dropdown-divider"></li>
+                                
+                                <!-- 로그인 후 메뉴 -->
+                                <li class="auth-only logged-in"><a href="../mypage/profile.html"><i class="fas fa-user-edit"></i> 회원정보 관리</a></li>
+                                <li class="auth-only logged-in"><a href="../mypage/payment.html"><i class="fas fa-credit-card"></i> 회비 납부</a></li>
+                                <li class="auth-only logged-in"><a href="../mypage/history.html"><i class="fas fa-history"></i> 납부 내역</a></li>
+                                <li class="auth-only logged-in"><a href="../mypage/paper.html"><i class="fas fa-file-alt"></i> 논문 투고 현황</a></li>
+                                <li class="auth-only logged-in"><a href="../mypage/event.html"><i class="fas fa-calendar-check"></i> 행사·세미나 신청 내역</a></li>
+                                <li class="auth-only logged-in"><a href="../mypage/certificate.html"><i class="fas fa-certificate"></i> 회원증·증명서</a></li>
+                                <li class="auth-only logged-in dropdown-divider"></li>
+                                <li class="auth-only logged-in"><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> 로그아웃</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-chart-pie"></i> 기부금 사용 내역</h1>
+            <p>여러분의 소중한 후원이 어떻게 사용되고 있는지 투명하게 공개합니다</p>
+        </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../../index.html"><i class="fas fa-home"></i> 홈</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="#">후원·기부</a>
+            <i class="fas fa-chevron-right"></i>
+            <span class="current">기부금 사용 내역</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+
+            <!-- Stats Overview -->
+            <div class="stats-overview">
+                <div class="stat-card">
+                    <div class="icon"><i class="fas fa-users"></i></div>
+                    <div class="number">487</div>
+                    <div class="label">누적 후원자</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon"><i class="fas fa-building"></i></div>
+                    <div class="number">87</div>
+                    <div class="label">후원 기업</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon"><i class="fas fa-hand-holding-usd"></i></div>
+                    <div class="number">2.8억</div>
+                    <div class="label">총 후원금액</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon"><i class="fas fa-trophy"></i></div>
+                    <div class="number">124</div>
+                    <div class="label">지원 프로젝트</div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs-container">
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="showTab('corporate')">기업 후원자</button>
+                    <button class="tab-btn" onclick="showTab('individual')">개인 기부자</button>
+                    <button class="tab-btn" onclick="showTab('gratitude')">감사패</button>
+                    <button class="tab-btn" onclick="showTab('receipt')">기부금 영수증</button>
+                </div>
+
+                <!-- Corporate Supporters -->
+                <div id="corporate" class="tab-content active">
+                    <h3 style="color: #1e7e34; margin-bottom: 30px;">기업 후원자 명단</h3>
+                    <div class="supporters-grid">
+                        <div class="supporter-card">
+                            <div class="supporter-logo">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                            <div class="supporter-info">
+                                <h4>
+                                    A 제조 그룹
+                                    <span class="supporter-badge diamond">💎 다이아몬드</span>
+                                </h4>
+                                <div class="supporter-meta">2020년 ~ 현재 | 연 5,000만원 후원</div>
+                            </div>
+                        </div>
+
+                        <div class="supporter-card">
+                            <div class="supporter-logo">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="supporter-info">
+                                <h4>
+                                    B 금융 그룹
+                                    <span class="supporter-badge platinum">⚪ 플래티넘</span>
+                                </h4>
+                                <div class="supporter-meta">2019년 ~ 현재 | 연 3,000만원 후원</div>
+                            </div>
+                        </div>
+
+                        <div class="supporter-card">
+                            <div class="supporter-logo">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <div class="supporter-info">
+                                <h4>
+                                    C 에너지 기업
+                                    <span class="supporter-badge gold">골드</span>
+                                </h4>
+                                <div class="supporter-meta">2021년 ~ 현재 | 연 1,000만원 후원</div>
+                            </div>
+                        </div>
+
+                        <div class="supporter-card">
+                            <div class="supporter-logo">
+                                <i class="fas fa-shipping-fast"></i>
+                            </div>
+                            <div class="supporter-info">
+                                <h4>
+                                    D 물류 기업
+                                    <span class="supporter-badge gold">골드</span>
+                                </h4>
+                                <div class="supporter-meta">2022년 ~ 현재 | 연 1,000만원 후원</div>
+                            </div>
+                        </div>
+
+                        <div class="supporter-card">
+                            <div class="supporter-logo">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <div class="supporter-info">
+                                <h4>
+                                    E IT 기업
+                                    <span class="supporter-badge platinum">⚪ 플래티넘</span>
+                                </h4>
+                                <div class="supporter-meta">2021년 ~ 현재 | 연 3,000만원 후원</div>
+                            </div>
+                        </div>
+
+                        <div class="supporter-card">
+                            <div class="supporter-logo">
+                                <i class="fas fa-pills"></i>
+                            </div>
+                            <div class="supporter-info">
+                                <h4>
+                                    F 제약 기업
+                                    <span class="supporter-badge gold">골드</span>
+                                </h4>
+                                <div class="supporter-meta">2023년 ~ 현재 | 연 1,000만원 후원</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Individual Supporters -->
+                <div id="individual" class="tab-content">
+                    <h3 style="color: #1e7e34; margin-bottom: 30px;">개인 기부자 명단</h3>
+                    <p style="color: #6c757d; margin-bottom: 30px;">
+                        정기 후원을 통해 학회를 지원해주시는 소중한 분들을 소개합니다.
+                    </p>
+                    <div class="supporters-grid">
+                        <div class="supporter-card">
+                            <div class="supporter-logo">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="supporter-info">
+                                <h4>
+                                    김영수 회장
+                                    <span class="supporter-badge gold">골드</span>
+                                </h4>
+                                <div class="supporter-meta">2018년 ~ 현재 | 월 50,000원 정기 후원</div>
+                            </div>
+                        </div>
+
+                        <div class="supporter-card">
+                            <div class="supporter-logo">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div class="supporter-info">
+                                <h4>
+                                    이민호 교수
+                                    <span class="supporter-badge silver">⚪ 실버</span>
+                                </h4>
+                                <div class="supporter-meta">2020년 ~ 현재 | 월 30,000원 정기 후원</div>
+                            </div>
+                        </div>
+
+                        <div class="supporter-card">
+                            <div class="supporter-logo">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="supporter-info">
+                                <h4>
+                                    박지영 대표
+                                    <span class="supporter-badge gold">골드</span>
+                                </h4>
+                                <div class="supporter-meta">2019년 ~ 현재 | 월 50,000원 정기 후원</div>
+                            </div>
+                        </div>
+
+                        <div class="supporter-card">
+                            <div class="supporter-logo">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <div class="supporter-info">
+                                <h4>
+                                    정수현 이사
+                                    <span class="supporter-badge platinum">💎 플래티넘</span>
+                                </h4>
+                                <div class="supporter-meta">2021년 ~ 현재 | 월 100,000원 정기 후원</div>
+                            </div>
+                        </div>
+
+                        <div class="supporter-card">
+                            <div class="supporter-logo">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="supporter-info">
+                                <h4>
+                                    강민수
+                                    <span class="supporter-badge bronze">🥉 브론즈</span>
+                                </h4>
+                                <div class="supporter-meta">2022년 ~ 현재 | 월 10,000원 정기 후원</div>
+                            </div>
+                        </div>
+
+                        <div class="supporter-card">
+                            <div class="supporter-logo">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="supporter-info">
+                                <h4>
+                                    최은영
+                                    <span class="supporter-badge silver">⚪ 실버</span>
+                                </h4>
+                                <div class="supporter-meta">2023년 ~ 현재 | 월 30,000원 정기 후원</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p style="text-align: center; color: #6c757d; margin-top: 40px; font-style: italic;">
+                        * 외 380명의 후원자께서 함께하고 계십니다 (2025년 12월 기준)
+                    </p>
+                </div>
+
+                <!-- Gratitude Plaques -->
+                <div id="gratitude" class="tab-content">
+                    <div class="gratitude-section" style="margin-top: 0;">
+                        <h2>감사의 마음을 전합니다</h2>
+                        <div class="message">
+                            한국ESG학회는 후원자 여러분의 소중한 지원에 깊은 감사를 드립니다.<br>
+                            여러분의 후원금은 ESG 연구와 교육, 학술 활동에 투명하게 사용되며,<br>
+                            지속가능한 미래를 만드는 밑거름이 되고 있습니다.
+                        </div>
+                        
+                        <div class="gratitude-plaques">
+                            <div class="plaque-card">
+                                <div class="trophy"><i class="fas fa-trophy"></i></div>
+                                <h4>대상 (1,000만원 이상)</h4>
+                                <p>크리스탈 트로피 및 감사패 증정<br>학술대회 특별 감사 인사</p>
+                            </div>
+                            <div class="plaque-card">
+                                <div class="trophy">🥇</div>
+                                <h4>금상 (500만원 이상)</h4>
+                                <p>금색 감사패 증정<br>홈페이지 특별 게재</p>
+                            </div>
+                            <div class="plaque-card">
+                                <div class="trophy">🥈</div>
+                                <h4>은상 (300만원 이상)</h4>
+                                <p>은색 감사패 증정<br>연례보고서 감사 명단</p>
+                            </div>
+                            <div class="plaque-card">
+                                <div class="trophy">🥉</div>
+                                <h4>동상 (100만원 이상)</h4>
+                                <p>동색 감사패 증정<br>감사 인증서 발급</p>
+                            </div>
+                        </div>
+
+                        <div class="info-box" style="text-align: left; max-width: 800px; margin: 40px auto;">
+                            <h4><i class="fas fa-info-circle"></i> 감사패 수여 안내</h4>
+                            <ul>
+                                <li>연간 후원 금액 기준으로 등급이 결정됩니다.</li>
+                                <li>감사패는 매년 12월 연례 학술대회에서 수여됩니다.</li>
+                                <li>기업 후원자는 별도의 트로피와 인증서를 제공합니다.</li>
+                                <li>5년 이상 지속 후원자에게는 특별 감사패가 추가 증정됩니다.</li>
+                                <li>감사패 수여식 불참 시 우편으로 발송해드립니다.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Receipt Information -->
+                <div id="receipt" class="tab-content">
+                    <div class="receipt-section" style="margin-top: 0;">
+                        <h2 style="text-align: center; color: #1e7e34; margin-bottom: 20px;">기부금 영수증 안내</h2>
+                        <p style="text-align: center; color: #6c757d; margin-bottom: 40px;">
+                            한국ESG학회는 기획재정부 지정기부금 단체로, 후원금에 대한 세액공제 혜택을 받으실 수 있습니다.
+                        </p>
+
+                        <div class="receipt-steps">
+                            <div class="step-card">
+                                <div class="step-number">1</div>
+                                <h4>후원 완료</h4>
+                                <p>후원 신청 및 결제를 완료하시면 자동으로 후원 내역이 등록됩니다.</p>
+                            </div>
+                            <div class="step-card">
+                                <div class="step-number">2</div>
+                                <h4>국세청 등록</h4>
+                                <p>후원 정보가 국세청 연말정산 간소화 서비스에 자동 등록됩니다.</p>
+                            </div>
+                            <div class="step-card">
+                                <div class="step-number">3</div>
+                                <h4>영수증 조회</h4>
+                                <p>국세청 홈택스에서 기부금 영수증을 직접 조회하실 수 있습니다.</p>
+                            </div>
+                            <div class="step-card">
+                                <div class="step-number">4</div>
+                                <h4>연말정산</h4>
+                                <p>조회한 영수증으로 연말정산 시 세액공제 혜택을 받으실 수 있습니다.</p>
+                            </div>
+                        </div>
+
+                        <div class="info-box">
+                            <h4><i class="fas fa-calculator"></i> 세액공제 혜택</h4>
+                            <ul>
+                                <li><strong>개인:</strong> 기부금의 15% (3천만원 초과분 30%) 세액공제</li>
+                                <li><strong>법인:</strong> 소득금액의 10% 한도 내에서 손금산입 (법인세 절감)</li>
+                                <li><strong>예시:</strong> 연 120만원 후원 시 약 18만원 세액공제 (개인 기준)</li>
+                                <li><strong>공제 한도:</strong> 소득금액의 30% 범위 내</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4><i class="fas fa-file-alt"></i> 영수증 발급 안내</h4>
+                            <ul>
+                                <li><strong>자동 발급:</strong> 주민등록번호(사업자번호) 제공 시 국세청 자동 등록</li>
+                                <li><strong>발급 시기:</strong> 후원 익월 말일까지 국세청 등록 완료</li>
+                                <li><strong>조회 방법:</strong> 국세청 홈택스 → 연말정산 간소화 서비스</li>
+                                <li><strong>수기 발급:</strong> 필요시 학회 사무국으로 요청 (kohmh@ssu.ac.kr)</li>
+                                <li><strong>문의:</strong> 010-4263-7715</li>
+                            </ul>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 40px;">
+                            <a href="https://www.hometax.go.kr" target="_blank" class="cta-btn">
+                                <i class="fas fa-external-link-alt"></i> 국세청 홈택스 바로가기
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>한국ESG학회</h3>
+                    <p>Korean ESG Association</p>
+                    <p>지속가능한 미래를 위한 ESG 연구와 실천</p>
+                </div>
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <ul>
+                        <li><a href="../about/vision.html">학회소개</a></li>
+                        <li><a href="../member/process.html">회원가입</a></li>
+                        <li><a href="../journal/guide.html">논문투고</a></li>
+                        <li><a href="../community/notice.html">공지사항</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>연락처</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> [06978] 서울특별시 동작구 상도로 369<br>숭실대학교 진리관 508호</p>
+                    <p><i class="fas fa-phone"></i> 010-4263-7715</p>
+                    <p><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Korean ESG Association. All Rights Reserved.</p>
+                <p>개인정보관리책임자: 고문현 (kohmh@ssu.ac.kr) | 홈페이지관리책임자: 강종진 (mail@iuci.kr)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        function showTab(tabId) {
+            // Hide all tabs
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Show selected tab
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+    </script>
+</body>
+</html>

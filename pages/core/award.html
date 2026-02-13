@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>한국ESG대상 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo-symbol.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+        .award-header {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .award-header h1 {
+            font-size: 3rem;
+            color: #1e7e34;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        
+        .award-header p {
+            font-size: 1.3rem;
+            color: #333;
+        }
+        
+        .intro-section {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+        }
+        
+        .intro-section h2 {
+            color: #1e7e34;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .intro-section p {
+            line-height: 1.8;
+            color: #555;
+            font-size: 1.05rem;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+        }
+        
+        .category-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #1e7e34, #2874a6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .category-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .category-card h3 {
+            color: #1e7e34;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .category-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .category-card li {
+            padding: 8px 0;
+            color: #666;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .category-card li:last-child {
+            border-bottom: none;
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateXó(-50%);
+            width: 3px;
+            height: 100%;
+            background: #1e7e34;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            width: 45%;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            margin-left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            margin-left: 55%;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-date {
+            font-weight: 700;
+            color: #1e7e34;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .winners-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin: 40px 0;
+        }
+        
+        .winner-card {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #f8f9fa;
+            border-left: 5px solid #ffd700;
+            border-radius: 8px;
+        }
+        
+        .winner-card .trophy {
+            font-size: 2.5rem;
+            margin-right: 20px;
+            color: #ffd700;
+        }
+        
+        .winner-info h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .winner-info p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            .award-header h1 {
+                font-size: 2rem;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 010-4263-7715</span>
+                        <span><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</span>
+                    </div>
+                    <div class="quick-links">
+                        <a href="../member/process.html">회원가입</a>
+                        <a href="../mypage/profile.html">로그인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    
+                    <button class="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                        </li>
+                        <li class="nav-item has-dropdown active">
+                            <a href="#" class="nav-link">핵심사업</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학술지·논문</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">자료실</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">마이페이지</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <div class="award-header" style="background: linear-gradient(90deg, #2d8659 0%, #1a7b9c 100%); padding: 60px 20px; text-align: center; margin: 0;">
+        <h1 style="color: white; font-size: 36px; font-weight: 700; margin: 0 0 15px 0;">
+            <i class="fas fa-trophy"></i> 한국ESG대상
+        </h1>
+        <p style="color: rgba(255, 255, 255, 0.95); font-size: 16px; margin: 0; line-height: 1.6;">
+            ESG 경영 우수 기업 및 개인을 발굴·시상합니다
+        </p>
+    </div>
+
+    <main class="main-content">
+
+        <div class="container" style="margin-top: 20px;">
+            <div class="intro-section">
+                <h2><i class="fas fa-info-circle"></i> 대상 소개</h2>
+                <p>
+                    한국ESG대상은 지속가능한 경영을 실천하고 ESG(환경·사회·지배구조) 분야에서 탁월한 성과를 이룬 기업, 기관, 개인을 발굴·시상하는 권위 있는 시상 제도입니다.
+                </p>
+                <p style="margin-top: 15px;">
+                    한국ESG학회가 주관하며, 매년 ESG 경영 우수 사례를 발굴하여 한국 사회의 지속가능성 향상에 기여하고자 합니다.
+                </p>
+            </div>
+
+            <h2 style="text-align: center; color: #1e7e34; margin: 60px 0 40px; font-size: 2.2rem;">
+                <i class="fas fa-star"></i> 시상 부문
+            </h2>
+
+            <div class="category-grid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>기업 부문</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle" style="color: #1e7e34; margin-right: 8px;"></i> 대기업 ESG 대상</li>
+                        <li><i class="fas fa-check-circle" style="color: #1e7e34; margin-right: 8px;"></i> 중견기업 ESG 대상</li>
+                        <li><i class="fas fa-check-circle" style="color: #1e7e34; margin-right: 8px;"></i> 중소기업 ESG 대상</li>
+                        <li><i class="fas fa-check-circle" style="color: #1e7e34; margin-right: 8px;"></i> 스타트업 ESG 대상</li>
+                    </ul>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>ESG 분야별 대상</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle" style="color: #1e7e34; margin-right: 8px;"></i> 환경(E) 우수기업</li>
+                        <li><i class="fas fa-check-circle" style="color: #1e7e34; margin-right: 8px;"></i> 사회(S) 우수기업</li>
+                        <li><i class="fas fa-check-circle" style="color: #1e7e34; margin-right: 8px;"></i> 거버넌스(G) 우수기업</li>
+                        <li><i class="fas fa-check-circle" style="color: #1e7e34; margin-right: 8px;"></i> ESG 통합경영 대상</li>
+                    </ul>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>개인 부문</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle" style="color: #1e7e34; margin-right: 8px;"></i> ESG 경영인 대상</li>
+                        <li><i class="fas fa-check-circle" style="color: #1e7e34; margin-right: 8px;"></i> ESG 전문가 대상</li>
+                        <li><i class="fas fa-check-circle" style="color: #1e7e34; margin-right: 8px;"></i> ESG 연구자 대상</li>
+                        <li><i class="fas fa-check-circle" style="color: #1e7e34; margin-right: 8px;"></i> ESG 기여 공로상</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2 style="text-align: center; color: #1e7e34; margin: 60px 0 40px; font-size: 2.2rem;">
+                <i class="fas fa-calendar-alt"></i> 시상 일정
+            </h2>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">3월 - 4월</div>
+                        <h4>후보 추천 접수</h4>
+                        <p>ESG 경영 우수 기업 및 개인 후보 추천 접수</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">5월 - 6월</div>
+                        <h4>1차 서류 심사</h4>
+                        <p>추천 후보에 대한 서류 심사 및 검증</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">7월 - 8월</div>
+                        <h4>2차 현장 심사</h4>
+                        <p>기업 방문 및 ESG 경영 실태 현장 확인</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">9월</div>
+                        <h4>최종 심사 및 발표</h4>
+                        <p>심사위원회 최종 심의 및 수상자 결정</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">10월</div>
+                        <h4>시상식 개최</h4>
+                        <p>한국ESG대상 시상식 및 ESG 컨퍼런스 개최</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="winners-section">
+                <h2 style="color: #1e7e34; margin-bottom: 30px; font-size: 2rem;">
+                    <i class="fas fa-crown"></i> 2023년 수상자 (예시)
+                </h2>
+
+                <div class="winner-card">
+                    <div class="trophy"><i class="fas fa-trophy"></i></div>
+                    <div class="winner-info">
+                        <h4>대기업 ESG 대상</h4>
+                        <p>(주)삼성전자 - RE100 달성 및 순환경제 혁신</p>
+                    </div>
+                </div>
+
+                <div class="winner-card">
+                    <div class="trophy"><i class="fas fa-trophy"></i></div>
+                    <div class="winner-info">
+                        <h4>중견기업 ESG 대상</h4>
+                        <p>(주)LG화학 - ESG 통합경영 체계 구축</p>
+                    </div>
+                </div>
+
+                <div class="winner-card">
+                    <div class="trophy"><i class="fas fa-trophy"></i></div>
+                    <div class="winner-info">
+                        <h4>중소기업 ESG 대상</h4>
+                        <p>(주)그린코리아 - 중소기업 ESG 모범 사례</p>
+                    </div>
+                </div>
+
+                <div class="winner-card">
+                    <div class="trophy"><i class="fas fa-trophy"></i></div>
+                    <div class="winner-info">
+                        <h4>ESG 경영인 대상</h4>
+                        <p>홍길동 대표이사 (현대자동차) - ESG 경영 리더십</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #e8f5e9; padding: 40px; border-radius: 15px; margin-top: 40px;">
+                <h3 style="color: #1e7e34; margin-bottom: 20px; font-size: 1.8rem;">
+                    <i class="fas fa-clipboard-check"></i> 신청 방법
+                </h3>
+                <p style="line-height: 1.8; color: #555; font-size: 1.05rem;">
+                    • 신청 기간: 매년 3월 1일 ~ 4월 30일<br>
+                    • 신청 방법: 온라인 접수 (학회 홈페이지)<br>
+                    • 제출 서류: 신청서, ESG 경영 실적 보고서, 증빙 자료<br>
+                    • 문의: 한국ESG학회 사무국 (010-4263-7715)
+                </p>
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="../member/process.html" style="display: inline-block; padding: 15px 40px; background: #1e7e34; color: white; text-decoration: none; border-radius: 50px; font-weight: 600; box-shadow: 0 4px 15px rgba(30,126,52,0.3);">
+                        <i class="fas fa-paper-plane"></i> 온라인 신청하기
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>한국ESG학회</h3>
+                    <p>지속가능한 미래를 위한<br>ESG 연구와 실천</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <ul class="footer-links">
+                        <li><a href="../about/intro.html">학회소개</a></li>
+                        <li><a href="../member/process.html">회원가입</a></li>
+                        <li><a href="../journal/intro.html">학술지</a></li>
+                        <li><a href="../community/notice.html">커뮤니티</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>문의</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-phone"></i> 010-4263-7715</li>
+                        <li><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 서울특별시 동작구 상도로 369<br>숭실대학교 진리관 508호</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 한국ESG학회. All rights reserved.</p>
+                <div class="footer-links-bottom">
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+</body>
+</html>

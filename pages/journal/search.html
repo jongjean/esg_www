@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="한국ESG학회 논문검색 - 학술지 논문 검색 및 조회">
+    <title>논문검색 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo-symbol.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+        .search-hero {
+            background: transparent;
+            color: var(--text-dark);
+            padding: 30px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--primary-green);
+        }
+        .search-hero h2 {
+            font-size: 2.3rem;
+            margin-bottom: 15px;
+            color: var(--primary-green);
+        }
+        .search-hero h2 i {
+            margin-right: 12px;
+        }
+        .search-hero p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+        .search-box {
+            background: #fff;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .search-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .search-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .search-select {
+            padding: 12px 20px;
+            border: 2px solid var(--bg-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            min-width: 150px;
+            background: #fff;
+        }
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 20px;
+            border: 2px solid var(--bg-light);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .search-btn {
+            padding: 12px 35px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-green));
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .search-btn i {
+            margin-right: 8px;
+        }
+        .advanced-search {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--bg-light);
+        }
+        .advanced-search-toggle {
+            background: none;
+            border: none;
+            color: var(--primary-blue);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .advanced-search-toggle:hover {
+            text-decoration: underline;
+        }
+        .advanced-options {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--bg-light);
+            border-radius: 8px;
+        }
+        .advanced-options.active {
+            display: block;
+        }
+        .filter-section {
+            background: var(--bg-green-light);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        .filter-section h3 {
+            font-size: 1.3rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .filter-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .filter-item label {
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        .search-stats {
+            background: #fff;
+            padding: 20px 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .search-stats-info {
+            font-size: 1rem;
+            color: #555;
+        }
+        .search-stats-info strong {
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+        }
+        .sort-options {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .sort-btn {
+            padding: 8px 16px;
+            background: #fff;
+            border: 2px solid var(--bg-light);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .sort-btn:hover, .sort-btn.active {
+            background: var(--primary-blue);
+            color: #fff;
+            border-color: var(--primary-blue);
+        }
+        .paper-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .paper-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary-green);
+        }
+        .paper-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+        }
+        .paper-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 12px;
+            line-height: 1.5;
+            cursor: pointer;
+        }
+        .paper-title:hover {
+            text-decoration: underline;
+        }
+        .paper-authors {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        .paper-authors i {
+            color: var(--primary-green);
+            margin-right: 8px;
+        }
+        .paper-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+        .paper-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .paper-meta-item i {
+            color: var(--primary-blue);
+        }
+        .paper-abstract {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            max-height: 80px;
+            overflow: hidden;
+        }
+        .paper-keywords {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        .keyword-tag {
+            display: inline-block;
+            padding: 5px 12px;
+            background: var(--bg-blue-light);
+            color: var(--primary-blue);
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .paper-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .action-btn {
+            padding: 8px 18px;
+            border: 2px solid var(--primary-green);
+            background: #fff;
+            color: var(--primary-green);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .action-btn:hover {
+            background: var(--primary-green);
+            color: #fff;
+        }
+        .action-btn.primary {
+            background: var(--primary-blue);
+            border-color: var(--primary-blue);
+            color: #fff;
+        }
+        .action-btn.primary:hover {
+            background: #1e5a7e;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 40px;
+        }
+        .pagination-btn {
+            padding: 10px 16px;
+            border: 2px solid var(--bg-light);
+            background: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        .pagination-btn:hover {
+            background: var(--primary-blue);
+            color: #fff;
+            border-color: var(--primary-blue);
+        }
+        .pagination-btn.active {
+            background: var(--primary-blue);
+            color: #fff;
+            border-color: var(--primary-blue);
+        }
+        .pagination-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--bg-light);
+            border-radius: 12px;
+        }
+        .no-results i {
+            font-size: 4rem;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+        .no-results h3 {
+            font-size: 1.5rem;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .no-results p {
+            font-size: 1rem;
+            color: #777;
+        }
+        @media (max-width: 768px) {
+            .search-hero h2 {
+                font-size: 1.8rem;
+            }
+            .search-row {
+                flex-direction: column;
+            }
+            .search-select, .search-input {
+                width: 100%;
+            }
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+            .paper-card {
+                padding: 20px;
+            }
+            .paper-title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 010-4263-7715</span>
+                        <span><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</span>
+                    </div>
+                    <div class="quick-links">
+                        <a href="../member/process.html">회원가입</a>
+                        <a href="../mypage/profile.html">로그인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    <button class="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">핵심사업</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link active">학술지·논문</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">자료실</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">마이페이지</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <div class="search-hero">
+                <h2><i class="fas fa-search"></i> 논문검색</h2>
+                <p>한국ESG학회 학술지 논문을 검색하고 조회하세요</p>
+            </div>
+
+            <!-- 검색 박스 -->
+            <div class="search-box">
+                <form class="search-form" id="searchForm">
+                    <div class="search-row">
+                        <select class="search-select" id="searchField">
+                            <option value="all">전체</option>
+                            <option value="title">제목</option>
+                            <option value="author">저자</option>
+                            <option value="keyword">키워드</option>
+                            <option value="abstract">초록</option>
+                        </select>
+                        <input type="text" class="search-input" id="searchQuery" placeholder="검색어를 입력하세요">
+                        <button type="submit" class="search-btn">
+                            <i class="fas fa-search"></i>검색
+                        </button>
+                    </div>
+                    
+                    <div class="advanced-search">
+                        <button type="button" class="advanced-search-toggle" id="advancedToggle">
+                            <i class="fas fa-cog"></i>
+                            <span>고급 검색</span>
+                        </button>
+                        <div class="advanced-options" id="advancedOptions">
+                            <div class="search-row">
+                                <select class="search-select">
+                                    <option value="">발행년도</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                </select>
+                                <select class="search-select">
+                                    <option value="">권호</option>
+                                    <option value="1">제1권</option>
+                                    <option value="2">제2권</option>
+                                    <option value="3">제3권</option>
+                                    <option value="4">제4권</option>
+                                </select>
+                                <select class="search-select">
+                                    <option value="">호</option>
+                                    <option value="1">제1호</option>
+                                    <option value="2">제2호</option>
+                                    <option value="3">제3호</option>
+                                    <option value="4">제4호</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 필터 섹션 -->
+            <div class="filter-section">
+                <h3><i class="fas fa-filter"></i> 분야별 필터</h3>
+                <div class="filter-grid">
+                    <div class="filter-item">
+                        <input type="checkbox" id="filter1" value="environment">
+                        <label for="filter1">환경(E)</label>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="filter2" value="social">
+                        <label for="filter2">사회(S)</label>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="filter3" value="governance">
+                        <label for="filter3">지배구조(G)</label>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="filter4" value="integration">
+                        <label for="filter4">ESG 통합</label>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="filter5" value="policy">
+                        <label for="filter5">ESG 정책</label>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="filter6" value="finance">
+                        <label for="filter6">ESG 금융</label>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="filter7" value="rating">
+                        <label for="filter7">ESG 평가</label>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="filter8" value="disclosure">
+                        <label for="filter8">ESG 공시</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 검색 결과 통계 -->
+            <div class="search-stats">
+                <div class="search-stats-info">
+                    검색결과 <strong id="resultCount">247</strong>건
+                </div>
+                <div class="sort-options">
+                    <button class="sort-btn active">최신순</button>
+                    <button class="sort-btn">인용순</button>
+                    <button class="sort-btn">조회순</button>
+                </div>
+            </div>
+
+            <!-- 논문 목록 -->
+            <div class="paper-list" id="paperList">
+                <!-- 논문 1 -->
+                <div class="paper-card">
+                    <h3 class="paper-title">ESG 경영이 기업 가치에 미치는 영향: 한국 상장기업을 중심으로</h3>
+                    <div class="paper-authors">
+                        <i class="fas fa-user"></i>
+                        고문현, 김영민, 박지현
+                    </div>
+                    <div class="paper-meta">
+                        <span class="paper-meta-item">
+                            <i class="fas fa-book"></i>
+                            한국ESG학회지 제4권 제2호
+                        </span>
+                        <span class="paper-meta-item">
+                            <i class="fas fa-calendar"></i>
+                            2025년 6월
+                        </span>
+                        <span class="paper-meta-item">
+                            <i class="fas fa-file-alt"></i>
+                            pp.45-78
+                        </span>
+                        <span class="paper-meta-item">
+                            <i class="fas fa-eye"></i>
+                            조회 1,245
+                        </span>
+                    </div>
+                    <div class="paper-abstract">
+                        본 연구는 ESG 경영이 한국 상장기업의 기업 가치에 미치는 영향을 실증 분석하였다. 2018년부터 2023년까지 KOSPI 상장기업 300개를 대상으로 패널 데이터 분석을 수행한 결과, ESG 점수가 높은 기업일수록 토빈의 Q로 측정한 기업 가치가 유의미하게 높게 나타났다. 특히 환경(E) 요인과 지배구조(G) 요인이 기업 가치에 긍정적 영향을 미치는 것으로 확인되었다...
+                    </div>
+                    <div class="paper-keywords">
+                        <span class="keyword-tag">ESG 경영</span>
+                        <span class="keyword-tag">기업 가치</span>
+                        <span class="keyword-tag">토빈의 Q</span>
+                        <span class="keyword-tag">상장기업</span>
+                        <span class="keyword-tag">패널 분석</span>
+                    </div>
+                    <div class="paper-actions">
+                        <button class="action-btn primary">
+                            <i class="fas fa-file-pdf"></i>PDF 다운로드
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-quote-right"></i>인용하기
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-bookmark"></i>저장
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 논문 2 -->
+                <div class="paper-card">
+                    <h3 class="paper-title">탄소중립 정책이 제조업의 ESG 경영 전략에 미치는 영향</h3>
+                    <div class="paper-authors">
+                        <i class="fas fa-user"></i>
+                        이수진, 최현우
+                    </div>
+                    <div class="paper-meta">
+                        <span class="paper-meta-item">
+                            <i class="fas fa-book"></i>
+                            한국ESG학회지 제4권 제1호
+                        </span>
+                        <span class="paper-meta-item">
+                            <i class="fas fa-calendar"></i>
+                            2025년 3월
+                        </span>
+                        <span class="paper-meta-item">
+                            <i class="fas fa-file-alt"></i>
+                            pp.15-42
+                        </span>
+                        <span class="paper-meta-item">
+                            <i class="fas fa-eye"></i>
+                            조회 987
+                        </span>
+                    </div>
+                    <div class="paper-abstract">
+                        본 연구는 2050 탄소중립 정책이 한국 제조업의 ESG 경영 전략에 미치는 영향을 탐구하였다. 주요 제조업체 50개를 대상으로 심층 인터뷰와 설문조사를 수행한 결과, 탄소중립 정책이 기업의 환경경영 강화, 녹색기술 투자 확대, RE100 참여 증가 등으로 이어지고 있음을 확인하였다. 특히 대기업의 경우 탄소중립을 ESG 경영의 핵심 전략으로 통합하고 있었다...
+                    </div>
+                    <div class="paper-keywords">
+                        <span class="keyword-tag">탄소중립</span>
+                        <span class="keyword-tag">제조업</span>
+                        <span class="keyword-tag">환경경영</span>
+                        <span class="keyword-tag">녹색기술</span>
+                        <span class="keyword-tag">RE100</span>
+                    </div>
+                    <div class="paper-actions">
+                        <button class="action-btn primary">
+                            <i class="fas fa-file-pdf"></i>PDF 다운로드
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-quote-right"></i>인용하기
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-bookmark"></i>저장
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 논문 3 -->
+                <div class="paper-card">
+                    <h3 class="paper-title">이사회 다양성과 ESG 성과: 젠더 다양성을 중심으로</h3>
+                    <div class="paper-authors">
+                        <i class="fas fa-user"></i>
+                        정민아, 강태영
+                    </div>
+                    <div class="paper-meta">
+                        <span class="paper-meta-item">
+                            <i class="fas fa-book"></i>
+                            한국ESG학회지 제3권 제4호
+                        </span>
+                        <span class="paper-meta-item">
+                            <i class="fas fa-calendar"></i>
+                            2023년 12월
+                        </span>
+                        <span class="paper-meta-item">
+                            <i class="fas fa-file-alt"></i>
+                            pp.112-145
+                        </span>
+                        <span class="paper-meta-item">
+                            <i class="fas fa-eye"></i>
+                            조회 1,567
+                        </span>
+                    </div>
+                    <div class="paper-abstract">
+                        본 연구는 이사회의 젠더 다양성이 기업의 ESG 성과에 미치는 영향을 분석하였다. 2015년부터 2022년까지 한국 상장기업을 대상으로 실증 분석한 결과, 여성 이사 비율이 높을수록 ESG 등급이 향상되는 것으로 나타났다. 특히 사회(S) 영역과 지배구조(G) 영역에서 긍정적 효과가 두드러졌으며, 이는 이사회의 다양성이 보다 포괄적이고 장기적인 의사결정을 촉진하기 때문으로 해석된다...
+                    </div>
+                    <div class="paper-keywords">
+                        <span class="keyword-tag">이사회 다양성</span>
+                        <span class="keyword-tag">젠더 다양성</span>
+                        <span class="keyword-tag">ESG 성과</span>
+                        <span class="keyword-tag">여성 이사</span>
+                        <span class="keyword-tag">기업지배구조</span>
+                    </div>
+                    <div class="paper-actions">
+                        <button class="action-btn primary">
+                            <i class="fas fa-file-pdf"></i>PDF 다운로드
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-quote-right"></i>인용하기
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-bookmark"></i>저장
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 논문 4 -->
+                <div class="paper-card">
+                    <h3 class="paper-title">ESG 공시 의무화가 중소기업에 미치는 영향과 대응 전략</h3>
+                    <div class="paper-authors">
+                        <i class="fas fa-user"></i>
+                        윤서영, 김준호
+                    </div>
+                    <div class="paper-meta">
+                        <span class="paper-meta-item">
+                            <i class="fas fa-book"></i>
+                            한국ESG학회지 제3권 제3호
+                        </span>
+                        <span class="paper-meta-item">
+                            <i class="fas fa-calendar"></i>
+                            2023년 9월
+                        </span>
+                        <span class="paper-meta-item">
+                            <i class="fas fa-file-alt"></i>
+                            pp.78-103
+                        </span>
+                        <span class="paper-meta-item">
+                            <i class="fas fa-eye"></i>
+                            조회 2,134
+                        </span>
+                    </div>
+                    <div class="paper-abstract">
+                        본 연구는 ESG 공시 의무화가 중소기업에 미치는 영향을 분석하고 효과적인 대응 전략을 제시하였다. 중소기업 200개를 대상으로 설문조사와 사례 연구를 수행한 결과, 중소기업들은 ESG 공시 준비에 많은 어려움을 겪고 있는 것으로 나타났다. 특히 전문 인력 부족, 데이터 수집 시스템 미비, 비용 부담 등이 주요 장애요인으로 확인되었다. 이에 본 연구는 단계적 공시 도입, 정부 지원 확대, 협업 네트워크 구축 등을 대응 전략으로 제안하였다...
+                    </div>
+                    <div class="paper-keywords">
+                        <span class="keyword-tag">ESG 공시</span>
+                        <span class="keyword-tag">중소기업</span>
+                        <span class="keyword-tag">공시 의무화</span>
+                        <span class="keyword-tag">대응 전략</span>
+                        <span class="keyword-tag">정부 지원</span>
+                    </div>
+                    <div class="paper-actions">
+                        <button class="action-btn primary">
+                            <i class="fas fa-file-pdf"></i>PDF 다운로드
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-quote-right"></i>인용하기
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-bookmark"></i>저장
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 논문 5 -->
+                <div class="paper-card">
+                    <h3 class="paper-title">사회책임투자(SRI)와 ESG 투자 성과의 비교 연구</h3>
+                    <div class="paper-authors">
+                        <i class="fas fa-user"></i>
+                        홍미래, 조영석
+                    </div>
+                    <div class="paper-meta">
+                        <span class="paper-meta-item">
+                            <i class="fas fa-book"></i>
+                            한국ESG학회지 제3권 제2호
+                        </span>
+                        <span class="paper-meta-item">
+                            <i class="fas fa-calendar"></i>
+                            2023년 6월
+                        </span>
+                        <span class="paper-meta-item">
+                            <i class="fas fa-file-alt"></i>
+                            pp.54-89
+                        </span>
+                        <span class="paper-meta-item">
+                            <i class="fas fa-eye"></i>
+                            조회 1,876
+                        </span>
+                    </div>
+                    <div class="paper-abstract">
+                        본 연구는 전통적 사회책임투자(SRI)와 ESG 투자의 성과를 비교 분석하였다. 2010년부터 2022년까지 국내 SRI 펀드와 ESG 펀드의 수익률을 분석한 결과, ESG 펀드가 장기적으로 더 안정적인 수익률을 보이는 것으로 나타났다. 이는 ESG 투자가 환경, 사회, 지배구조를 통합적으로 고려하여 보다 포괄적인 리스크 관리가 가능하기 때문으로 해석된다. 본 연구는 ESG 투자가 재무적 성과와 사회적 가치를 동시에 추구할 수 있는 효과적인 투자 전략임을 제시한다...
+                    </div>
+                    <div class="paper-keywords">
+                        <span class="keyword-tag">사회책임투자</span>
+                        <span class="keyword-tag">ESG 투자</span>
+                        <span class="keyword-tag">투자 성과</span>
+                        <span class="keyword-tag">펀드 분석</span>
+                        <span class="keyword-tag">장기 수익률</span>
+                    </div>
+                    <div class="paper-actions">
+                        <button class="action-btn primary">
+                            <i class="fas fa-file-pdf"></i>PDF 다운로드
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-quote-right"></i>인용하기
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-bookmark"></i>저장
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 페이지네이션 -->
+            <div class="pagination">
+                <button class="pagination-btn" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <button class="pagination-btn">4</button>
+                <button class="pagination-btn">5</button>
+                <button class="pagination-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="../../images/logo.png" alt="한국ESG학회" class="footer-logo-img">
+                    <p class="footer-tagline">지속가능한 미래를 위한 ESG 연구와 실천</p>
+                </div>
+                <div class="footer-info">
+                    <h4>사단법인 한국ESG학회</h4>
+                    <ul class="footer-info-list">
+                        <li><strong>회장:</strong> 고문현</li>
+                        <li><strong>Tel.</strong> 010-4263-7715</li>
+                        <li><strong>주소:</strong> [06978] 서울특별시 동작구 상도로 369, 숭실대학교 진리관 508호</li>
+                        <li><strong>개인정보관리책임자:</strong> 고문현 (kohmh@ssu.ac.kr)</li>
+                        <li><strong>홈페이지관리책임자:</strong> 강종진 (mail@iuci.kr)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Korean ESG Association. All Rights Reserved.</p>
+                <p class="footer-credit">Design by Korean ESG Association</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        // 고급 검색 토글
+        document.getElementById('advancedToggle').addEventListener('click', function() {
+            const advancedOptions = document.getElementById('advancedOptions');
+            advancedOptions.classList.toggle('active');
+        });
+
+        // 정렬 버튼
+        document.querySelectorAll('.sort-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // 검색 폼 제출
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const query = document.getElementById('searchQuery').value;
+            const field = document.getElementById('searchField').value;
+            
+            if (query.trim() === '') {
+                alert('검색어를 입력해주세요.');
+                return;
+            }
+            
+            // 실제 검색 로직은 여기에 구현
+            console.log('검색 필드:', field, '검색어:', query);
+            alert('검색 기능은 백엔드 연동 후 활성화됩니다.');
+        });
+    </script>
+</body>
+</html>

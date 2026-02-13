@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="한국ESG학회 로그인">
+    <title>로그인 - 한국ESG학회</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <link rel="stylesheet" href="../../css/disable-edit.css">
+    
+    <style>
+        .auth-container {
+            max-width: 450px;
+            margin: 80px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .auth-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .auth-header h1 {
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+        
+        .auth-header p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(30, 126, 52, 0.1);
+        }
+        
+        .remember-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+        
+        .remember-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .remember-group label {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 126, 52, 0.3);
+        }
+        
+        .auth-links {
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .auth-links a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+        
+        .auth-links a:hover {
+            color: var(--primary-green);
+            text-decoration: underline;
+        }
+        
+        .divider {
+            margin: 24px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .divider::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 1px;
+            background: #e2e8f0;
+        }
+        
+        .divider span {
+            position: relative;
+            background: white;
+            padding: 0 16px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .btn-social {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-social:hover {
+            background: #f8f9fa;
+            border-color: var(--primary-green);
+        }
+        
+        .btn-social i {
+            font-size: 1.1rem;
+        }
+        
+        .error-message {
+            color: #dc2626;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    
+                    <button class="mobile-menu-btn" aria-label="메뉴 열기">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    
+                    <ul class="nav-menu">
+                        <li class="nav-item"><a href="../../index.html" class="nav-link"><i class="fas fa-home"></i> 홈</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="auth-container">
+            <div class="auth-header">
+                <h1><i class="fas fa-sign-in-alt"></i> 로그인</h1>
+                <p>한국ESG학회 회원 서비스</p>
+            </div>
+
+            <form id="loginForm">
+                <!-- 이메일 -->
+                <div class="form-group">
+                    <label class="form-label" for="email">이메일</label>
+                    <input type="email" class="form-control" id="email" placeholder="example@email.com" required>
+                </div>
+
+                <!-- 비밀번호 -->
+                <div class="form-group">
+                    <label class="form-label" for="password">비밀번호</label>
+                    <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력하세요" required>
+                    <div class="error-message" id="errorMessage">
+                        <i class="fas fa-exclamation-circle"></i> 이메일 또는 비밀번호가 올바르지 않습니다.
+                    </div>
+                </div>
+
+                <!-- 자동 로그인 -->
+                <div class="remember-group">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">로그인 상태 유지</label>
+                </div>
+
+                <!-- 로그인 버튼 -->
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> 로그인
+                </button>
+            </form>
+
+            <!-- 소셜 로그인 (선택사항) -->
+            <div class="divider">
+                <span>또는</span>
+            </div>
+
+            <div class="social-login">
+                <button class="btn-social" onclick="alert('카카오 로그인은 준비 중입니다.')">
+                    <i class="fas fa-comment" style="color: #FEE500;"></i>
+                    카카오로 시작하기
+                </button>
+                <button class="btn-social" onclick="alert('네이버 로그인은 준비 중입니다.')">
+                    <i class="fas fa-n" style="color: #03C75A;"></i>
+                    네이버로 시작하기
+                </button>
+            </div>
+
+            <div class="auth-links">
+                <a href="signup.html">회원가입</a>
+                <span style="color: #e2e8f0;">|</span>
+                <a href="#" onclick="alert('준비 중인 기능입니다.'); return false;">비밀번호 찾기</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 한국ESG학회. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../../js/main.js"></script>
+    <script src="../../js/auth-manager.js"></script>
+    <script>
+        // 이미 로그인된 경우 메인 페이지로 리다이렉트
+        if (authManager.isLoggedIn()) {
+            window.location.href = '../../index.html';
+        }
+
+        // 로그인 폼 제출
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            const errorMessage = document.getElementById('errorMessage');
+
+            // 에러 메시지 숨김
+            errorMessage.classList.remove('show');
+
+            // 🔥 관리자 계정 하드코딩
+            const ADMIN_EMAIL = 'jongjean@naver.com';
+            const ADMIN_PASSWORD = 'kjj468600!';
+            
+            // 관리자 계정 확인
+            if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+                // 관리자 로그인 성공
+                const adminData = {
+                    id: ADMIN_EMAIL,
+                    name: 'Jongjean',
+                    email: ADMIN_EMAIL,
+                    role: 'admin',
+                    memberType: 'admin',
+                    organization: '한국ESG학회'
+                };
+                
+                // localStorage에 직접 저장 (auth.js 호환)
+                localStorage.setItem('user', JSON.stringify(adminData));
+                
+                console.log('✅ 관리자 로그인 성공:', adminData);
+                
+                // 메인 페이지로 이동
+                window.location.href = '../../index.html';
+                return;
+            }
+
+            // 저장된 사용자 정보 가져오기
+            const users = JSON.parse(localStorage.getItem('esg_users') || '[]');
+            
+            // 사용자 찾기
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                // 로그인 성공
+                const userData = {
+                    id: user.email,
+                    name: user.name,
+                    email: user.email,
+                    memberType: user.memberType,
+                    organization: user.organization
+                };
+
+                // 로그인 처리
+                authManager.login(userData);
+            } else {
+                // 로그인 실패
+                errorMessage.classList.add('show');
+            }
+        });
+
+        // 테스트 버튼 추가 (개발 중)
+        const isDevMode = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        if (isDevMode) {
+            const testBtn = document.createElement('button');
+            testBtn.className = 'btn-social';
+            testBtn.style.marginTop = '20px';
+            testBtn.style.background = '#fef3c7';
+            testBtn.innerHTML = '<i class="fas fa-flask"></i> 테스트 로그인 (개발용)';
+            testBtn.onclick = function() {
+                document.getElementById('email').value = 'test@esg.or.kr';
+                document.getElementById('password').value = 'test1234!';
+                document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+            };
+            document.querySelector('.social-login').appendChild(testBtn);
+        }
+    </script>
+</body>
+</html>

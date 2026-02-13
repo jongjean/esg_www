@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="한국ESG학회 회원사 소개 - 지속가능한 미래를 함께 만들어가는 기업">
+    <title>회원사 소개 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+        .companies-header {
+            background: linear-gradient(135deg, #e8f5e9, #e3f2fd);
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .stat-icon {
+            font-size: 40px;
+            color: #1e7e34;
+            margin-bottom: 15px;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1e7e34;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 10px 24px;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .tab-btn:hover {
+            border-color: #1e7e34;
+            color: #1e7e34;
+        }
+
+        .tab-btn.active {
+            background: #1e7e34;
+            color: white;
+            border-color: #1e7e34;
+        }
+
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .company-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .company-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .company-logo {
+            height: 150px;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .company-logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e7e34;
+        }
+
+        .company-info {
+            padding: 25px;
+        }
+
+        .company-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .company-industry {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #e8f5e9;
+            color: #1e7e34;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .company-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .company-esg {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .esg-badge {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .esg-badge.e {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .esg-badge.s {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .esg-badge.g {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .company-contact {
+            padding-top: 15px;
+            border-top: 1px solid #e9ecef;
+            font-size: 13px;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .company-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    
+                    <button class="mobile-menu-btn" aria-label="메뉴 열기">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../about/greeting.html">학회장 인사말</a></li>
+                                <li><a href="../about/purpose.html">설립 목적·비전</a></li>
+                                <li><a href="../about/history.html">연혁</a></li>
+                                <li><a href="../about/constitution.html">정관·규정</a></li>
+                                <li><a href="../about/ci.html">CI·BI</a></li>
+                                <li><a href="../about/location.html">오시는 길</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../organization/executives.html">임원진</a></li>
+                                <li><a href="../organization/committees.html">위원회</a></li>
+                                <li><a href="../organization/divisions.html">분과학회·연구회</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="types.html">회원 구분</a></li>
+                                <li><a href="process.html">가입 절차</a></li>
+                                <li><a href="fee.html">회비 안내</a></li>
+                                <li><a href="benefits.html">회원 혜택</a></li>
+                                <li><a href="companies.html">회원사 소개</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">핵심사업</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../core/forum.html">월드ESG포럼</a></li>
+                                <li><a href="../core/award.html">한국ESG대상</a></li>
+                                <li><a href="../core/ordinance.html">한국ESG조례대상</a></li>
+                                <li><a href="../core/seminar.html">월요학술세미나</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학술지·논문</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../journal/about.html">학술지 소개</a></li>
+                                <li><a href="../journal/submission.html">논문 투고 안내</a></li>
+                                <li><a href="../journal/editorial.html">편집위원회</a></li>
+                                <li><a href="../journal/review.html">심사 규정</a></li>
+                                <li><a href="../journal/archive.html">논문 아카이브</a></li>
+                                <li><a href="../journal/dbpia-embed.html">DBPIA 논문 검색</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../policy/research.html">ESG 정책 연구</a></li>
+                                <li><a href="../policy/standards.html">ESG 지표·표준</a></li>
+                                <li><a href="../policy/law.html">법·제도 분석</a></li>
+                                <li><a href="../policy/global.html">국제 ESG 동향</a></li>
+                                <li><a href="../policy/reports.html">연구보고서</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../news/main.html">ESG 주요 뉴스</a></li>
+                                <li><a href="../news/policy.html">정책·입법 동향</a></li>
+                                <li><a href="../news/cases.html">기업 ESG 사례</a></li>
+                                <li><a href="../news/press.html">학회 보도자료</a></li>
+                                <li><a href="../news/column.html">기고·칼럼</a></li>
+                                <li><a href="../news/video.html">영상 콘텐츠</a></li>
+                                <li><a href="../news/esg-news-embed.html">코리아ESG뉴스</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../community/notice.html">공지사항</a></li>
+                                <li><a href="../community/forum.html">자유게시판</a></li>
+                                <li><a href="../community/discussion.html">학술·정책 토론</a></li>
+                                <li><a href="../community/member-news.html">회원 소식</a></li>
+                                <li><a href="../community/qna.html">Q&A</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">자료실</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../materials/academic.html">학술자료</a></li>
+                                <li><a href="../materials/policy.html">정책자료</a></li>
+                                <li><a href="../materials/presentation.html">발표자료</a></li>
+                                <li><a href="../materials/report.html">ESG 리포트</a></li>
+                                <li><a href="../materials/video.html">영상자료</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../support/guide.html">후원 안내</a></li>
+                                <li><a href="../support/corporate.html">기업 후원</a></li>
+                                <li><a href="../support/personal.html">개인 기부</a></li>
+                                <li><a href="../support/usage.html">기부금 사용 내역</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">마이페이지</a>
+                            <ul class="dropdown-menu">
+                                <!-- 로그인 전 메뉴 -->
+                                <li class="auth-only logged-out"><a href="../auth/signup.html"><i class="fas fa-user-plus"></i> 회원가입</a></li>
+                                <li class="auth-only logged-out"><a href="../auth/login.html"><i class="fas fa-sign-in-alt"></i> 로그인</a></li>
+                                <li class="auth-only logged-out dropdown-divider"></li>
+                                
+                                <!-- 로그인 후 메뉴 -->
+                                <li class="auth-only logged-in"><a href="../mypage/profile.html"><i class="fas fa-user-edit"></i> 회원정보 관리</a></li>
+                                <li class="auth-only logged-in"><a href="../mypage/payment.html"><i class="fas fa-credit-card"></i> 회비 납부</a></li>
+                                <li class="auth-only logged-in"><a href="../mypage/history.html"><i class="fas fa-history"></i> 납부 내역</a></li>
+                                <li class="auth-only logged-in"><a href="../mypage/paper.html"><i class="fas fa-file-alt"></i> 논문 투고 현황</a></li>
+                                <li class="auth-only logged-in"><a href="../mypage/event.html"><i class="fas fa-calendar-check"></i> 행사·세미나 신청 내역</a></li>
+                                <li class="auth-only logged-in"><a href="../mypage/certificate.html"><i class="fas fa-certificate"></i> 회원증·증명서</a></li>
+                                <li class="auth-only logged-in dropdown-divider"></li>
+                                <li class="auth-only logged-in"><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> 로그아웃</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <div class="page-header" style="background: linear-gradient(90deg, #2d8659 0%, #1a7b9c 100%); padding: 60px 20px; text-align: center; margin: 0;">
+        <h1 style="color: white; font-size: 36px; font-weight: 700; margin: 0 0 15px 0;">
+            <i class="fas fa-building"></i> 회원사 소개
+        </h1>
+        <p style="color: rgba(255, 255, 255, 0.95); font-size: 16px; margin: 0; line-height: 1.6;">
+            한국ESG학회와 함께 지속가능한 미래를 만들어가는 기업 회원사를 소개합니다.
+        </p>
+    </div>
+
+    <div class="subpage-container" style="max-width: 1200px; margin: 0 auto; padding: 40px 20px;">
+        <main class="content">
+
+            <!-- 헤더 -->
+            <div class="companies-header">
+                <h2 style="color: #1e7e34; font-size: 24px; margin-bottom: 15px;">
+                    <i class="fas fa-handshake"></i> ESG 선도 기업과 함께합니다
+                </h2>
+                <p style="color: #666; line-height: 1.8;">
+                    한국ESG학회는 다양한 산업 분야의 선도 기업들과 함께<br>
+                    지속가능한 경영과 사회적 가치 창출을 실천하고 있습니다.
+                </p>
+            </div>
+
+            <!-- 통계 -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-building"></i></div>
+                    <div class="stat-value">86</div>
+                    <div class="stat-label">총 회원사</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-industry"></i></div>
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">산업 분야</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-globe"></i></div>
+                    <div class="stat-value">24</div>
+                    <div class="stat-label">글로벌 기업</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-award"></i></div>
+                    <div class="stat-value">18</div>
+                    <div class="stat-label">ESG 우수기업</div>
+                </div>
+            </div>
+
+            <!-- 카테고리 필터 -->
+            <div class="filter-tabs">
+                <button class="tab-btn active" onclick="filterCompanies('all')">전체 (86)</button>
+                <button class="tab-btn" onclick="filterCompanies('large')">대기업 (28)</button>
+                <button class="tab-btn" onclick="filterCompanies('medium')">중견기업 (35)</button>
+                <button class="tab-btn" onclick="filterCompanies('small')">중소기업 (23)</button>
+            </div>
+
+            <!-- 회원사 그리드 -->
+            <div class="company-grid">
+                <!-- 회원사 1 -->
+                <div class="company-card">
+                    <div class="company-logo">
+                        <div class="company-logo-text">삼성전자</div>
+                    </div>
+                    <div class="company-info">
+                        <div class="company-name">삼성전자</div>
+                        <span class="company-industry">전자/IT</span>
+                        <div class="company-desc">
+                            글로벌 전자·IT 선도기업으로 RE100 가입, 탄소중립 선언 등 ESG 경영을 선도하고 있습니다.
+                        </div>
+                        <div class="company-esg">
+                            <div class="esg-badge e">환경 A+</div>
+                            <div class="esg-badge s">사회 A</div>
+                            <div class="esg-badge g">지배구조 A+</div>
+                        </div>
+                        <div class="company-contact">
+                            <i class="fas fa-link"></i> www.samsung.com
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 회원사 2 -->
+                <div class="company-card">
+                    <div class="company-logo">
+                        <div class="company-logo-text">현대자동차</div>
+                    </div>
+                    <div class="company-info">
+                        <div class="company-name">현대자동차</div>
+                        <span class="company-industry">자동차</span>
+                        <div class="company-desc">
+                            전기차·수소차 개발을 통한 친환경 모빌리티 전환과 지속가능한 미래 실현에 앞장서고 있습니다.
+                        </div>
+                        <div class="company-esg">
+                            <div class="esg-badge e">환경 A</div>
+                            <div class="esg-badge s">사회 A</div>
+                            <div class="esg-badge g">지배구조 A</div>
+                        </div>
+                        <div class="company-contact">
+                            <i class="fas fa-link"></i> www.hyundai.com
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 회원사 3 -->
+                <div class="company-card">
+                    <div class="company-logo">
+                        <div class="company-logo-text">SK하이닉스</div>
+                    </div>
+                    <div class="company-info">
+                        <div class="company-name">SK하이닉스</div>
+                        <span class="company-industry">반도체</span>
+                        <div class="company-desc">
+                            친환경 반도체 생산과 녹색 공급망 구축으로 반도체 산업의 ESG 전환을 주도하고 있습니다.
+                        </div>
+                        <div class="company-esg">
+                            <div class="esg-badge e">환경 A</div>
+                            <div class="esg-badge s">사회 A+</div>
+                            <div class="esg-badge g">지배구조 A</div>
+                        </div>
+                        <div class="company-contact">
+                            <i class="fas fa-link"></i> www.skhynix.com
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 회원사 4 -->
+                <div class="company-card">
+                    <div class="company-logo">
+                        <div class="company-logo-text">LG화학</div>
+                    </div>
+                    <div class="company-info">
+                        <div class="company-name">LG화학</div>
+                        <span class="company-industry">화학</span>
+                        <div class="company-desc">
+                            바이오 소재 개발과 순환경제 실현으로 지속가능한 화학산업의 미래를 만들어가고 있습니다.
+                        </div>
+                        <div class="company-esg">
+                            <div class="esg-badge e">환경 A+</div>
+                            <div class="esg-badge s">사회 A</div>
+                            <div class="esg-badge g">지배구조 A</div>
+                        </div>
+                        <div class="company-contact">
+                            <i class="fas fa-link"></i> www.lgchem.com
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 회원사 5 -->
+                <div class="company-card">
+                    <div class="company-logo">
+                        <div class="company-logo-text">네이버</div>
+                    </div>
+                    <div class="company-info">
+                        <div class="company-name">네이버</div>
+                        <span class="company-industry">IT/플랫폼</span>
+                        <div class="company-desc">
+                            데이터센터 탄소중립 달성과 AI 윤리 가이드라인 수립 등 디지털 ESG를 선도하고 있습니다.
+                        </div>
+                        <div class="company-esg">
+                            <div class="esg-badge e">환경 A</div>
+                            <div class="esg-badge s">사회 A+</div>
+                            <div class="esg-badge g">지배구조 A</div>
+                        </div>
+                        <div class="company-contact">
+                            <i class="fas fa-link"></i> www.navercorp.com
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 회원사 6 -->
+                <div class="company-card">
+                    <div class="company-logo">
+                        <div class="company-logo-text">포스코</div>
+                    </div>
+                    <div class="company-info">
+                        <div class="company-name">포스코</div>
+                        <span class="company-industry">철강</span>
+                        <div class="company-desc">
+                            수소환원제철 기술 개발과 그린 스틸 생산으로 철강산업의 탄소중립을 이끌고 있습니다.
+                        </div>
+                        <div class="company-esg">
+                            <div class="esg-badge e">환경 A</div>
+                            <div class="esg-badge s">사회 A</div>
+                            <div class="esg-badge g">지배구조 A+</div>
+                        </div>
+                        <div class="company-contact">
+                            <i class="fas fa-link"></i> www.posco.com
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 회원사 7 -->
+                <div class="company-card">
+                    <div class="company-logo">
+                        <div class="company-logo-text">KB금융</div>
+                    </div>
+                    <div class="company-info">
+                        <div class="company-name">KB금융그룹</div>
+                        <span class="company-industry">금융</span>
+                        <div class="company-desc">
+                            ESG 금융 확대와 녹색금융 선도로 지속가능금융 생태계 조성에 앞장서고 있습니다.
+                        </div>
+                        <div class="company-esg">
+                            <div class="esg-badge e">환경 A</div>
+                            <div class="esg-badge s">사회 A+</div>
+                            <div class="esg-badge g">지배구조 A</div>
+                        </div>
+                        <div class="company-contact">
+                            <i class="fas fa-link"></i> www.kbfg.com
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 회원사 8 -->
+                <div class="company-card">
+                    <div class="company-logo">
+                        <div class="company-logo-text">한화솔루션</div>
+                    </div>
+                    <div class="company-info">
+                        <div class="company-name">한화솔루션</div>
+                        <span class="company-industry">에너지</span>
+                        <div class="company-desc">
+                            태양광 및 수소 에너지 사업 확대로 청정에너지 전환을 선도하는 글로벌 기업입니다.
+                        </div>
+                        <div class="company-esg">
+                            <div class="esg-badge e">환경 A+</div>
+                            <div class="esg-badge s">사회 A</div>
+                            <div class="esg-badge g">지배구조 A</div>
+                        </div>
+                        <div class="company-contact">
+                            <i class="fas fa-link"></i> www.hanwha-solutions.com
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 회원사 9 -->
+                <div class="company-card">
+                    <div class="company-logo">
+                        <div class="company-logo-text">CJ제일제당</div>
+                    </div>
+                    <div class="company-info">
+                        <div class="company-name">CJ제일제당</div>
+                        <span class="company-industry">식품/바이오</span>
+                        <div class="company-desc">
+                            지속가능한 식량 시스템 구축과 친환경 포장재 사용으로 Green Food를 실현하고 있습니다.
+                        </div>
+                        <div class="company-esg">
+                            <div class="esg-badge e">환경 A</div>
+                            <div class="esg-badge s">사회 A</div>
+                            <div class="esg-badge g">지배구조 A</div>
+                        </div>
+                        <div class="company-contact">
+                            <i class="fas fa-link"></i> www.cj.co.kr
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 가입 안내 -->
+            <div style="margin-top: 60px; padding: 40px; background: linear-gradient(135deg, #e8f5e9, #e3f2fd); border-radius: 12px; text-align: center;">
+                <h3 style="color: #1e7e34; font-size: 24px; margin-bottom: 20px;">
+                    <i class="fas fa-plus-circle"></i> 기업 회원사 가입 안내
+                </h3>
+                <p style="color: #666; line-height: 1.8; margin-bottom: 30px;">
+                    한국ESG학회 기업 회원사로 가입하시면<br>
+                    ESG 경영 컨설팅, 전문가 네트워킹, 교육 프로그램 등 다양한 혜택을 받으실 수 있습니다.
+                </p>
+                <a href="process.html" style="display: inline-block; padding: 15px 40px; background: #1e7e34; color: white; text-decoration: none; border-radius: 30px; font-weight: 600; transition: all 0.3s;">
+                    <i class="fas fa-arrow-right"></i> 가입 절차 안내
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>한국ESG학회</h3>
+                    <p>지속가능한 미래를 위한 ESG 연구와 실천</p>
+                </div>
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <ul>
+                        <li><a href="../about/greeting.html">학회소개</a></li>
+                        <li><a href="process.html">회원가입</a></li>
+                        <li><a href="../journal/submission.html">논문투고</a></li>
+                        <li><a href="../community/notice.html">공지사항</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>문의</h4>
+                    <p><i class="fas fa-phone"></i> 010-4263-7715</p>
+                    <p><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 서울특별시 동작구 상도로 369<br>숭실대학교 진리관 508호</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Korean ESG Association. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        function filterCompanies(type) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            alert(type + ' 유형으로 필터링합니다.');
+        }
+    </script>
+</body>
+</html>

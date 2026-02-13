@@ -1,0 +1,176 @@
+/* ==========================================
+   공통 모달 시스템
+   ========================================== */
+
+/* 모달 오버레이 */
+.custom-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 10000;
+    animation: fadeIn 0.2s ease;
+}
+
+.custom-modal-overlay.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 모달 컨테이너 */
+.custom-modal {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow: hidden;
+    animation: slideUp 0.3s ease;
+    position: relative;
+}
+
+/* 모달 헤더 */
+.custom-modal-header {
+    padding: 25px 30px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.custom-modal-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.custom-modal-icon.success {
+    background: linear-gradient(135deg, #d4f4dd, #a8e6cf);
+    color: #1e7e34;
+}
+
+.custom-modal-icon.error {
+    background: linear-gradient(135deg, #fee, #fdd);
+    color: #e74c3c;
+}
+
+.custom-modal-icon.warning {
+    background: linear-gradient(135deg, #fff3cd, #ffe69c);
+    color: #f39c12;
+}
+
+.custom-modal-icon.info {
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    color: #2874a6;
+}
+
+.custom-modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+}
+
+/* 모달 본문 */
+.custom-modal-body {
+    padding: 30px;
+    color: #666;
+    font-size: 15px;
+    line-height: 1.8;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+/* 모달 푸터 */
+.custom-modal-footer {
+    padding: 20px 30px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.custom-modal-btn {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.custom-modal-btn-primary {
+    background: linear-gradient(135deg, #1e7e34, #14532d);
+    color: white;
+}
+
+.custom-modal-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(30, 126, 52, 0.3);
+}
+
+.custom-modal-btn-secondary {
+    background: #f1f5f9;
+    color: #666;
+}
+
+.custom-modal-btn-secondary:hover {
+    background: #e2e8f0;
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .custom-modal {
+        width: 95%;
+        max-width: none;
+    }
+    
+    .custom-modal-header {
+        padding: 20px;
+    }
+    
+    .custom-modal-body {
+        padding: 20px;
+    }
+    
+    .custom-modal-footer {
+        padding: 15px 20px;
+        flex-direction: column;
+    }
+    
+    .custom-modal-btn {
+        width: 100%;
+    }
+}

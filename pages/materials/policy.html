@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정책·제도 자료 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo-symbol.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+        .materials-header {
+            background: linear-gradient(135deg, #2874a6 0%, #1e7e34 100%);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .materials-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .materials-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .tabs-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #f0f0f0;
+            overflow-x: auto;
+        }
+        
+        .tab {
+            padding: 15px 30px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .tab:hover {
+            background: #f8f9fa;
+            color: #1e7e34;
+        }
+        
+        .tab.active {
+            color: #1e7e34;
+            border-bottom: 3px solid #1e7e34;
+            font-weight: 600;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-box .number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e7e34;
+        }
+        
+        .stat-box .label {
+            color: #555;
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+        
+        .policy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        
+        .policy-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .policy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .policy-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .badge-gov {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .badge-law {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+        
+        .badge-guide {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        
+        .badge-standard {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        .policy-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .policy-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            color: #666;
+            font-size: 0.9rem;
+            margin: 15px 0;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .policy-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .policy-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        
+        .policy-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .tag {
+            background: #f0f0f0;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .policy-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-download {
+            flex: 1;
+            padding: 10px;
+            background: #2874a6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.3s ease;
+        }
+        
+        .btn-download:hover {
+            background: #1f5a7a;
+        }
+        
+        .btn-link {
+            padding: 10px 20px;
+            background: white;
+            color: #2874a6;
+            border: 1px solid #2874a6;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-link:hover {
+            background: #2874a6;
+            color: white;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #1e7e34;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 30px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -35px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #1e7e34;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px #1e7e34;
+        }
+        
+        .timeline-date {
+            font-weight: 600;
+            color: #1e7e34;
+            margin-bottom: 5px;
+        }
+        
+        .timeline-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .timeline-desc {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .materials-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tabs {
+                flex-wrap: nowrap;
+            }
+            
+            .tab {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .policy-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* 검색 섹션 스타일 */
+        .search-section {
+            margin-bottom: 25px;
+        }
+        .search-box {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+        .search-form {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .search-select {
+            padding: 12px 20px;
+            border: 2px solid var(--bg-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            min-width: 120px;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        .search-select:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 20px;
+            border: 2px solid var(--bg-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+        .search-btn {
+            padding: 12px 30px;
+            background: var(--primary-green);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .search-btn:hover {
+            background: #155724;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(30, 126, 52, 0.3);
+        }
+        .search-btn i {
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 010-4263-7715</span>
+                        <span><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</span>
+                    </div>
+                    <div class="quick-links">
+                        <a href="../member/process.html">회원가입</a>
+                        <a href="../mypage/profile.html">로그인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    
+                    <button class="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">핵심사업</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학술지·논문</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                        </li>
+                        <li class="nav-item has-dropdown active">
+                            <a href="#" class="nav-link">자료실</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">마이페이지</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <div class="materials-header" style="background: linear-gradient(90deg, #2d8659 0%, #1a7b9c 100%); padding: 60px 20px; text-align: center; margin: 0;">
+        <h1 style="color: white; font-size: 36px; font-weight: 700; margin: 0 0 15px 0;">
+            <i class="fas fa-file-alt"></i> 정책·제도 자료
+        </h1>
+        <p style="color: rgba(255, 255, 255, 0.95); font-size: 16px; margin: 0; line-height: 1.6;">
+            ESG 관련 정부 정책, 법·제도, 가이드라인 자료를 제공합니다
+        </p>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <div class="container" style="margin-top: 40px;">
+            <!-- 검색 기능 -->
+            <div class="search-section">
+                <div class="search-box">
+                    <div class="search-form">
+                        <select class="search-select" id="searchType">
+                            <option value="all">전체</option>
+                            <option value="title">제목</option>
+                            <option value="content">내용</option>
+                            <option value="source">발행기관</option>
+                        </select>
+                        <input type="text" class="search-input" id="searchInput" placeholder="검색어를 입력하세요...">
+                        <button class="search-btn" onclick="performSearch()">
+                            <i class="fas fa-search"></i> 검색
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tabs -->
+            <div class="tabs-container">
+                <div class="tabs">
+                    <button class="tab active" data-tab="government">정부 정책</button>
+                    <button class="tab" data-tab="law">법·제도</button>
+                    <button class="tab" data-tab="guideline">가이드라인</button>
+                    <button class="tab" data-tab="standard">표준·지표</button>
+                </div>
+
+                <!-- Tab 1: 정부 정책 -->
+                <div class="tab-content active" id="government">
+                    <div class="stats-row">
+                        <div class="stat-box">
+                            <div class="number">24</div>
+                            <div class="label">정책 문서</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="number">15</div>
+                            <div class="label">추진 계획</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="number">8</div>
+                            <div class="label">지원 사업</div>
+                        </div>
+                    </div>
+
+                    <div class="policy-grid">
+                        <div class="policy-card">
+                            <span class="policy-badge badge-gov">환경부</span>
+                            <h3>2050 탄소중립 추진전략</h3>
+                            <div class="policy-meta">
+                                <span><i class="fas fa-calendar"></i> 2025.11</span>
+                                <span><i class="fas fa-building"></i> 환경부</span>
+                                <span><i class="fas fa-download"></i> 1,456</span>
+                            </div>
+                            <div class="policy-description">
+                                2050 탄소중립 달성을 위한 부문별 전략과 로드맵을 제시합니다. 산업, 건물, 수송 등 7개 부문의 감축 계획이 포함되어 있습니다.
+                            </div>
+                            <div class="policy-tags">
+                                <span class="tag">탄소중립</span>
+                                <span class="tag">온실가스</span>
+                                <span class="tag">기후변화</span>
+                            </div>
+                            <div class="policy-actions">
+                                <button class="btn-download">
+                                    <i class="fas fa-download"></i> 다운로드
+                                </button>
+                                <button class="btn-link">원문보기</button>
+                            </div>
+                        </div>
+
+                        <div class="policy-card">
+                            <span class="policy-badge badge-gov">금융위원회</span>
+                            <h3>ESG 공시 의무화 방안</h3>
+                            <div class="policy-meta">
+                                <span><i class="fas fa-calendar"></i> 2025.10</span>
+                                <span><i class="fas fa-building"></i> 금융위원회</span>
+                                <span><i class="fas fa-download"></i> 2,234</span>
+                            </div>
+                            <div class="policy-description">
+                                자산총액 2조원 이상 유가증권시장 상장사에 대한 ESG 공시 의무화 추진 계획입니다. 단계적 시행 일정과 공시 항목이 명시되어 있습니다.
+                            </div>
+                            <div class="policy-tags">
+                                <span class="tag">ESG공시</span>
+                                <span class="tag">지속가능성보고서</span>
+                                <span class="tag">금융</span>
+                            </div>
+                            <div class="policy-actions">
+                                <button class="btn-download">
+                                    <i class="fas fa-download"></i> 다운로드
+                                </button>
+                                <button class="btn-link">원문보기</button>
+                            </div>
+                        </div>
+
+                        <div class="policy-card">
+                            <span class="policy-badge badge-gov">산업통상자원부</span>
+                            <h3>K-RE100 이행방안</h3>
+                            <div class="policy-meta">
+                                <span><i class="fas fa-calendar"></i> 2025.09</span>
+                                <span><i class="fas fa-building"></i> 산업통상자원부</span>
+                                <span><i class="fas fa-download"></i> 1,789</span>
+                            </div>
+                            <div class="policy-description">
+                                한국형 RE100 제도 운영 방안 및 기업의 재생에너지 전환 지원 정책입니다. 녹색프리미엄, REC 구매 등 다양한 이행 수단을 제시합니다.
+                            </div>
+                            <div class="policy-tags">
+                                <span class="tag">RE100</span>
+                                <span class="tag">재생에너지</span>
+                                <span class="tag">에너지전환</span>
+                            </div>
+                            <div class="policy-actions">
+                                <button class="btn-download">
+                                    <i class="fas fa-download"></i> 다운로드
+                                </button>
+                                <button class="btn-link">원문보기</button>
+                            </div>
+                        </div>
+
+                        <div class="policy-card">
+                            <span class="policy-badge badge-gov">고용노동부</span>
+                            <h3>중대재해 예방 종합대책</h3>
+                            <div class="policy-meta">
+                                <span><i class="fas fa-calendar"></i> 2025.08</span>
+                                <span><i class="fas fa-building"></i> 고용노동부</span>
+                                <span><i class="fas fa-download"></i> 1,523</span>
+                            </div>
+                            <div class="policy-description">
+                                중대재해처벌법 시행에 따른 기업의 안전보건관리체계 구축 및 중대재해 예방을 위한 정부 지원 방안입니다.
+                            </div>
+                            <div class="policy-tags">
+                                <span class="tag">중대재해</span>
+                                <span class="tag">안전보건</span>
+                                <span class="tag">근로환경</span>
+                            </div>
+                            <div class="policy-actions">
+                                <button class="btn-download">
+                                    <i class="fas fa-download"></i> 다운로드
+                                </button>
+                                <button class="btn-link">원문보기</button>
+                            </div>
+                        </div>
+
+                        <div class="policy-card">
+                            <span class="policy-badge badge-gov">중소벤처기업부</span>
+                            <h3>중소기업 ESG 지원사업</h3>
+                            <div class="policy-meta">
+                                <span><i class="fas fa-calendar"></i> 2025.07</span>
+                                <span><i class="fas fa-building"></i> 중소벤처기업부</span>
+                                <span><i class="fas fa-download"></i> 1,967</span>
+                            </div>
+                            <div class="policy-description">
+                                중소기업의 ESG 경영 도입 및 확산을 위한 맞춤형 지원 사업 안내. 컨설팅, 교육, 인증 지원 등이 포함됩니다.
+                            </div>
+                            <div class="policy-tags">
+                                <span class="tag">중소기업</span>
+                                <span class="tag">ESG지원</span>
+                                <span class="tag">컨설팅</span>
+                            </div>
+                            <div class="policy-actions">
+                                <button class="btn-download">
+                                    <i class="fas fa-download"></i> 다운로드
+                                </button>
+                                <button class="btn-link">원문보기</button>
+                            </div>
+                        </div>
+
+                        <div class="policy-card">
+                            <span class="policy-badge badge-gov">국민권익위원회</span>
+                            <h3>공공기관 ESG 경영 가이드라인</h3>
+                            <div class="policy-meta">
+                                <span><i class="fas fa-calendar"></i> 2025.06</span>
+                                <span><i class="fas fa-building"></i> 국민권익위원회</span>
+                                <span><i class="fas fa-download"></i> 1,345</span>
+                            </div>
+                            <div class="policy-description">
+                                공공기관의 ESG 경영 실천을 위한 가이드라인. 투명성, 윤리경영, 사회적 책임 이행 방안을 제시합니다.
+                            </div>
+                            <div class="policy-tags">
+                                <span class="tag">공공기관</span>
+                                <span class="tag">투명성</span>
+                                <span class="tag">윤리경영</span>
+                            </div>
+                            <div class="policy-actions">
+                                <button class="btn-download">
+                                    <i class="fas fa-download"></i> 다운로드
+                                </button>
+                                <button class="btn-link">원문보기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: 법·제도 -->
+                <div class="tab-content" id="law">
+                    <div class="stats-row">
+                        <div class="stat-box">
+                            <div class="number">18</div>
+                            <div class="label">법률</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="number">32</div>
+                            <div class="label">시행령·규칙</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="number">45</div>
+                            <div class="label">관련 고시</div>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-bottom: 20px; color: #333;">주요 ESG 관련 법률</h3>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">2025.01 시행</div>
+                            <div class="timeline-title">기후위기 대응을 위한 탄소중립·녹색성장 기본법</div>
+                            <div class="timeline-desc">
+                                2050 탄소중립 목표를 법제화하고, 국가·지자체·기업의 온실가스 감축 의무를 명시한 기본법입니다.
+                                <br><br>
+                                <strong>주요 내용:</strong>
+                                <ul style="margin-top: 10px; padding-left: 20px;">
+                                    <li>2050 탄소중립 국가비전 법제화</li>
+                                    <li>2030 국가 온실가스 감축목표 설정</li>
+                                    <li>기후변화영향평가 제도 도입</li>
+                                    <li>녹색 금융·산업 육성 지원</li>
+                                </ul>
+                                <div style="margin-top: 15px;">
+                                    <button class="btn-download" style="display: inline-flex; width: auto;">
+                                        <i class="fas fa-download"></i> 법률 원문 다운로드
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-date">2022.01 시행</div>
+                            <div class="timeline-title">중대재해 처벌 등에 관한 법률</div>
+                            <div class="timeline-desc">
+                                사업주와 경영책임자의 안전·보건 확보 의무를 강화하고, 중대산업재해 및 중대시민재해 발생 시 형사처벌을 규정한 법률입니다.
+                                <br><br>
+                                <strong>주요 내용:</strong>
+                                <ul style="margin-top: 10px; padding-left: 20px;">
+                                    <li>경영책임자의 안전·보건 확보 의무</li>
+                                    <li>사망사고 발생 시 1년 이상 징역 또는 10억원 이하 벌금</li>
+                                    <li>50인 미만 사업장 적용 유예 (2025년 시행)</li>
+                                    <li>안전보건관리체계 구축·이행 의무</li>
+                                </ul>
+                                <div style="margin-top: 15px;">
+                                    <button class="btn-download" style="display: inline-flex; width: auto;">
+                                        <i class="fas fa-download"></i> 법률 원문 다운로드
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-date">2021.07 개정</div>
+                            <div class="timeline-title">자본시장과 금융투자업에 관한 법률 (ESG 공시 관련)</div>
+                            <div class="timeline-desc">
+                                상장기업의 지속가능경영 공시 의무를 단계적으로 도입하는 내용을 담은 법률 개정안입니다.
+                                <br><br>
+                                <strong>주요 내용:</strong>
+                                <ul style="margin-top: 10px; padding-left: 20px;">
+                                    <li>자산 2조원 이상 코스피 상장사 공시 의무화</li>
+                                    <li>환경·사회·지배구조 정보 공개</li>
+                                    <li>국제 공시 기준(ISSB) 부합</li>
+                                    <li>단계적 적용 (2025년~2030년)</li>
+                                </ul>
+                                <div style="margin-top: 15px;">
+                                    <button class="btn-download" style="display: inline-flex; width: auto;">
+                                        <i class="fas fa-download"></i> 법률 원문 다운로드
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-date">2020.05 제정</div>
+                            <div class="timeline-title">환경기술 및 환경산업 지원법</div>
+                            <div class="timeline-desc">
+                                녹색 기술·산업 육성과 환경성과 평가를 위한 법률입니다.
+                                <br><br>
+                                <strong>주요 내용:</strong>
+                                <ul style="margin-top: 10px; padding-left: 20px;">
+                                    <li>환경기술 개발·사업화 지원</li>
+                                    <li>환경산업 육성 및 수출 지원</li>
+                                    <li>환경성과 평가 및 인증</li>
+                                    <li>녹색금융 활성화</li>
+                                </ul>
+                                <div style="margin-top: 15px;">
+                                    <button class="btn-download" style="display: inline-flex; width: auto;">
+                                        <i class="fas fa-download"></i> 법률 원문 다운로드
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: 가이드라인 -->
+                <div class="tab-content" id="guideline">
+                    <div class="stats-row">
+                        <div class="stat-box">
+                            <div class="number">16</div>
+                            <div class="label">정부 가이드라인</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="number">22</div>
+                            <div class="label">산업별 지침</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="number">12</div>
+                            <div class="label">모범 사례</div>
+                        </div>
+                    </div>
+
+                    <div class="policy-grid">
+                        <div class="policy-card">
+                            <span class="policy-badge badge-guide">가이드라인</span>
+                            <h3>K-ESG 가이드라인 (한국기업지배구조원)</h3>
+                            <div class="policy-meta">
+                                <span><i class="fas fa-calendar"></i> 2025.11</span>
+                                <span><i class="fas fa-building"></i> KCGS</span>
+                                <span><i class="fas fa-download"></i> 3,456</span>
+                            </div>
+                            <div class="policy-description">
+                                한국형 ESG 평가 체계의 기준이 되는 가이드라인. 환경(E) 30개, 사회(S) 34개, 지배구조(G) 27개 항목으로 구성됩니다.
+                            </div>
+                            <div class="policy-tags">
+                                <span class="tag">K-ESG</span>
+                                <span class="tag">평가체계</span>
+                                <span class="tag">국내표준</span>
+                            </div>
+                            <div class="policy-actions">
+                                <button class="btn-download">
+                                    <i class="fas fa-download"></i> 다운로드
+                                </button>
+                                <button class="btn-link">원문보기</button>
+                            </div>
+                        </div>
+
+                        <div class="policy-card">
+                            <span class="policy-badge badge-guide">가이드라인</span>
+                            <h3>ESG 정보공개 가이던스</h3>
+                            <div class="policy-meta">
+                                <span><i class="fas fa-calendar"></i> 2025.10</span>
+                                <span><i class="fas fa-building"></i> 금융감독원</span>
+                                <span><i class="fas fa-download"></i> 2,789</span>
+                            </div>
+                            <div class="policy-description">
+                                상장기업의 ESG 정보공개를 위한 실무 가이드. 공시 항목, 작성 방법, 검증 절차 등을 상세히 안내합니다.
+                            </div>
+                            <div class="policy-tags">
+                                <span class="tag">정보공개</span>
+                                <span class="tag">공시</span>
+                                <span class="tag">실무가이드</span>
+                            </div>
+                            <div class="policy-actions">
+                                <button class="btn-download">
+                                    <i class="fas fa-download"></i> 다운로드
+                                </button>
+                                <button class="btn-link">원문보기</button>
+                            </div>
+                        </div>
+
+                        <div class="policy-card">
+                            <span class="policy-badge badge-guide">가이드라인</span>
+                            <h3>온실가스 배출량 산정 가이드라인</h3>
+                            <div class="policy-meta">
+                                <span><i class="fas fa-calendar"></i> 2025.09</span>
+                                <span><i class="fas fa-building"></i> 환경부</span>
+                                <span><i class="fas fa-download"></i> 2,345</span>
+                            </div>
+                            <div class="policy-description">
+                                기업의 온실가스 배출량(Scope 1, 2, 3) 산정 방법론과 보고 양식을 제공하는 실무 가이드입니다.
+                            </div>
+                            <div class="policy-tags">
+                                <span class="tag">온실가스</span>
+                                <span class="tag">배출량산정</span>
+                                <span class="tag">Scope3</span>
+                            </div>
+                            <div class="policy-actions">
+                                <button class="btn-download">
+                                    <i class="fas fa-download"></i> 다운로드
+                                </button>
+                                <button class="btn-link">원문보기</button>
+                            </div>
+                        </div>
+
+                        <div class="policy-card">
+                            <span class="policy-badge badge-guide">가이드라인</span>
+                            <h3>협력사 ESG 관리 가이드</h3>
+                            <div class="policy-meta">
+                                <span><i class="fas fa-calendar"></i> 2025.08</span>
+                                <span><i class="fas fa-building"></i> 대한상공회의소</span>
+                                <span><i class="fas fa-download"></i> 1,987</span>
+                            </div>
+                            <div class="policy-description">
+                                대기업의 협력사 ESG 평가 및 관리를 위한 가이드. 평가 항목, 개선 지원, 우수사례 등을 포함합니다.
+                            </div>
+                            <div class="policy-tags">
+                                <span class="tag">협력사관리</span>
+                                <span class="tag">공급망</span>
+                                <span class="tag">ESG평가</span>
+                            </div>
+                            <div class="policy-actions">
+                                <button class="btn-download">
+                                    <i class="fas fa-download"></i> 다운로드
+                                </button>
+                                <button class="btn-link">원문보기</button>
+                            </div>
+                        </div>
+
+                        <div class="policy-card">
+                            <span class="policy-badge badge-guide">가이드라인</span>
+                            <h3>인권경영 체크리스트</h3>
+                            <div class="policy-meta">
+                                <span><i class="fas fa-calendar"></i> 2025.07</span>
+                                <span><i class="fas fa-building"></i> 국가인권위원회</span>
+                                <span><i class="fas fa-download"></i> 1,654</span>
+                            </div>
+                            <div class="policy-description">
+                                기업의 인권경영 이행 현황을 자가진단할 수 있는 체크리스트와 개선 방안을 제공합니다.
+                            </div>
+                            <div class="policy-tags">
+                                <span class="tag">인권경영</span>
+                                <span class="tag">자가진단</span>
+                                <span class="tag">개선방안</span>
+                            </div>
+                            <div class="policy-actions">
+                                <button class="btn-download">
+                                    <i class="fas fa-download"></i> 다운로드
+                                </button>
+                                <button class="btn-link">원문보기</button>
+                            </div>
+                        </div>
+
+                        <div class="policy-card">
+                            <span class="policy-badge badge-guide">가이드라인</span>
+                            <h3>이사회 ESG 책임 강화 가이드</h3>
+                            <div class="policy-meta">
+                                <span><i class="fas fa-calendar"></i> 2025.06</span>
+                                <span><i class="fas fa-building"></i> 한국기업지배구조원</span>
+                                <span><i class="fas fa-download"></i> 1,423</span>
+                            </div>
+                            <div class="policy-description">
+                                이사회의 ESG 감독 역할 강화를 위한 실무 가이드. ESG 위원회 구성, 안건 관리, 성과 평가 방법을 제시합니다.
+                            </div>
+                            <div class="policy-tags">
+                                <span class="tag">이사회</span>
+                                <span class="tag">거버넌스</span>
+                                <span class="tag">감독역할</span>
+                            </div>
+                            <div class="policy-actions">
+                                <button class="btn-download">
+                                    <i class="fas fa-download"></i> 다운로드
+                                </button>
+                                <button class="btn-link">원문보기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 4: 표준·지표 -->
+                <div class="tab-content" id="standard">
+                    <div class="stats-row">
+                        <div class="stat-box">
+                            <div class="number">12</div>
+                            <div class="label">국제 표준</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="number">8</div>
+                            <div class="label">국내 표준</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="number">25</div>
+                            <div class="label">평가 지표</div>
+                        </div>
+                    </div>
+
+                    <div class="policy-grid">
+                        <div class="policy-card">
+                            <span class="policy-badge badge-standard">국제 표준</span>
+                            <h3>ISSB (국제지속가능성기준위원회) 표준</h3>
+                            <div class="policy-meta">
+                                <span><i class="fas fa-calendar"></i> 2025.01</span>
+                                <span><i class="fas fa-globe"></i> IFRS Foundation</span>
+                                <span><i class="fas fa-download"></i> 4,567</span>
+                            </div>
+                            <div class="policy-description">
+                                글로벌 ESG 공시 표준. IFRS S1 (일반 요구사항), IFRS S2 (기후 관련 공시) 두 개의 기준으로 구성됩니다.
+                            </div>
+                            <div class="policy-tags">
+                                <span class="tag">ISSB</span>
+                                <span class="tag">국제표준</span>
+                                <span class="tag">공시기준</span>
+                            </div>
+                            <div class="policy-actions">
+                                <button class="btn-download">
+                                    <i class="fas fa-download"></i> 다운로드
+                                </button>
+                                <button class="btn-link">원문보기</button>
+                            </div>
+                        </div>
+
+                        <div class="policy-card">
+                            <span class="policy-badge badge-standard">국제 표준</span>
+                            <h3>GRI Standards (Global Reporting Initiative)</h3>
+                            <div class="policy-meta">
+                                <span><i class="fas fa-calendar"></i> 2021</span>
+                                <span><i class="fas fa-globe"></i> GRI</span>
+                                <span><i class="fas fa-download"></i> 3,892</span>
+                            </div>
+                            <div class="policy-description">
+                                세계에서 가장 널리 사용되는 지속가능성 보고 표준. 경제, 환경, 사회 3개 영역의 다양한 지표를 제공합니다.
+                            </div>
+                            <div class="policy-tags">
+                                <span class="tag">GRI</span>
+                                <span class="tag">지속가능성보고</span>
+                                <span class="tag">글로벌기준</span>
+                            </div>
+                            <div class="policy-actions">
+                                <button class="btn-download">
+                                    <i class="fas fa-download"></i> 다운로드
+                                </button>
+                                <button class="btn-link">원문보기</button>
+                            </div>
+                        </div>
+
+                        <div class="policy-card">
+                            <span class="policy-badge badge-standard">국제 표준</span>
+                            <h3>SASB Standards (Sustainability Accounting Standards Board)</h3>
+                            <div class="policy-meta">
+                                <span><i class="fas fa-calendar"></i> 2018</span>
+                                <span><i class="fas fa-globe"></i> SASB</span>
+                                <span><i class="fas fa-download"></i> 3,245</span>
+                            </div>
+                            <div class="policy-description">
+                                산업별 재무적으로 중대한(material) ESG 이슈를 식별하는 표준. 77개 산업군별 맞춤형 지표를 제공합니다.
+                            </div>
+                            <div class="policy-tags">
+                                <span class="tag">SASB</span>
+                                <span class="tag">산업별</span>
+                                <span class="tag">중대성</span>
+                            </div>
+                            <div class="policy-actions">
+                                <button class="btn-download">
+                                    <i class="fas fa-download"></i> 다운로드
+                                </button>
+                                <button class="btn-link">원문보기</button>
+                            </div>
+                        </div>
+
+                        <div class="policy-card">
+                            <span class="policy-badge badge-standard">국제 표준</span>
+                            <h3>TCFD (기후 관련 재무정보공개 협의체) 권고안</h3>
+                            <div class="policy-meta">
+                                <span><i class="fas fa-calendar"></i> 2017</span>
+                                <span><i class="fas fa-globe"></i> FSB</span>
+                                <span><i class="fas fa-download"></i> 2,987</span>
+                            </div>
+                            <div class="policy-description">
+                                기후 관련 재무 리스크 및 기회를 공시하는 프레임워크. 지배구조, 전략, 리스크 관리, 지표 및 목표 4개 영역으로 구성됩니다.
+                            </div>
+                            <div class="policy-tags">
+                                <span class="tag">TCFD</span>
+                                <span class="tag">기후리스크</span>
+                                <span class="tag">재무정보</span>
+                            </div>
+                            <div class="policy-actions">
+                                <button class="btn-download">
+                                    <i class="fas fa-download"></i> 다운로드
+                                </button>
+                                <button class="btn-link">원문보기</button>
+                            </div>
+                        </div>
+
+                        <div class="policy-card">
+                            <span class="policy-badge badge-standard">국내 표준</span>
+                            <h3>K-ESG 평가지표</h3>
+                            <div class="policy-meta">
+                                <span><i class="fas fa-calendar"></i> 2025</span>
+                                <span><i class="fas fa-building"></i> 한국기업지배구조원</span>
+                                <span><i class="fas fa-download"></i> 5,234</span>
+                            </div>
+                            <div class="policy-description">
+                                한국형 ESG 평가 지표. 환경 30개, 사회 34개, 지배구조 27개 총 91개 평가항목으로 구성됩니다.
+                            </div>
+                            <div class="policy-tags">
+                                <span class="tag">K-ESG</span>
+                                <span class="tag">평가지표</span>
+                                <span class="tag">국내기준</span>
+                            </div>
+                            <div class="policy-actions">
+                                <button class="btn-download">
+                                    <i class="fas fa-download"></i> 다운로드
+                                </button>
+                                <button class="btn-link">원문보기</button>
+                            </div>
+                        </div>
+
+                        <div class="policy-card">
+                            <span class="policy-badge badge-standard">국내 표준</span>
+                            <h3>지속가능경영 보고서 작성 가이드라인</h3>
+                            <div class="policy-meta">
+                                <span><i class="fas fa-calendar"></i> 2023</span>
+                                <span><i class="fas fa-building"></i> 산업통상자원부</span>
+                                <span><i class="fas fa-download"></i> 2,567</span>
+                            </div>
+                            <div class="policy-description">
+                                국내 기업의 지속가능경영 보고서 작성을 위한 가이드라인. GRI 표준과 K-ESG 지표를 반영했습니다.
+                            </div>
+                            <div class="policy-tags">
+                                <span class="tag">보고서작성</span>
+                                <span class="tag">지속가능경영</span>
+                                <span class="tag">실무가이드</span>
+                            </div>
+                            <div class="policy-actions">
+                                <button class="btn-download">
+                                    <i class="fas fa-download"></i> 다운로드
+                                </button>
+                                <button class="btn-link">원문보기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>한국ESG학회</h3>
+                    <p>지속가능한 미래를 위한<br>ESG 연구와 실천</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <ul class="footer-links">
+                        <li><a href="../about/intro.html">학회소개</a></li>
+                        <li><a href="../member/process.html">회원가입</a></li>
+                        <li><a href="../journal/intro.html">학술지</a></li>
+                        <li><a href="../community/notice.html">커뮤니티</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>문의</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-phone"></i> 010-4263-7715</li>
+                        <li><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 서울특별시 동작구 상도로 369<br>숭실대학교 진리관 508호</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 한국ESG학회. All rights reserved.</p>
+                <div class="footer-links-bottom">
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        // 검색 기능
+        function performSearch() {
+            const searchType = document.getElementById('searchType').value;
+            const searchInput = document.getElementById('searchInput').value.trim();
+            
+            if (!searchInput) {
+                alert('검색어를 입력해주세요.');
+                return;
+            }
+            
+            console.log(`검색 유형: ${searchType}, 검색어: ${searchInput}`);
+            
+            // 실제 검색 로직 구현 예정
+            alert(`"${searchInput}" 검색 결과를 표시합니다.\\n(검색 기능은 추후 구현 예정)`);
+        }
+        
+        // Enter 키로 검색
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        performSearch();
+                    }
+                });
+            }
+        });
+        
+        // Tab switching
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                const tabId = tab.dataset.tab;
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!-- Header -->
+<style>
+/* 상단 로그아웃 버튼 스타일 */
+.logout-link {
+    color: #dc2626 !important;
+    font-weight: 600 !important;
+}
+
+.logout-link:hover {
+    background-color: #fee2e2 !important;
+    color: #991b1b !important;
+}
+
+.logout-link i {
+    margin-right: 5px;
+}
+</style>
+
+<header class="header">
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="/index.html" class="logo" id="logoLink">
+                    <img src="/images/logo.png" alt="한국ESG학회" class="logo-img">
+                </a>
+                
+                <button class="mobile-menu-btn" aria-label="메뉴 열기">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <ul class="nav-menu">
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link"><i class="fas fa-building"></i> 학회소개</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/pages/about/greeting-new.html">학회장 인사말</a></li>
+                            <li><a href="/pages/about/purpose.html">설립 목적·비전</a></li>
+                            <li><a href="/pages/about/history.html">연혁</a></li>
+                            <li><a href="/pages/about/constitution.html">정관·규정</a></li>
+                            <li><a href="/pages/about/ci.html">CI·BI</a></li>
+                            <li><a href="/pages/about/location.html">오시는 길</a></li>
+                            <li><a href="/pages/sitemap.html">웹 둘러보기</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link"><i class="fas fa-users"></i> 학회조직</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/pages/organization/executives.html">임원진</a></li>
+                            <li><a href="/pages/organization/committees.html">위원회</a></li>
+                            <li><a href="/pages/organization/divisions.html">분과학회·연구회</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link"><i class="fas fa-user-check"></i> 회원안내</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/pages/member/types-new.html">회원 구분</a></li>
+                            <li><a href="/pages/member/process.html">가입 절차</a></li>
+                            <li><a href="/pages/member/fee.html">회비 안내</a></li>
+                            <li><a href="/pages/member/benefits.html">회원 혜택</a></li>
+                            <li><a href="/pages/member/companies.html">회원사 소개</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link"><i class="fas fa-star"></i> 핵심사업</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/pages/core/main-services.html">ESG 주요사업</a></li>
+                            <li><a href="/pages/core/forum-new.html">월드ESG포럼</a></li>
+                            <li><a href="/pages/core/award.html">한국ESG대상</a></li>
+                            <li><a href="/pages/core/ordinance.html">한국ESG조례대상</a></li>
+                            <li><a href="/pages/core/seminar.html">월요학술세미나</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link"><i class="fas fa-book"></i> 학술지·논문</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/pages/journal/about.html">학술지 소개</a></li>
+                            <li><a href="/pages/journal/submission.html">논문 투고 안내</a></li>
+                            <li><a href="/pages/journal/editorial.html">편집위원회</a></li>
+                            <li><a href="/pages/journal/review.html">심사 규정</a></li>
+                            <li><a href="/pages/journal/archive.html">논문 아카이브</a></li>
+                            <li><a href="/pages/journal/dbpia-embed.html">DBPIA 논문 검색</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link"><i class="fas fa-chart-line"></i> ESG정책·연구</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/pages/policy/research.html">ESG 정책 연구</a></li>
+                            <li><a href="/pages/policy/standards.html">ESG 지표·표준</a></li>
+                            <li><a href="/pages/policy/law.html">법·제도 분석</a></li>
+                            <li><a href="/pages/policy/global.html">국제 ESG 동향</a></li>
+                            <li><a href="/pages/policy/reports.html">연구보고서</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link"><i class="fas fa-newspaper"></i> ESG뉴스</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/pages/news/main.html">ESG 주요 뉴스</a></li>
+                            <li><a href="/pages/news/policy.html">정책·입법 동향</a></li>
+                            <li><a href="/pages/news/cases.html">기업 ESG 사례</a></li>
+                            <li><a href="/pages/news/press.html">학회 보도자료</a></li>
+                            <li><a href="/pages/news/column.html">기고·칼럼</a></li>
+                            <li><a href="/pages/news/video.html">영상 콘텐츠</a></li>
+                            <li><a href="/pages/news/esg-news-embed.html">코리아ESG뉴스</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link"><i class="fas fa-comments"></i> 커뮤니티</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/pages/community/notice.html">공지사항</a></li>
+                            <li><a href="/pages/community/free-board.html">자유게시판</a></li>
+                            <li><a href="/pages/community/discussion.html">학술·정책 토론</a></li>
+                            <li><a href="/pages/community/member-news.html">회원 소식</a></li>
+                            <li><a href="/pages/community/qna.html">Q&A</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link"><i class="fas fa-folder-open"></i> 자료실</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/pages/materials/academic.html">학술자료</a></li>
+                            <li><a href="/pages/materials/policy.html">정책자료</a></li>
+                            <li><a href="/pages/materials/presentation.html">발표자료</a></li>
+                            <li><a href="/pages/materials/report.html">ESG 리포트</a></li>
+                            <li><a href="/pages/materials/video.html">영상자료</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link"><i class="fas fa-hand-holding-heart"></i> 후원·기부</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/pages/support/guide.html">후원 안내</a></li>
+                            <li><a href="/pages/support/corporate.html">기업 후원</a></li>
+                            <li><a href="/pages/support/personal.html">개인 기부</a></li>
+                            <li><a href="/pages/support/usage.html">기부금 사용 내역</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link"><i class="fas fa-user-circle"></i> 마이페이지</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/pages/auth/signup.html"><i class="fas fa-user-plus"></i> 회원가입</a></li>
+                            <li><a href="/pages/auth/login.html"><i class="fas fa-sign-in-alt"></i> 로그인</a></li>
+                            <li><a href="/pages/mypage/profile.html"><i class="fas fa-user-edit"></i> 회원정보 관리</a></li>
+                            <li><a href="/pages/mypage/payment.html"><i class="fas fa-credit-card"></i> 회비 납부</a></li>
+                            <li><a href="/pages/mypage/history.html"><i class="fas fa-history"></i> 납부 내역</a></li>
+                            <li><a href="/pages/mypage/paper.html"><i class="fas fa-file-alt"></i> 논문 투고 현황</a></li>
+                            <li><a href="/pages/mypage/event.html"><i class="fas fa-calendar-check"></i> 행사·세미나 신청 내역</a></li>
+                            <li><a href="/pages/mypage/certificate.html"><i class="fas fa-certificate"></i> 회원증·증명서</a></li>
+                            <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> 로그아웃</a></li>
+                        </ul>
+                    </li>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- 모바일 메뉴 오버레이 -->
+<div class="menu-overlay" id="menuOverlay"></div>
+
+<script>
+// 🚀 HEADER INLINE 로그인/로그아웃 메뉴 제어
+(function() {
+    function updateHeaderMenu() {
+        const isLoggedIn = !!(localStorage.getItem('user') || sessionStorage.getItem('user'));
+        console.log('🚀 HEADER INLINE 메뉴 업데이트 - 로그인:', isLoggedIn);
+        
+        // 🔥 상단 로그아웃 버튼 표시/숨김
+        const navLogoutBtn = document.getElementById('navLogoutBtn');
+        if (navLogoutBtn) {
+            navLogoutBtn.style.display = isLoggedIn ? 'block' : 'none';
+            console.log('🔥 상단 로그아웃 버튼:', isLoggedIn ? '표시' : '숨김');
+        }
+        
+        // 드롭다운 메뉴 제어
+        const dropdowns = document.querySelectorAll('.dropdown-menu');
+        
+        dropdowns.forEach(dropdown => {
+            const menuItems = dropdown.querySelectorAll('li');
+            
+            menuItems.forEach(item => {
+                const link = item.querySelector('a');
+                if (!link) return;
+                
+                const href = link.getAttribute('href') || '';
+                const text = link.textContent.trim();
+                const linkId = link.id || '';
+                
+                // 게스트 메뉴
+                const isGuest = href.includes('signup.html') || 
+                               href.includes('login.html') || 
+                               text.includes('회원가입') || 
+                               text.includes('로그인') ||
+                               linkId === 'loginBtn' ||
+                               linkId === 'topLoginBtn';
+                
+                // 사용자 메뉴
+                const isUser = href.includes('profile.html') || 
+                              href.includes('payment.html') || 
+                              href.includes('history.html') || 
+                              href.includes('paper.html') || 
+                              href.includes('event.html') || 
+                              href.includes('certificate.html') || 
+                              text.includes('로그아웃') || 
+                              text.includes('회원정보') ||
+                              text.includes('회비 납부') ||
+                              text.includes('납부 내역') ||
+                              text.includes('논문 투고') ||
+                              text.includes('행사') ||
+                              text.includes('회원증') ||
+                              linkId === 'logoutBtn';
+                
+                if (text.includes('로그아웃') || linkId === 'logoutBtn') {
+                    console.log('🔥 드롭다운 로그아웃 버튼 발견!', {
+                        text: text,
+                        href: href,
+                        linkId: linkId,
+                        isUser: isUser,
+                        현재display: item.style.display,
+                        계산된display: window.getComputedStyle(item).display
+                    });
+                }
+                
+                // 표시/숨김
+                if (isLoggedIn) {
+                    if (isGuest) {
+                        item.style.display = 'none';
+                    } else if (isUser) {
+                        item.style.display = 'block';
+                        // 로그아웃 버튼은 강제로 보이게
+                        if (text.includes('로그아웃') || linkId === 'logoutBtn') {
+                            item.style.display = 'list-item';
+                            console.log('🔥 로그아웃 버튼 강제 표시: list-item');
+                        }
+                    }
+                } else {
+                    if (isGuest) {
+                        item.style.display = 'block';
+                    } else if (isUser) {
+                        item.style.display = 'none';
+                    }
+                }
+            });
+        });
+        
+        console.log('✅ HEADER INLINE 메뉴 업데이트 완료');
+    }
+    
+    // 로그아웃 버튼 클릭 이벤트
+    function setupLogoutButtons() {
+        const logoutButtons = document.querySelectorAll('#topLogoutBtn, #logoutBtn');
+        
+        logoutButtons.forEach(btn => {
+            if (btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('🚀 로그아웃 버튼 클릭!');
+                    
+                    // 스토리지에서 사용자 정보 삭제
+                    localStorage.removeItem('user');
+                    sessionStorage.removeItem('user');
+                    
+                    // 메뉴 업데이트
+                    updateHeaderMenu();
+                    
+                    // 메인 페이지로 이동
+                    setTimeout(() => {
+                        window.location.href = '/index.html';
+                    }, 300);
+                });
+            }
+        });
+    }
+    
+    // 즉시 실행
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                updateHeaderMenu();
+                setupLogoutButtons();
+            }, 100);
+        });
+    } else {
+        setTimeout(() => {
+            updateHeaderMenu();
+            setupLogoutButtons();
+        }, 100);
+    }
+    
+    // 페이지 로드 완료 후에도 실행
+    window.addEventListener('load', function() {
+        setTimeout(() => {
+            updateHeaderMenu();
+            setupLogoutButtons();
+        }, 500);
+    });
+})();
+</script>

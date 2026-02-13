@@ -1,0 +1,338 @@
+/* 로그인 모달 스타일 */
+.login-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    animation: fadeIn 0.3s ease;
+}
+
+.login-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+.login-modal-content {
+    position: relative;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 480px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 40px 30px;
+    animation: slideUp 0.4s ease;
+    z-index: 10001;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.login-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #999;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.login-modal-close:hover {
+    color: #333;
+    background: #f5f5f5;
+    transform: rotate(90deg);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.login-header h2 i {
+    color: #27ae60;
+}
+
+.login-header p {
+    color: #666;
+    font-size: 14px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.login-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.login-form label {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.login-form label i {
+    color: #27ae60;
+    font-size: 16px;
+}
+
+.login-form input[type="email"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.login-form input[type="email"]:focus,
+.login-form input[type="password"]:focus {
+    outline: none;
+    border-color: #27ae60;
+    box-shadow: 0 0 0 4px rgba(39, 174, 96, 0.1);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: #666;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #27ae60;
+}
+
+.forgot-link {
+    color: #27ae60;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.forgot-link:hover {
+    color: #1e8449;
+    text-decoration: underline;
+}
+
+.login-submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.login-submit-btn:hover {
+    background: linear-gradient(135deg, #229954 0%, #1e8449 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(39, 174, 96, 0.3);
+}
+
+.login-submit-btn:active {
+    transform: translateY(0);
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.login-footer p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.register-link {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.register-link:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 576px) {
+    .login-modal-content {
+        padding: 30px 20px;
+        border-radius: 15px;
+        width: 95%;
+    }
+    
+    .login-header h2 {
+        font-size: 24px;
+    }
+    
+    .login-form input[type="email"],
+    .login-form input[type="password"] {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+    
+    .login-submit-btn {
+        padding: 14px;
+        font-size: 15px;
+    }
+    
+    .form-options {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+}
+
+/* 로그인 성공 애니메이션 */
+.login-success {
+    animation: successPulse 0.6s ease;
+}
+
+@keyframes successPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* 로그인 오류 애니메이션 */
+.login-error {
+    animation: errorShake 0.5s ease;
+}
+
+@keyframes errorShake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-10px);
+    }
+    75% {
+        transform: translateX(10px);
+    }
+}
+
+/* 마이페이지 드롭다운 메뉴 - 로그인 상태별 표시 */
+/* 기본적으로 로그아웃 상태 메뉴만 표시 */
+.auth-only.logged-out {
+    display: block !important;
+}
+
+.auth-only.logged-in {
+    display: none !important;
+}
+
+/* 로그인 상태일 때 */
+body.user-logged-in .auth-only.logged-out {
+    display: none !important;
+}
+
+body.user-logged-in .auth-only.logged-in {
+    display: block !important;
+}
+
+/* 드롭다운 구분선 */
+.dropdown-divider {
+    height: 1px;
+    background: #e0e0e0;
+    margin: 8px 0;
+    list-style: none;
+}
+
+/* 로그아웃 버튼 강조 */
+#logoutBtn {
+    color: #e74c3c !important;
+}
+
+#logoutBtn:hover {
+    background-color: #ffe5e5 !important;
+}

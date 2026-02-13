@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="한국ESG학회 - ESG 뉴스 (코리아ESG뉴스 제공)">
+    <title>코리아ESG뉴스 - 한국ESG학회</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    
+    <style>
+        /* 임베드 페이지 전용 스타일 */
+        .embed-container {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 200px);
+            min-height: 600px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+        }
+        
+        .embed-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .embed-fallback {
+            display: none;
+            padding: 40px;
+            text-align: center;
+            background: #f8f9fa;
+        }
+        
+        .embed-fallback.active {
+            display: block;
+        }
+        
+        .embed-fallback h3 {
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+        
+        .embed-fallback .btn-external {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary-green);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .embed-fallback .btn-external:hover {
+            background: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+        
+        .embed-info {
+            background: #f0f8ff;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary-blue);
+            border-radius: 4px;
+        }
+        
+        .embed-info i {
+            color: var(--primary-blue);
+            margin-right: 8px;
+        }
+        
+        .search-btn {
+            padding: 10px 20px;
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+        
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                        <span class="logo-text">한국ESG학회</span>
+                    </a>
+                    <button class="mobile-menu-btn" aria-label="메뉴 열기">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <ul class="nav-menu"></ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- 로그인 상태창 (최상단 고정) -->
+    <div class="user-status-fixed">
+        <div class="user-status-logged-out">
+            <a href="../member/process.html" class="status-link">회원가입</a>
+            <a href="../mypage/profile.html" class="status-link">로그인</a>
+        </div>
+        <div class="user-status-logged-in" style="display: none;">
+            <span class="user-info">
+                <i class="fas fa-user-circle"></i>
+                <span class="user-name">홍길동</span>님
+            </span>
+            <span class="status-divider">|</span>
+            <a href="../mypage/profile.html" class="status-btn">마이페이지</a>
+            <span class="status-divider">|</span>
+            <button class="status-btn logout-btn">로그아웃</button>
+        </div>
+    </div>
+
+    <section class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-rss"></i> 코리아ESG뉴스</h1>
+            <p>코리아ESG뉴스에서 제공하는 최신 ESG 관련 뉴스</p>
+            <div class="breadcrumb">
+                <a href="../../index.html"><i class="fas fa-home"></i> 홈</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="#">ESG뉴스</a>
+                <i class="fas fa-chevron-right"></i>
+                <span class="current">코리아ESG뉴스</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <div class="embed-info">
+                    <i class="fas fa-info-circle"></i>
+                    <strong>코리아ESG뉴스</strong> 웹사이트를 통해 최신 ESG 뉴스를 확인하실 수 있습니다.
+                </div>
+                
+                <!-- 뉴스 본문 다른 창에 보기 버튼 -->
+                <div style="margin-bottom: 20px; text-align: right;">
+                    <button class="search-btn" onclick="window.open('https://www.ken.io.kr/', '_blank')" style="background: var(--primary-blue);">
+                        <i class="fas fa-external-link-alt"></i> 뉴스 본문 다른 창에 보기
+                    </button>
+                </div>
+                
+                <div class="embed-container">
+                    <!-- 임베드 방식 1: iframe (기본) -->
+                    <iframe 
+                        id="newsEmbed"
+                        class="embed-frame" 
+                        src="https://www.ken.io.kr/"
+                        title="코리아ESG뉴스"
+                        sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                        loading="lazy">
+                    </iframe>
+                    
+                    <!-- 임베드 실패 시 대체 컨텐츠 -->
+                    <div class="embed-fallback" id="embedFallback">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #ffc107; margin-bottom: 20px;"></i>
+                        <h3>임베드 표시가 제한되었습니다</h3>
+                        <p>코리아ESG뉴스 웹사이트에서 직접 확인해주세요.</p>
+                        <a href="https://www.ken.io.kr/" target="_blank" rel="noopener noreferrer" class="btn-external">
+                            <i class="fas fa-external-link-alt"></i> 코리아ESG뉴스 바로가기
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 추가 정보 -->
+                <div class="content-section" style="margin-top: 40px;">
+                    <h2>코리아ESG뉴스 소개</h2>
+                    <p>코리아ESG뉴스는 ESG(환경·사회·지배구조) 관련 최신 뉴스와 정보를 제공하는 전문 미디어입니다.</p>
+                    <ul>
+                        <li>ESG 경영 동향 및 정책 소식</li>
+                        <li>국내외 ESG 우수 사례</li>
+                        <li>ESG 관련 법규 및 규제 정보</li>
+                        <li>ESG 전문가 칼럼 및 분석</li>
+                    </ul>
+                    <p style="margin-top: 20px;">
+                        <a href="https://www.ken.io.kr/" target="_blank" rel="noopener noreferrer" style="color: var(--primary-green); font-weight: 600;">
+                            <i class="fas fa-arrow-right"></i> 코리아ESG뉴스 웹사이트 방문하기
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p><strong>한국ESG학회</strong></p>
+                    <p>회장: 고문현 | Tel: 010-4263-7715</p>
+                    <p>주소: [06978] 서울특별시 동작구 상도로 369, 숭실대학교 진리관 508호</p>
+                    <p>개인정보관리책임자: kohmh@ssu.ac.kr | 홈페이지관리책임자: mail@iuci.kr</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 한국ESG학회. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        // iframe 로딩 실패 감지
+        const iframe = document.getElementById('newsEmbed');
+        const fallback = document.getElementById('embedFallback');
+        
+        iframe.addEventListener('error', function() {
+            fallback.classList.add('active');
+            iframe.style.display = 'none';
+        });
+        
+        // X-Frame-Options 제한 감지 (간접적)
+        setTimeout(function() {
+            try {
+                // iframe의 contentWindow 접근 시도
+                const iframeDoc = iframe.contentWindow.document;
+            } catch(e) {
+                // CORS 에러는 정상 (다른 도메인)
+                // 하지만 완전히 차단된 경우 감지 어려움
+            }
+        }, 3000);
+    </script>
+</body>
+</html>

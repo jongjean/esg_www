@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>월요학술세미나 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo-symbol.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+        .seminar-header {
+            background: linear-gradient(135deg, #f57c00 0%, #ff9800 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .seminar-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        
+        .intro-section {
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+        }
+        
+        .schedule-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #f57c00;
+            transition: all 0.3s ease;
+        }
+        
+        .schedule-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+        }
+        
+        .schedule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .schedule-date {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #f57c00;
+        }
+        
+        .schedule-status {
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .status-upcoming {
+            background: #e8f5e9;
+            color: #1e7e34;
+        }
+        
+        .status-past {
+            background: #f5f5f5;
+            color: #999;
+        }
+        
+        .schedule-card h3 {
+            color: #333;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+        
+        .speaker-info {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .speaker-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f57c00, #ff9800);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+        
+        .speaker-avatar i {
+            font-size: 1.8rem;
+            color: white;
+        }
+        
+        .speaker-details h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .speaker-details p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .seminar-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            color: #666;
+        }
+        
+        .info-item i {
+            margin-right: 10px;
+            color: #f57c00;
+        }
+        
+        .register-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #f57c00;
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .register-btn:hover {
+            background: #e65100;
+            transform: scale(1.05);
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .benefit-card {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #f57c00, #ff9800);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .benefit-icon i {
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .seminar-header h1 {
+                font-size: 2rem;
+            }
+            
+            .schedule-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 010-4263-7715</span>
+                        <span><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</span>
+                    </div>
+                    <div class="quick-links">
+                        <a href="../member/process.html">회원가입</a>
+                        <a href="../mypage/profile.html">로그인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    
+                    <button class="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                        </li>
+                        <li class="nav-item has-dropdown active">
+                            <a href="#" class="nav-link">핵심사업</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학술지·논문</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">자료실</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">마이페이지</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <div class="seminar-header" style="background: linear-gradient(90deg, #2d8659 0%, #1a7b9c 100%); padding: 60px 20px; text-align: center; margin: 0;">
+        <h1 style="color: white; font-size: 36px; font-weight: 700; margin: 0 0 15px 0;">
+            <i class="fas fa-chalkboard-teacher"></i> 월요학술세미나
+        </h1>
+        <p style="color: rgba(255, 255, 255, 0.95); font-size: 16px; margin: 0; line-height: 1.6;">
+            매주 월요일 개최되는 정기 ESG 학술 세미나
+        </p>
+    </div>
+
+    <main class="main-content">
+
+        <div class="container" style="margin-top: 20px;">
+            <div class="intro-section">
+                <h2 style="color: #f57c00; margin-bottom: 20px; font-size: 2rem;">
+                    <i class="fas fa-info-circle"></i> 세미나 소개
+                </h2>
+                <p style="line-height: 1.8; color: #555; font-size: 1.05rem;">
+                    월요학술세미나는 한국ESG학회가 주관하는 정기 학술 행사로, 매주 월요일 저녁 ESG 관련 최신 연구와 실무 사례를 공유하는 장입니다.
+                </p>
+                <p style="line-height: 1.8; color: #555; font-size: 1.05rem; margin-top: 15px;">
+                    국내외 ESG 전문가, 학자, 실무자가 발표하며, 질의응답과 토론을 통해 심도 있는 지식을 나눕니다. 학회 회원은 누구나 무료로 참여할 수 있습니다.
+                </p>
+            </div>
+
+            <h2 style="text-align: center; color: #f57c00; margin: 60px 0 40px; font-size: 2.2rem;">
+                <i class="fas fa-gift"></i> 참여 혜택
+            </h2>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3 style="color: #333; margin-bottom: 10px;">전문 지식 습득</h3>
+                    <p style="color: #666;">ESG 최신 트렌드와 연구 성과</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 style="color: #333; margin-bottom: 10px;">네트워킹</h3>
+                    <p style="color: #666;">ESG 전문가와의 교류 기회</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3 style="color: #333; margin-bottom: 10px;">참석 인증서</h3>
+                    <p style="color: #666;">이수증 발급 (연간 10회 이상)</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3 style="color: #333; margin-bottom: 10px;">자료 제공</h3>
+                    <p style="color: #666;">발표 자료 및 논문 공유</p>
+                </div>
+            </div>
+
+            <h2 style="text-align: center; color: #f57c00; margin: 60px 0 40px; font-size: 2.2rem;">
+                <i class="fas fa-calendar-alt"></i> 2025년 하반기 일정
+            </h2>
+
+            <div class="schedule-card">
+                <div class="schedule-header">
+                    <div class="schedule-date">2025년 12월 16일 (월) 19:00</div>
+                    <span class="schedule-status status-upcoming">신청 가능</span>
+                </div>
+                <h3>기후변화 대응과 탄소중립 전략</h3>
+                <div class="speaker-info">
+                    <div class="speaker-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="speaker-details">
+                        <h4>고문현 회장</h4>
+                        <p>한국ESG학회 회장 / 숭실대학교 교수</p>
+                    </div>
+                </div>
+                <div class="seminar-info">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>숭실대학교 진리관 508호</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <span>19:00 - 21:00 (2시간)</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-users"></i>
+                        <span>정원 50명</span>
+                    </div>
+                </div>
+                <a href="../member/process.html" class="register-btn">
+                    <i class="fas fa-check-circle"></i> 참가 신청하기
+                </a>
+            </div>
+
+            <div class="schedule-card">
+                <div class="schedule-header">
+                    <div class="schedule-date">2025년 12월 23일 (월) 19:00</div>
+                    <span class="schedule-status status-upcoming">신청 가능</span>
+                </div>
+                <h3>ESG 공시 의무화와 기업의 대응 전략</h3>
+                <div class="speaker-info">
+                    <div class="speaker-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="speaker-details">
+                        <h4>이공시 교수</h4>
+                        <p>서울대학교 경영학과 교수 / ESG 전문가</p>
+                    </div>
+                </div>
+                <div class="seminar-info">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>온라인 (Zoom)</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <span>19:00 - 21:00 (2시간)</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-users"></i>
+                        <span>정원 100명</span>
+                    </div>
+                </div>
+                <a href="../member/process.html" class="register-btn">
+                    <i class="fas fa-check-circle"></i> 참가 신청하기
+                </a>
+            </div>
+
+            <div class="schedule-card">
+                <div class="schedule-header">
+                    <div class="schedule-date">2025년 11월 25일 (월) 19:00</div>
+                    <span class="schedule-status status-past">종료</span>
+                </div>
+                <h3>글로벌 ESG 동향과 국내 기업의 대응</h3>
+                <div class="speaker-info">
+                    <div class="speaker-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="speaker-details">
+                        <h4>김국제 박사</h4>
+                        <p>한국ESG연구소 소장</p>
+                    </div>
+                </div>
+                <div class="seminar-info">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>숭실대학교 진리관 508호</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <span>19:00 - 21:00 (2시간)</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-users"></i>
+                        <span>참석 42명</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #fff3e0; padding: 40px; border-radius: 15px; margin-top: 60px;">
+                <h3 style="color: #f57c00; margin-bottom: 20px; font-size: 1.8rem;">
+                    <i class="fas fa-question-circle"></i> 참가 안내
+                </h3>
+                <p style="line-height: 1.8; color: #555; font-size: 1.05rem;">
+                    <strong>• 대상:</strong> 한국ESG학회 정회원 (비회원도 참가 가능)<br>
+                    <strong>• 참가비:</strong> 무료 (회원), 10,000원 (비회원)<br>
+                    <strong>• 신청:</strong> 학회 홈페이지 온라인 신청<br>
+                    <strong>• 문의:</strong> 한국ESG학회 사무국 (010-4263-7715)<br>
+                    <strong>• 주차:</strong> 숭실대학교 방문자 주차장 이용 가능
+                </p>
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="../member/process.html" style="display: inline-block; padding: 15px 40px; background: #f57c00; color: white; text-decoration: none; border-radius: 50px; font-weight: 600; box-shadow: 0 4px 15px rgba(245,124,0,0.3);">
+                        <i class="fas fa-envelope"></i> 세미나 문의하기
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>한국ESG학회</h3>
+                    <p>지속가능한 미래를 위한<br>ESG 연구와 실천</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <ul class="footer-links">
+                        <li><a href="../about/intro.html">학회소개</a></li>
+                        <li><a href="../member/process.html">회원가입</a></li>
+                        <li><a href="../journal/intro.html">학술지</a></li>
+                        <li><a href="../community/notice.html">커뮤니티</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>문의</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-phone"></i> 010-4263-7715</li>
+                        <li><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 서울특별시 동작구 상도로 369<br>숭실대학교 진리관 508호</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 한국ESG학회. All rights reserved.</p>
+                <div class="footer-links-bottom">
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+</body>
+</html>

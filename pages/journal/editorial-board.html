@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="한국ESG학회 편집위원회 - 학술지 편집위원 소개">
+    <title>편집위원회 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo-symbol.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+        .editorial-hero {
+            background: transparent;
+            color: var(--text-dark);
+            padding: 30px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--primary-blue);
+        }
+        .editorial-hero h2 {
+            font-size: 2.3rem;
+            margin-bottom: 15px;
+            color: var(--primary-blue);
+        }
+        .editorial-hero h2 i {
+            margin-right: 12px;
+        }
+        .editorial-hero p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+        .editor-chief-section {
+            background: linear-gradient(135deg, #e8f5e9, #e3f2fd);
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        .editor-chief-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .editor-chief-header h3 {
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+        .editor-chief-card {
+            background: #fff;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .editor-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .editor-name i {
+            color: var(--primary-green);
+        }
+        .editor-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .editor-info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+            color: #555;
+        }
+        .editor-info-item i {
+            width: 20px;
+            color: var(--primary-blue);
+        }
+        .editor-research {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .editor-research h4 {
+            font-size: 1.1rem;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+        .editor-research ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .editor-research li {
+            padding: 6px 0;
+            color: #555;
+        }
+        .editor-research li::before {
+            content: "•";
+            color: var(--primary-green);
+            font-weight: bold;
+            display: inline-block;
+            width: 20px;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--primary-green);
+        }
+        .editors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .editor-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary-green);
+        }
+        .editor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+        }
+        .editor-card .editor-name {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+        .editor-card .editor-info {
+            gap: 8px;
+        }
+        .editor-card .editor-info-item {
+            font-size: 0.95rem;
+        }
+        .role-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-green));
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .info-section {
+            background: var(--bg-green-light);
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+        .info-section h3 {
+            font-size: 1.5rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+        .info-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .info-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            font-size: 1rem;
+            color: #555;
+        }
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+        .info-list li strong {
+            color: var(--primary-blue);
+            margin-right: 10px;
+        }
+        @media (max-width: 768px) {
+            .editorial-hero h2 {
+                font-size: 1.8rem;
+            }
+            .editors-grid {
+                grid-template-columns: 1fr;
+            }
+            .editor-chief-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 010-4263-7715</span>
+                        <span><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</span>
+                    </div>
+                    <div class="quick-links">
+                        <a href="../member/process.html">회원가입</a>
+                        <a href="../mypage/profile.html">로그인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    <button class="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">핵심사업</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link active">학술지·논문</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">자료실</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">마이페이지</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../../index.html"><i class="fas fa-home"></i> 홈</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="#">학술지·논문</a>
+            <i class="fas fa-chevron-right"></i>
+            <span class="current">편집위원</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <div class="editorial-hero">
+                <h2><i class="fas fa-users"></i> 편집위원회</h2>
+                <p>한국ESG학회 학술지 편집위원회를 소개합니다</p>
+            </div>
+
+            <!-- 편집위원장 Section -->
+            <div class="editor-chief-section">
+                <div class="editor-chief-header">
+                    <h3><i class="fas fa-crown"></i> 편집위원장</h3>
+                </div>
+                <div class="editor-chief-card">
+                    <div class="editor-name">
+                        <i class="fas fa-user-tie"></i>
+                        <span>고문현 교수</span>
+                    </div>
+                    <div class="editor-info">
+                        <div class="editor-info-item">
+                            <i class="fas fa-university"></i>
+                            <span>숭실대학교 경영학과</span>
+                        </div>
+                        <div class="editor-info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>kohmh@ssu.ac.kr</span>
+                        </div>
+                        <div class="editor-info-item">
+                            <i class="fas fa-phone"></i>
+                            <span>010-4263-7715</span>
+                        </div>
+                        <div class="editor-info-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>경영학 박사 (재무관리 전공)</span>
+                        </div>
+                    </div>
+                    <div class="editor-research">
+                        <h4><i class="fas fa-flask"></i> 주요 연구 분야</h4>
+                        <ul>
+                            <li>ESG 경영 및 지속가능성 평가</li>
+                            <li>기업 재무관리 및 투자전략</li>
+                            <li>사회책임투자(SRI) 및 ESG 투자</li>
+                            <li>기업지배구조 및 이사회 효과성</li>
+                            <li>ESG 공시 및 보고 프레임워크</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 부편집위원장 Section -->
+            <section class="editors-section">
+                <h3 class="section-title"><i class="fas fa-user-plus"></i> 부편집위원장</h3>
+                <div class="editors-grid">
+                    <div class="editor-card">
+                        <div class="editor-name">
+                            <i class="fas fa-user-circle"></i>
+                            <span>김영민 교수</span>
+                        </div>
+                        <div class="editor-info">
+                            <div class="editor-info-item">
+                                <i class="fas fa-university"></i>
+                                <span>서울대학교 경영대학</span>
+                            </div>
+                            <div class="editor-info-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>ymkim@snu.ac.kr</span>
+                            </div>
+                            <div class="editor-info-item">
+                                <i class="fas fa-microscope"></i>
+                                <span>환경경영, 탄소배출권 거래</span>
+                            </div>
+                        </div>
+                        <span class="role-badge">부편집위원장</span>
+                    </div>
+                    <div class="editor-card">
+                        <div class="editor-name">
+                            <i class="fas fa-user-circle"></i>
+                            <span>박지현 교수</span>
+                        </div>
+                        <div class="editor-info">
+                            <div class="editor-info-item">
+                                <i class="fas fa-university"></i>
+                                <span>연세대학교 경제학과</span>
+                            </div>
+                            <div class="editor-info-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>jhpark@yonsei.ac.kr</span>
+                            </div>
+                            <div class="editor-info-item">
+                                <i class="fas fa-microscope"></i>
+                                <span>사회적 가치, CSR 전략</span>
+                            </div>
+                        </div>
+                        <span class="role-badge">부편집위원장</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 편집위원 Section -->
+            <section class="editors-section">
+                <h3 class="section-title"><i class="fas fa-users-cog"></i> 편집위원</h3>
+                <div class="editors-grid">
+                    <div class="editor-card">
+                        <div class="editor-name">
+                            <i class="fas fa-user"></i>
+                            <span>이수진 교수</span>
+                        </div>
+                        <div class="editor-info">
+                            <div class="editor-info-item">
+                                <i class="fas fa-university"></i>
+                                <span>고려대학교 경영학과</span>
+                            </div>
+                            <div class="editor-info-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>sjlee@korea.ac.kr</span>
+                            </div>
+                            <div class="editor-info-item">
+                                <i class="fas fa-microscope"></i>
+                                <span>지배구조, 이사회 구성</span>
+                            </div>
+                        </div>
+                        <span class="role-badge">편집위원</span>
+                    </div>
+                    <div class="editor-card">
+                        <div class="editor-name">
+                            <i class="fas fa-user"></i>
+                            <span>최현우 교수</span>
+                        </div>
+                        <div class="editor-info">
+                            <div class="editor-info-item">
+                                <i class="fas fa-university"></i>
+                                <span>KAIST 경영대학</span>
+                            </div>
+                            <div class="editor-info-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>hwchoi@kaist.ac.kr</span>
+                            </div>
+                            <div class="editor-info-item">
+                                <i class="fas fa-microscope"></i>
+                                <span>ESG 데이터 분석, AI 활용</span>
+                            </div>
+                        </div>
+                        <span class="role-badge">편집위원</span>
+                    </div>
+                    <div class="editor-card">
+                        <div class="editor-name">
+                            <i class="fas fa-user"></i>
+                            <span>정민아 교수</span>
+                        </div>
+                        <div class="editor-info">
+                            <div class="editor-info-item">
+                                <i class="fas fa-university"></i>
+                                <span>성균관대학교 경영학과</span>
+                            </div>
+                            <div class="editor-info-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>majung@skku.edu</span>
+                            </div>
+                            <div class="editor-info-item">
+                                <i class="fas fa-microscope"></i>
+                                <span>지속가능경영, ESG 공시</span>
+                            </div>
+                        </div>
+                        <span class="role-badge">편집위원</span>
+                    </div>
+                    <div class="editor-card">
+                        <div class="editor-name">
+                            <i class="fas fa-user"></i>
+                            <span>강태영 교수</span>
+                        </div>
+                        <div class="editor-info">
+                            <div class="editor-info-item">
+                                <i class="fas fa-university"></i>
+                                <span>한양대학교 경제금융학부</span>
+                            </div>
+                            <div class="editor-info-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>tykang@hanyang.ac.kr</span>
+                            </div>
+                            <div class="editor-info-item">
+                                <i class="fas fa-microscope"></i>
+                                <span>녹색금융, 탄소금융</span>
+                            </div>
+                        </div>
+                        <span class="role-badge">편집위원</span>
+                    </div>
+                    <div class="editor-card">
+                        <div class="editor-name">
+                            <i class="fas fa-user"></i>
+                            <span>윤서영 박사</span>
+                        </div>
+                        <div class="editor-info">
+                            <div class="editor-info-item">
+                                <i class="fas fa-building"></i>
+                                <span>한국환경연구원</span>
+                            </div>
+                            <div class="editor-info-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>syyoon@kei.re.kr</span>
+                            </div>
+                            <div class="editor-info-item">
+                                <i class="fas fa-microscope"></i>
+                                <span>환경정책, 기후변화 대응</span>
+                            </div>
+                        </div>
+                        <span class="role-badge">편집위원</span>
+                    </div>
+                    <div class="editor-card">
+                        <div class="editor-name">
+                            <i class="fas fa-user"></i>
+                            <span>김준호 박사</span>
+                        </div>
+                        <div class="editor-info">
+                            <div class="editor-info-item">
+                                <i class="fas fa-building"></i>
+                                <span>삼성경제연구소</span>
+                            </div>
+                            <div class="editor-info-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>jh.kim@seri.org</span>
+                            </div>
+                            <div class="editor-info-item">
+                                <i class="fas fa-microscope"></i>
+                                <span>기업전략, ESG 경영혁신</span>
+                            </div>
+                        </div>
+                        <span class="role-badge">편집위원</span>
+                    </div>
+                    <div class="editor-card">
+                        <div class="editor-name">
+                            <i class="fas fa-user"></i>
+                            <span>홍미래 교수</span>
+                        </div>
+                        <div class="editor-info">
+                            <div class="editor-info-item">
+                                <i class="fas fa-university"></i>
+                                <span>이화여자대학교 경영학과</span>
+                            </div>
+                            <div class="editor-info-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>mrhong@ewha.ac.kr</span>
+                            </div>
+                            <div class="editor-info-item">
+                                <i class="fas fa-microscope"></i>
+                                <span>사회적 경제, 임팩트 투자</span>
+                            </div>
+                        </div>
+                        <span class="role-badge">편집위원</span>
+                    </div>
+                    <div class="editor-card">
+                        <div class="editor-name">
+                            <i class="fas fa-user"></i>
+                            <span>조영석 교수</span>
+                        </div>
+                        <div class="editor-info">
+                            <div class="editor-info-item">
+                                <i class="fas fa-university"></i>
+                                <span>중앙대학교 법학전문대학원</span>
+                            </div>
+                            <div class="editor-info-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>yscho@cau.ac.kr</span>
+                            </div>
+                            <div class="editor-info-item">
+                                <i class="fas fa-microscope"></i>
+                                <span>ESG 법규, 기업법</span>
+                            </div>
+                        </div>
+                        <span class="role-badge">편집위원</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 편집위원회 역할 안내 -->
+            <div class="info-section">
+                <h3><i class="fas fa-info-circle"></i> 편집위원회 역할</h3>
+                <ul class="info-list">
+                    <li><strong>학술지 편집 정책 수립:</strong> 학술지의 발행 방향과 편집 정책을 결정합니다.</li>
+                    <li><strong>논문 심사 관리:</strong> 투고된 논문의 심사위원을 선정하고 심사 과정을 관리합니다.</li>
+                    <li><strong>게재 논문 최종 결정:</strong> 심사 결과를 바탕으로 논문의 게재 여부를 최종 결정합니다.</li>
+                    <li><strong>학술지 품질 관리:</strong> 학술지의 학술적 품질과 연구 윤리를 관리·감독합니다.</li>
+                    <li><strong>특집호 기획:</strong> 주요 ESG 이슈에 대한 특집호를 기획하고 추진합니다.</li>
+                    <li><strong>국제화 추진:</strong> 해외 석학과의 교류 및 국제 학술지 등재를 추진합니다.</li>
+                </ul>
+            </div>
+
+            <!-- 편집위원 지원 안내 -->
+            <div class="info-section" style="background: var(--bg-blue-light); margin-top: 30px;">
+                <h3><i class="fas fa-hand-holding-heart"></i> 편집위원 지원 안내</h3>
+                <ul class="info-list">
+                    <li><strong>지원 자격:</strong> ESG 관련 분야 박사학위 소지자 또는 이에 준하는 연구 실적 보유자</li>
+                    <li><strong>임기:</strong> 2년 (연임 가능)</li>
+                    <li><strong>활동 내용:</strong> 년 4회 편집위원회 참석, 논문 심사위원 추천, 특집호 기획 참여</li>
+                    <li><strong>문의:</strong> 편집위원회 사무국 (kohmh@ssu.ac.kr / 010-4263-7715)</li>
+                </ul>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="../../images/logo.png" alt="한국ESG학회" class="footer-logo-img">
+                    <p class="footer-tagline">지속가능한 미래를 위한 ESG 연구와 실천</p>
+                </div>
+                <div class="footer-info">
+                    <h4>사단법인 한국ESG학회</h4>
+                    <ul class="footer-info-list">
+                        <li><strong>회장:</strong> 고문현</li>
+                        <li><strong>Tel.</strong> 010-4263-7715</li>
+                        <li><strong>주소:</strong> [06978] 서울특별시 동작구 상도로 369, 숭실대학교 진리관 508호</li>
+                        <li><strong>개인정보관리책임자:</strong> 고문현 (kohmh@ssu.ac.kr)</li>
+                        <li><strong>홈페이지관리책임자:</strong> 강종진 (mail@iuci.kr)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Korean ESG Association. All Rights Reserved.</p>
+                <p class="footer-credit">Design by Korean ESG Association</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+/* ==========================================
+   Disable Content Editing
+   ========================================== */
+
+/* 모든 요소의 편집 모드 차단 */
+* {
+    -webkit-user-modify: read-only !important;
+    user-modify: read-only !important;
+}
+
+/* HTML과 body의 편집 모드 차단 */
+html, body {
+    -webkit-user-modify: read-only !important;
+    user-modify: read-only !important;
+}
+
+/* 명시적으로 contenteditable 속성이 있는 요소만 편집 가능 */
+[contenteditable="true"] {
+    -webkit-user-modify: read-write !important;
+    user-modify: read-write !important;
+}
+
+/* input, textarea는 정상 작동하도록 허용 */
+input, textarea, select {
+    -webkit-user-modify: read-write !important;
+    user-modify: read-write !important;
+}
+
+/* 디자인 모드가 켜져있을 때도 편집 방지 */
+body[contenteditable="true"] {
+    -webkit-user-modify: read-only !important;
+    user-modify: read-only !important;
+}
+
+/* 브라우저 기본 편집 UI 숨기기 */
+*::-webkit-resizer,
+*::-webkit-scrollbar-corner {
+    display: none !important;
+}
+
+/* Top Bar 및 로그인 메뉴 완전 제거 */
+.top-bar,
+.top-status-bar,
+.user-status-fixed,
+.user-status-logged-out,
+.user-status-logged-in,
+.quick-links,
+.status-link,
+.contact-info {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    left: -9999px !important;
+    top: -9999px !important;
+    pointer-events: none !important;
+}

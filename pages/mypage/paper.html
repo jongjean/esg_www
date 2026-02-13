@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>논문 투고 현황 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+        .paper-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .stat-card.primary {
+            background: #1e7e34;
+            border: 3px solid #166028;
+            color: white;
+        }
+
+        .stat-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .stat-card.primary .stat-label {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1e7e34;
+        }
+
+        .stat-card.primary .stat-value {
+            color: white;
+        }
+
+        .quick-actions {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            padding: 20px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+
+        .action-btn:hover {
+            background: #e8f5e9;
+            border-color: #1e7e34;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(30, 126, 52, 0.2);
+        }
+
+        .action-icon {
+            font-size: 28px;
+            color: #1e7e34;
+            margin-bottom: 10px;
+        }
+
+        .action-text {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .paper-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #1e7e34;
+        }
+
+        .paper-card {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .paper-card:hover {
+            border-color: #1e7e34;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .paper-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+
+        .paper-id {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .paper-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .paper-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .paper-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .paper-meta-item i {
+            color: #1e7e34;
+        }
+
+        .status-badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-badge.submitted {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .status-badge.reviewing {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .status-badge.revision {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+
+        .status-badge.accepted {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-badge.rejected {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .status-badge.published {
+            background: #1e7e34;
+            border: 2px solid #166028;
+            color: white;
+        }
+
+        .progress-timeline {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px dashed #e9ecef;
+        }
+
+        .timeline-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .timeline-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .timeline-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e9ecef;
+            color: #999;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            font-size: 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-step.completed .step-icon {
+            background: #1e7e34;
+            color: white;
+        }
+
+        .timeline-step.active .step-icon {
+            background: #f39c12;
+            color: white;
+        }
+
+        .step-label {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .timeline-step.completed .step-label,
+        .timeline-step.active .step-label {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e9ecef;
+            z-index: 1;
+        }
+
+        .paper-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary-small {
+            background: #1e7e34;
+            color: white;
+        }
+
+        .btn-primary-small:hover {
+            background: #166028;
+        }
+
+        .btn-secondary-small {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary-small:hover {
+            background: #5a6268;
+        }
+
+        .btn-outline-small {
+            background: white;
+            color: #1e7e34;
+            border: 2px solid #1e7e34;
+        }
+
+        .btn-outline-small:hover {
+            background: #1e7e34;
+            color: white;
+        }
+
+        .review-comments {
+            background: #f8f9fa;
+            border-left: 4px solid #1e7e34;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+        .comment-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e7e34;
+            margin-bottom: 8px;
+        }
+
+        .comment-text {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .empty-state-text {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .btn-new-submission {
+            padding: 12px 30px;
+            background: #1e7e34;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-new-submission:hover {
+            background: #166028;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 126, 52, 0.3);
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-size: 15px;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            color: #1e7e34;
+        }
+
+        .tab-btn.active {
+            color: #1e7e34;
+            border-bottom-color: #1e7e34;
+        }
+
+        @media (max-width: 768px) {
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .paper-header {
+                flex-direction: column;
+            }
+
+            .timeline-steps {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .timeline-line {
+                display: none;
+            }
+
+            .paper-actions {
+                flex-direction: column;
+            }
+
+            .btn-small {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    
+                    <button class="mobile-menu-btn" aria-label="메뉴 열기">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../about/greeting.html">학회장 인사말</a></li>
+                                <li><a href="../about/purpose.html">설립 목적·비전</a></li>
+                                <li><a href="../about/history.html">연혁</a></li>
+                                <li><a href="../about/constitution.html">정관·규정</a></li>
+                                <li><a href="../about/ci.html">CI·BI</a></li>
+                                <li><a href="../about/location.html">오시는 길</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../organization/executives.html">임원진</a></li>
+                                <li><a href="../organization/committees.html">위원회</a></li>
+                                <li><a href="../organization/divisions.html">분과학회·연구회</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../member/types.html">회원 구분</a></li>
+                                <li><a href="../member/process.html">가입 절차</a></li>
+                                <li><a href="../member/fee.html">회비 안내</a></li>
+                                <li><a href="../member/benefits.html">회원 혜택</a></li>
+                                <li><a href="../member/companies.html">회원사 소개</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">핵심사업</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../core/forum.html">월드ESG포럼</a></li>
+                                <li><a href="../core/award.html">한국ESG대상</a></li>
+                                <li><a href="../core/ordinance.html">한국ESG조례대상</a></li>
+                                <li><a href="../core/seminar.html">월요학술세미나</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학술지·논문</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../journal/about.html">학술지 소개</a></li>
+                                <li><a href="../journal/submission.html">논문 투고 안내</a></li>
+                                <li><a href="../journal/editorial.html">편집위원회</a></li>
+                                <li><a href="../journal/review.html">심사 규정</a></li>
+                                <li><a href="../journal/archive.html">논문 아카이브</a></li>
+                                <li><a href="../journal/dbpia-embed.html">DBPIA 논문 검색</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../policy/research.html">ESG 정책 연구</a></li>
+                                <li><a href="../policy/standards.html">ESG 지표·표준</a></li>
+                                <li><a href="../policy/law.html">법·제도 분석</a></li>
+                                <li><a href="../policy/global.html">국제 ESG 동향</a></li>
+                                <li><a href="../policy/reports.html">연구보고서</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../news/main.html">ESG 주요 뉴스</a></li>
+                                <li><a href="../news/policy.html">정책·입법 동향</a></li>
+                                <li><a href="../news/cases.html">기업 ESG 사례</a></li>
+                                <li><a href="../news/press.html">학회 보도자료</a></li>
+                                <li><a href="../news/column.html">기고·칼럼</a></li>
+                                <li><a href="../news/video.html">영상 콘텐츠</a></li>
+                                <li><a href="../news/esg-news-embed.html">코리아ESG뉴스</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../community/notice.html">공지사항</a></li>
+                                <li><a href="../community/forum.html">자유게시판</a></li>
+                                <li><a href="../community/discussion.html">학술·정책 토론</a></li>
+                                <li><a href="../community/member-news.html">회원 소식</a></li>
+                                <li><a href="../community/qna.html">Q&A</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">자료실</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../materials/academic.html">학술자료</a></li>
+                                <li><a href="../materials/policy.html">정책자료</a></li>
+                                <li><a href="../materials/presentation.html">발표자료</a></li>
+                                <li><a href="../materials/report.html">ESG 리포트</a></li>
+                                <li><a href="../materials/video.html">영상자료</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../support/guide.html">후원 안내</a></li>
+                                <li><a href="../support/corporate.html">기업 후원</a></li>
+                                <li><a href="../support/personal.html">개인 기부</a></li>
+                                <li><a href="../support/usage.html">기부금 사용 내역</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">마이페이지</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="profile.html">회원정보 관리</a></li>
+                                <li><a href="payment.html">회비 납부</a></li>
+                                <li><a href="history.html">납부 내역</a></li>
+                                <li><a href="paper.html">논문 투고 현황</a></li>
+                                <li><a href="event.html">행사·세미나 신청 내역</a></li>
+                                <li><a href="certificate.html">회원증·증명서</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="breadcrumb">
+            <a href="../../index.html"><i class="fas fa-home"></i> 홈</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="#">마이페이지</a>
+            <i class="fas fa-chevron-right"></i>
+            <span class="current">논문 투고 현황</span>
+        </div>
+    </header>
+
+    <div class="subpage-container">
+        <main class="content">
+            <div class="page-header">
+                <h1><i class="fas fa-file-alt"></i> 논문 투고 현황</h1>
+                <p class="page-description">투고한 논문의 심사 상태를 확인하고 관리하실 수 있습니다.</p>
+            </div>
+
+            <div class="paper-container">
+                <!-- 통계 카드 -->
+                <div class="stats-row">
+                    <div class="stat-card primary">
+                        <div class="stat-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="stat-label">총 투고 논문</div>
+                        <div class="stat-value">5편</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="color: #2e7d32;">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-label">게재 완료</div>
+                        <div class="stat-value">3편</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="color: #f57c00;">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-label">심사 중</div>
+                        <div class="stat-value">1편</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="color: #c2185b;">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="stat-label">수정 요청</div>
+                        <div class="stat-value">1편</div>
+                    </div>
+                </div>
+
+                <!-- 빠른 메뉴 -->
+                <div class="quick-actions">
+                    <h2 class="section-title">
+                        <i class="fas fa-bolt"></i>
+                        빠른 메뉴
+                    </h2>
+                    <div class="actions-grid">
+                        <a href="../journal/submission.html" class="action-btn">
+                            <div class="action-icon">
+                                <i class="fas fa-upload"></i>
+                            </div>
+                            <div class="action-text">신규 논문 투고</div>
+                        </a>
+                        <a href="../journal/review.html" class="action-btn">
+                            <div class="action-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="action-text">투고 규정 보기</div>
+                        </a>
+                        <a href="../journal/archive.html" class="action-btn">
+                            <div class="action-icon">
+                                <i class="fas fa-archive"></i>
+                            </div>
+                            <div class="action-text">논문 아카이브</div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 논문 목록 -->
+                <div class="paper-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-list-ul"></i>
+                        투고 논문 목록
+                    </h2>
+
+                    <!-- 필터 탭 -->
+                    <div class="filter-tabs">
+                        <button class="tab-btn active" onclick="filterPapers('all')">전체 (5)</button>
+                        <button class="tab-btn" onclick="filterPapers('reviewing')">심사중 (1)</button>
+                        <button class="tab-btn" onclick="filterPapers('revision')">수정요청 (1)</button>
+                        <button class="tab-btn" onclick="filterPapers('accepted')">채택 (3)</button>
+                        <button class="tab-btn" onclick="filterPapers('published')">게재완료 (3)</button>
+                    </div>
+
+                    <!-- 논문 1: 심사중 -->
+                    <div class="paper-card" data-status="reviewing">
+                        <div class="paper-header">
+                            <div style="flex: 1;">
+                                <div class="paper-id">논문번호: KESG-2025-045</div>
+                                <h3 class="paper-title">ESG 경영이 기업 재무성과에 미치는 영향: 국내 상장기업을 중심으로</h3>
+                                <div class="paper-meta">
+                                    <span class="paper-meta-item">
+                                        <i class="fas fa-user"></i> 홍길동, 김철수 (공저)
+                                    </span>
+                                    <span class="paper-meta-item">
+                                        <i class="fas fa-calendar"></i> 2025.11.15 투고
+                                    </span>
+                                    <span class="paper-meta-item">
+                                        <i class="fas fa-file-pdf"></i> ESG_Management_2025.pdf
+                                    </span>
+                                </div>
+                            </div>
+                            <span class="status-badge reviewing">심사중</span>
+                        </div>
+
+                        <!-- 진행 상황 타임라인 -->
+                        <div class="progress-timeline">
+                            <div class="timeline-title">심사 진행 상황</div>
+                            <div class="timeline-steps">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-step completed">
+                                    <div class="step-icon"><i class="fas fa-check"></i></div>
+                                    <div class="step-label">논문 접수</div>
+                                </div>
+                                <div class="timeline-step completed">
+                                    <div class="step-icon"><i class="fas fa-check"></i></div>
+                                    <div class="step-label">형식 검토</div>
+                                </div>
+                                <div class="timeline-step active">
+                                    <div class="step-icon"><i class="fas fa-clock"></i></div>
+                                    <div class="step-label">전문가 심사</div>
+                                </div>
+                                <div class="timeline-step">
+                                    <div class="step-icon"><i class="fas fa-circle"></i></div>
+                                    <div class="step-label">편집위원회</div>
+                                </div>
+                                <div class="timeline-step">
+                                    <div class="step-icon"><i class="fas fa-circle"></i></div>
+                                    <div class="step-label">최종 결정</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="paper-actions">
+                            <button class="btn-small btn-primary-small" onclick="viewDetails(1)">
+                                <i class="fas fa-eye"></i> 상세 보기
+                            </button>
+                            <button class="btn-small btn-secondary-small" onclick="downloadFile(1)">
+                                <i class="fas fa-download"></i> 파일 다운로드
+                            </button>
+                            <button class="btn-small btn-outline-small" onclick="contactEditor(1)">
+                                <i class="fas fa-envelope"></i> 편집부 문의
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 논문 2: 수정 요청 -->
+                    <div class="paper-card" data-status="revision">
+                        <div class="paper-header">
+                            <div style="flex: 1;">
+                                <div class="paper-id">논문번호: KESG-2025-032</div>
+                                <h3 class="paper-title">탄소중립 정책이 제조업 경쟁력에 미치는 영향 분석</h3>
+                                <div class="paper-meta">
+                                    <span class="paper-meta-item">
+                                        <i class="fas fa-user"></i> 홍길동 (단독 저자)
+                                    </span>
+                                    <span class="paper-meta-item">
+                                        <i class="fas fa-calendar"></i> 2025.09.20 투고
+                                    </span>
+                                    <span class="paper-meta-item">
+                                        <i class="fas fa-file-pdf"></i> Carbon_Neutral_Policy.pdf
+                                    </span>
+                                </div>
+                            </div>
+                            <span class="status-badge revision">수정 요청</span>
+                        </div>
+
+                        <!-- 심사 의견 -->
+                        <div class="review-comments">
+                            <div class="comment-title">
+                                <i class="fas fa-comment-dots"></i> 심사위원 의견 (2025.11.25)
+                            </div>
+                            <div class="comment-text">
+                                본 논문은 탄소중립 정책의 산업적 영향을 분석한 의미 있는 연구입니다. 다만, 다음 사항에 대한 보완이 필요합니다:<br><br>
+                                1. 연구 방법론에 대한 상세한 설명 추가<br>
+                                2. 선행연구 검토 부분 보강<br>
+                                3. 실증분석 결과 해석의 명확화<br>
+                                4. 정책적 시사점 부분 확대<br><br>
+                                수정 기한: 2025.12.31까지
+                            </div>
+                        </div>
+
+                        <!-- 진행 상황 타임라인 -->
+                        <div class="progress-timeline">
+                            <div class="timeline-title">심사 진행 상황</div>
+                            <div class="timeline-steps">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-step completed">
+                                    <div class="step-icon"><i class="fas fa-check"></i></div>
+                                    <div class="step-label">논문 접수</div>
+                                </div>
+                                <div class="timeline-step completed">
+                                    <div class="step-icon"><i class="fas fa-check"></i></div>
+                                    <div class="step-label">형식 검토</div>
+                                </div>
+                                <div class="timeline-step completed">
+                                    <div class="step-icon"><i class="fas fa-check"></i></div>
+                                    <div class="step-label">전문가 심사</div>
+                                </div>
+                                <div class="timeline-step active">
+                                    <div class="step-icon"><i class="fas fa-edit"></i></div>
+                                    <div class="step-label">수정 중</div>
+                                </div>
+                                <div class="timeline-step">
+                                    <div class="step-icon"><i class="fas fa-circle"></i></div>
+                                    <div class="step-label">최종 결정</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="paper-actions">
+                            <button class="btn-small btn-primary-small" onclick="uploadRevision(2)">
+                                <i class="fas fa-upload"></i> 수정본 업로드
+                            </button>
+                            <button class="btn-small btn-secondary-small" onclick="viewReview(2)">
+                                <i class="fas fa-clipboard"></i> 심사의견 전체보기
+                            </button>
+                            <button class="btn-small btn-outline-small" onclick="downloadFile(2)">
+                                <i class="fas fa-download"></i> 원본 다운로드
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 논문 3: 게재 완료 -->
+                    <div class="paper-card" data-status="published">
+                        <div class="paper-header">
+                            <div style="flex: 1;">
+                                <div class="paper-id">논문번호: KESG-2025-018 | DOI: 10.12345/kesg.2025.5.2.123</div>
+                                <h3 class="paper-title">사회적 책임 투자(SRI)의 국내 현황과 발전 방향</h3>
+                                <div class="paper-meta">
+                                    <span class="paper-meta-item">
+                                        <i class="fas fa-user"></i> 홍길동, 이영희, 박지성 (공저)
+                                    </span>
+                                    <span class="paper-meta-item">
+                                        <i class="fas fa-book"></i> 제5권 제2호 (2025)
+                                    </span>
+                                    <span class="paper-meta-item">
+                                        <i class="fas fa-eye"></i> 조회수 1,234회
+                                    </span>
+                                    <span class="paper-meta-item">
+                                        <i class="fas fa-download"></i> 다운로드 456회
+                                    </span>
+                                </div>
+                            </div>
+                            <span class="status-badge published">게재 완료</span>
+                        </div>
+
+                        <div class="paper-actions">
+                            <button class="btn-small btn-primary-small" onclick="window.open('../journal/archive.html')">
+                                <i class="fas fa-external-link-alt"></i> 학술지에서 보기
+                            </button>
+                            <button class="btn-small btn-secondary-small" onclick="downloadCertificate(3)">
+                                <i class="fas fa-certificate"></i> 게재 증명서
+                            </button>
+                            <button class="btn-small btn-outline-small" onclick="viewCitation(3)">
+                                <i class="fas fa-quote-right"></i> 인용 정보
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 논문 4: 게재 완료 -->
+                    <div class="paper-card" data-status="published">
+                        <div class="paper-header">
+                            <div style="flex: 1;">
+                                <div class="paper-id">논문번호: KESG-2023-087 | DOI: 10.12345/kesg.2023.4.4.312</div>
+                                <h3 class="paper-title">기업의 ESG 공시가 주가에 미치는 영향: 실증 연구</h3>
+                                <div class="paper-meta">
+                                    <span class="paper-meta-item">
+                                        <i class="fas fa-user"></i> 홍길동 (단독 저자)
+                                    </span>
+                                    <span class="paper-meta-item">
+                                        <i class="fas fa-book"></i> 제4권 제4호 (2023)
+                                    </span>
+                                    <span class="paper-meta-item">
+                                        <i class="fas fa-eye"></i> 조회수 2,156회
+                                    </span>
+                                    <span class="paper-meta-item">
+                                        <i class="fas fa-download"></i> 다운로드 892회
+                                    </span>
+                                </div>
+                            </div>
+                            <span class="status-badge published">게재 완료</span>
+                        </div>
+
+                        <div class="paper-actions">
+                            <button class="btn-small btn-primary-small" onclick="window.open('../journal/archive.html')">
+                                <i class="fas fa-external-link-alt"></i> 학술지에서 보기
+                            </button>
+                            <button class="btn-small btn-secondary-small" onclick="downloadCertificate(4)">
+                                <i class="fas fa-certificate"></i> 게재 증명서
+                            </button>
+                            <button class="btn-small btn-outline-small" onclick="viewCitation(4)">
+                                <i class="fas fa-quote-right"></i> 인용 정보
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 논문 5: 게재 완료 -->
+                    <div class="paper-card" data-status="published">
+                        <div class="paper-header">
+                            <div style="flex: 1;">
+                                <div class="paper-id">논문번호: KESG-2023-042 | DOI: 10.12345/kesg.2023.4.2.145</div>
+                                <h3 class="paper-title">글로벌 ESG 평가기관의 평가 방법론 비교 연구</h3>
+                                <div class="paper-meta">
+                                    <span class="paper-meta-item">
+                                        <i class="fas fa-user"></i> 홍길동, 최민수 (공저)
+                                    </span>
+                                    <span class="paper-meta-item">
+                                        <i class="fas fa-book"></i> 제4권 제2호 (2023)
+                                    </span>
+                                    <span class="paper-meta-item">
+                                        <i class="fas fa-eye"></i> 조회수 1,876회
+                                    </span>
+                                    <span class="paper-meta-item">
+                                        <i class="fas fa-download"></i> 다운로드 623회
+                                    </span>
+                                </div>
+                            </div>
+                            <span class="status-badge published">게재 완료</span>
+                        </div>
+
+                        <div class="paper-actions">
+                            <button class="btn-small btn-primary-small" onclick="window.open('../journal/archive.html')">
+                                <i class="fas fa-external-link-alt"></i> 학술지에서 보기
+                            </button>
+                            <button class="btn-small btn-secondary-small" onclick="downloadCertificate(5)">
+                                <i class="fas fa-certificate"></i> 게재 증명서
+                            </button>
+                            <button class="btn-small btn-outline-small" onclick="viewCitation(5)">
+                                <i class="fas fa-quote-right"></i> 인용 정보
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>한국ESG학회</h3>
+                    <p>지속가능한 미래를 위한 ESG 연구와 실천</p>
+                </div>
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <ul>
+                        <li><a href="../about/greeting.html">학회소개</a></li>
+                        <li><a href="../member/process.html">회원가입</a></li>
+                        <li><a href="../journal/submission.html">논문투고</a></li>
+                        <li><a href="../community/notice.html">공지사항</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>문의</h4>
+                    <p><i class="fas fa-phone"></i> 010-4263-7715</p>
+                    <p><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 서울특별시 동작구 상도로 369<br>숭실대학교 진리관 508호</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Korean ESG Association. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        function filterPapers(status) {
+            // 탭 활성화
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // 논문 필터링
+            const papers = document.querySelectorAll('.paper-card');
+            papers.forEach(paper => {
+                if (status === 'all' || paper.dataset.status === status) {
+                    paper.style.display = 'block';
+                } else {
+                    paper.style.display = 'none';
+                }
+            });
+        }
+
+        function viewDetails(id) {
+            alert('논문 ' + id + '번의 상세 정보를 조회합니다.');
+        }
+
+        function downloadFile(id) {
+            alert('논문 ' + id + '번 파일을 다운로드합니다.');
+        }
+
+        function contactEditor(id) {
+            window.location.href = 'mailto:kohmh@ssu.ac.kr?subject=[논문문의] KESG-2025-' + String(id).padStart(3, '0');
+        }
+
+        function uploadRevision(id) {
+            alert('논문 ' + id + '번의 수정본을 업로드합니다.');
+        }
+
+        function viewReview(id) {
+            alert('논문 ' + id + '번의 전체 심사 의견을 조회합니다.');
+        }
+
+        function downloadCertificate(id) {
+            alert('논문 ' + id + '번의 게재 증명서를 다운로드합니다.');
+        }
+
+        function viewCitation(id) {
+            alert('논문 ' + id + '번의 인용 정보를 조회합니다.');
+        }
+    </script>
+</body>
+</html>

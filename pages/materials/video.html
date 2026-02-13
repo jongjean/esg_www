@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영상자료 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo-symbol.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+        .materials-header {
+            background: linear-gradient(135deg, #c2185b 0%, #f57c00 100%);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .materials-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .filter-bar {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .filter-group select {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            height: 200px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .video-thumbnail::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(194,24,91,0.8), rgba(245,124,0,0.8));
+        }
+        
+        .play-button {
+            position: relative;
+            z-index: 2;
+            width: 70px;
+            height: 70px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .play-button i {
+            font-size: 2rem;
+            color: #c2185b;
+            margin-left: 5px;
+        }
+        
+        .video-thumbnail:hover .play-button {
+            transform: scale(1.1);
+            background: white;
+        }
+        
+        .video-duration {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            z-index: 3;
+        }
+        
+        .video-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            z-index: 3;
+        }
+        
+        .badge-lecture {
+            background: rgba(30,126,52,0.9);
+            color: white;
+        }
+        
+        .badge-seminar {
+            background: rgba(40,116,166,0.9);
+            color: white;
+        }
+        
+        .badge-interview {
+            background: rgba(245,124,0,0.9);
+            color: white;
+        }
+        
+        .video-content {
+            padding: 20px;
+        }
+        
+        .video-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #333;
+            line-height: 1.4;
+        }
+        
+        .video-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            color: #666;
+            font-size: 0.9rem;
+            margin: 12px 0;
+            padding: 12px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .video-stats {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .stat-item i {
+            color: #c2185b;
+        }
+        
+        /* 비디오 모달 */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .video-modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 10;
+        }
+        
+        .modal-video {
+            width: 100%;
+            height: 500px;
+            background: #000;
+        }
+        
+        @media (max-width: 768px) {
+            .materials-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-video {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 010-4263-7715</span>
+                        <span><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</span>
+                    </div>
+                    <div class="quick-links">
+                        <a href="../member/process.html">회원가입</a>
+                        <a href="../mypage/profile.html">로그인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    
+                    <button class="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">핵심사업</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학술지·논문</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                        </li>
+                        <li class="nav-item has-dropdown active">
+                            <a href="#" class="nav-link">자료실</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">마이페이지</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <div class="materials-header" style="background: linear-gradient(90deg, #2d8659 0%, #1a7b9c 100%); padding: 60px 20px; text-align: center; margin: 0;">
+        <h1 style="color: white; font-size: 36px; font-weight: 700; margin: 0 0 15px 0;">
+            <i class="fas fa-video"></i> 영상자료
+        </h1>
+        <p style="color: rgba(255, 255, 255, 0.95); font-size: 16px; margin: 0; line-height: 1.6;">
+            학회 강연, 세미나, 인터뷰 영상을 제공합니다
+        </p>
+    </div>
+
+    <main class="main-content">
+
+        <div class="container" style="margin-top: 40px;">
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label>유형</label>
+                    <select id="typeFilter">
+                        <option value="all">전체</option>
+                        <option value="lecture">강연</option>
+                        <option value="seminar">세미나</option>
+                        <option value="interview">인터뷰</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>연도</label>
+                    <select id="yearFilter">
+                        <option value="all">전체</option>
+                        <option value="2025">2025년</option>
+                        <option value="2023">2023년</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="video-grid">
+                <div class="video-card" data-type="lecture" data-year="2025">
+                    <div class="video-thumbnail" onclick="openVideoModal('video1')">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <span class="video-badge badge-lecture">강연</span>
+                        <span class="video-duration">45:32</span>
+                    </div>
+                    <div class="video-content">
+                        <h3>2050 탄소중립과 기업의 역할</h3>
+                        <div class="video-meta">
+                            <span><i class="fas fa-user"></i> 고문현 회장</span>
+                            <span><i class="fas fa-calendar"></i> 2025.11.15</span>
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-eye"></i>
+                                <span>2,456</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-thumbs-up"></i>
+                                <span>124</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card" data-type="seminar" data-year="2025">
+                    <div class="video-thumbnail" onclick="openVideoModal('video2')">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <span class="video-badge badge-seminar">세미나</span>
+                        <span class="video-duration">1:12:45</span>
+                    </div>
+                    <div class="video-content">
+                        <h3>ESG 공시 의무화 대응 전략</h3>
+                        <div class="video-meta">
+                            <span><i class="fas fa-user"></i> 이공시 교수</span>
+                            <span><i class="fas fa-calendar"></i> 2025.10.20</span>
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-eye"></i>
+                                <span>1,987</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-thumbs-up"></i>
+                                <span>98</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card" data-type="interview" data-year="2025">
+                    <div class="video-thumbnail" onclick="openVideoModal('video3')">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <span class="video-badge badge-interview">인터뷰</span>
+                        <span class="video-duration">28:15</span>
+                    </div>
+                    <div class="video-content">
+                        <h3>ESG 경영의 현재와 미래</h3>
+                        <div class="video-meta">
+                            <span><i class="fas fa-user"></i> 김환경 이사</span>
+                            <span><i class="fas fa-calendar"></i> 2025.09.18</span>
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-eye"></i>
+                                <span>1,654</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-thumbs-up"></i>
+                                <span>87</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card" data-type="lecture" data-year="2025">
+                    <div class="video-thumbnail" onclick="openVideoModal('video4')">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <span class="video-badge badge-lecture">강연</span>
+                        <span class="video-duration">52:08</span>
+                    </div>
+                    <div class="video-content">
+                        <h3>순환경제와 ESG의 통합</h3>
+                        <div class="video-meta">
+                            <span><i class="fas fa-user"></i> 한순환 박사</span>
+                            <span><i class="fas fa-calendar"></i> 2025.08.22</span>
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-eye"></i>
+                                <span>1,432</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-thumbs-up"></i>
+                                <span>76</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card" data-type="seminar" data-year="2025">
+                    <div class="video-thumbnail" onclick="openVideoModal('video5')">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <span class="video-badge badge-seminar">세미나</span>
+                        <span class="video-duration">1:05:30</span>
+                    </div>
+                    <div class="video-content">
+                        <h3>공급망 ESG 관리 실무</h3>
+                        <div class="video-meta">
+                            <span><i class="fas fa-user"></i> 최공급 이사</span>
+                            <span><i class="fas fa-calendar"></i> 2025.07.15</span>
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-eye"></i>
+                                <span>1,876</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-thumbs-up"></i>
+                                <span>92</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card" data-type="lecture" data-year="2023">
+                    <div class="video-thumbnail" onclick="openVideoModal('video6')">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <span class="video-badge badge-lecture">강연</span>
+                        <span class="video-duration">38:42</span>
+                    </div>
+                    <div class="video-content">
+                        <h3>중소기업 ESG 도입 가이드</h3>
+                        <div class="video-meta">
+                            <span><i class="fas fa-user"></i> 김중소 대표</span>
+                            <span><i class="fas fa-calendar"></i> 2023.12.10</span>
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-eye"></i>
+                                <span>2,134</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-thumbs-up"></i>
+                                <span>105</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeVideoModal()">&times;</button>
+            <div class="modal-video">
+                <p style="color: white; text-align: center; padding: 200px 20px;">
+                    <i class="fas fa-video" style="font-size: 3rem; display: block; margin-bottom: 20px;"></i>
+                    영상이 여기에 재생됩니다
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>한국ESG학회</h3>
+                    <p>지속가능한 미래를 위한<br>ESG 연구와 실천</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <ul class="footer-links">
+                        <li><a href="../about/intro.html">학회소개</a></li>
+                        <li><a href="../member/process.html">회원가입</a></li>
+                        <li><a href="../journal/intro.html">학술지</a></li>
+                        <li><a href="../community/notice.html">커뮤니티</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>문의</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-phone"></i> 010-4263-7715</li>
+                        <li><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 서울특별시 동작구 상도로 369<br>숭실대학교 진리관 508호</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 한국ESG학회. All rights reserved.</p>
+                <div class="footer-links-bottom">
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        // Filter functionality
+        document.getElementById('typeFilter').addEventListener('change', filterVideos);
+        document.getElementById('yearFilter').addEventListener('change', filterVideos);
+
+        function filterVideos() {
+            const typeFilter = document.getElementById('typeFilter').value;
+            const yearFilter = document.getElementById('yearFilter').value;
+
+            const cards = document.querySelectorAll('.video-card');
+
+            cards.forEach(card => {
+                const type = card.dataset.type;
+                const year = card.dataset.year;
+
+                const typeMatch = typeFilter === 'all' || type === typeFilter;
+                const yearMatch = yearFilter === 'all' || year === yearFilter;
+
+                if (typeMatch && yearMatch) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Video modal
+        function openVideoModal(videoId) {
+            document.getElementById('videoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVideoModal() {
+            document.getElementById('videoModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeVideoModal();
+            }
+        });
+
+        // Close modal on background click
+        document.getElementById('videoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeVideoModal();
+            }
+        });
+    </script>
+</body>
+</html>

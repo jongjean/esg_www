@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="한국ESG학회 자유게시판 - 회원 간 자유로운 의견 교류">
+    <title>자유게시판 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo-symbol.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+        .forum-hero {
+            background: transparent;
+            color: var(--text-dark);
+            padding: 30px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--primary-green);
+        }
+        .forum-hero h2 {
+            font-size: 2.3rem;
+            margin-bottom: 15px;
+            color: var(--primary-green);
+        }
+        .forum-hero h2 i {
+            margin-right: 12px;
+        }
+        .forum-hero p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+        .forum-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .write-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-green));
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .write-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .forum-stats {
+            display: flex;
+            gap: 20px;
+            font-size: 0.95rem;
+            color: #666;
+        }
+        .forum-stats-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .forum-stats-item i {
+            color: var(--primary-green);
+        }
+        .forum-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .category-btn {
+            padding: 12px 20px;
+            background: #fff;
+            border: 2px solid var(--bg-light);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .category-btn:hover, .category-btn.active {
+            background: var(--primary-green);
+            color: #fff;
+            border-color: var(--primary-green);
+        }
+        .search-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+        .search-form {
+            display: flex;
+            gap: 10px;
+        }
+        .search-input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid var(--bg-light);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .search-btn {
+            padding: 12px 30px;
+            background: var(--primary-blue);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .search-btn:hover {
+            background: #1e5a7e;
+        }
+        .forum-list {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .forum-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .forum-table thead {
+            background: linear-gradient(135deg, var(--bg-green-light), var(--bg-blue-light));
+        }
+        .forum-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary-blue);
+            border-bottom: 2px solid var(--bg-light);
+        }
+        .forum-table td {
+            padding: 18px 15px;
+            border-bottom: 1px solid var(--bg-light);
+        }
+        .forum-table tbody tr {
+            transition: all 0.3s ease;
+        }
+        .forum-table tbody tr:hover {
+            background: var(--bg-light);
+        }
+        .forum-category {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--primary-green);
+            color: #fff;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .forum-category.hot {
+            background: #e74c3c;
+        }
+        .forum-category.notice {
+            background: #f39c12;
+        }
+        .forum-title {
+            font-weight: 600;
+            color: var(--primary-blue);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .forum-title:hover {
+            text-decoration: underline;
+        }
+        .forum-title .new-badge {
+            background: #e74c3c;
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 700;
+        }
+        .forum-author {
+            color: #555;
+        }
+        .forum-date {
+            color: #999;
+            font-size: 0.9rem;
+        }
+        .forum-stats-cell {
+            text-align: center;
+            color: #666;
+        }
+        .forum-stats-cell i {
+            color: var(--primary-green);
+            margin-right: 4px;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        .pagination-btn {
+            padding: 10px 16px;
+            border: 2px solid var(--bg-light);
+            background: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        .pagination-btn:hover {
+            background: var(--primary-blue);
+            color: #fff;
+            border-color: var(--primary-blue);
+        }
+        .pagination-btn.active {
+            background: var(--primary-blue);
+            color: #fff;
+            border-color: var(--primary-blue);
+        }
+        .pagination-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .notice-row {
+            background: #fffaf0;
+        }
+        @media (max-width: 768px) {
+            .forum-hero h2 {
+                font-size: 1.8rem;
+            }
+            .forum-table {
+                font-size: 0.9rem;
+            }
+            .forum-table th, .forum-table td {
+                padding: 10px 8px;
+            }
+            .th-views, .th-likes, .td-views, .td-likes {
+                display: none;
+            }
+            .search-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 010-4263-7715</span>
+                        <span><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</span>
+                    </div>
+                    <div class="quick-links">
+                        <a href="../member/process.html">회원가입</a>
+                        <a href="../mypage/profile.html">로그인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    <button class="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">핵심사업</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학술지·논문</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link active">커뮤니티</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">자료실</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">마이페이지</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <div class="forum-hero" style="background: linear-gradient(90deg, #2d8659 0%, #1a7b9c 100%); padding: 60px 20px; text-align: center; margin: 0;">
+        <h2 style="color: white; font-size: 36px; font-weight: 700; margin: 0 0 15px 0;">
+            <i class="fas fa-pencil-alt"></i> 자유게시판
+        </h2>
+        <p style="color: rgba(255, 255, 255, 0.95); font-size: 16px; margin: 0; line-height: 1.6;">
+            회원 여러분의 자유로운 의견을 나누는 소통 공간입니다
+        </p>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+
+            <!-- 포럼 액션 -->
+            <div class="forum-actions">
+                <button class="write-btn" onclick="alert('로그인 후 이용하실 수 있습니다.')">
+                    <i class="fas fa-pen"></i>글쓰기
+                </button>
+                <div class="forum-stats">
+                    <span class="forum-stats-item">
+                        <i class="fas fa-file-alt"></i>
+                        총 게시글 <strong>2,856</strong>건
+                    </span>
+                    <span class="forum-stats-item">
+                        <i class="fas fa-users"></i>
+                        활성 회원 <strong>687</strong>명
+                    </span>
+                </div>
+            </div>
+
+            <!-- 카테고리 -->
+            <div class="forum-categories">
+                <button class="category-btn active">전체</button>
+                <button class="category-btn">일상</button>
+                <button class="category-btn">정보공유</button>
+                <button class="category-btn">질문/답변</button>
+                <button class="category-btn">행사후기</button>
+                <button class="category-btn">취업/진로</button>
+            </div>
+
+            <!-- 검색 -->
+            <div class="search-box">
+                <form class="search-form" onsubmit="event.preventDefault(); alert('검색 기능은 로그인 후 이용하실 수 있습니다.');">
+                    <input type="text" class="search-input" placeholder="검색어를 입력하세요">
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i> 검색
+                    </button>
+                </form>
+            </div>
+
+            <!-- 포럼 리스트 -->
+            <div class="forum-list">
+                <table class="forum-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 100px;">분류</th>
+                            <th>제목</th>
+                            <th style="width: 120px;">작성자</th>
+                            <th style="width: 100px;">작성일</th>
+                            <th class="th-views" style="width: 80px; text-align: center;">조회</th>
+                            <th class="th-likes" style="width: 80px; text-align: center;">추천</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 공지사항 -->
+                        <tr class="notice-row">
+                            <td>
+                                <span class="forum-category notice">공지</span>
+                            </td>
+                            <td>
+                                <div class="forum-title">
+                                    <i class="fas fa-bullhorn"></i>
+                                    <span>자유게시판 이용 규칙 및 커뮤니티 가이드</span>
+                                </div>
+                            </td>
+                            <td class="forum-author">운영자</td>
+                            <td class="forum-date">2025-12-01</td>
+                            <td class="forum-stats-cell td-views">
+                                <i class="fas fa-eye"></i>4,567
+                            </td>
+                            <td class="forum-stats-cell td-likes">
+                                <i class="fas fa-thumbs-up"></i>124
+                            </td>
+                        </tr>
+
+                        <!-- 인기 게시글 -->
+                        <tr>
+                            <td>
+                                <span class="forum-category hot">HOT</span>
+                            </td>
+                            <td>
+                                <div class="forum-title">
+                                    <span>2025 한국ESG학회 연말 송년회 후기 (사진 많음)</span>
+                                    <span class="new-badge">N</span>
+                                </div>
+                            </td>
+                            <td class="forum-author">김송년</td>
+                            <td class="forum-date">2025-12-28</td>
+                            <td class="forum-stats-cell td-views">
+                                <i class="fas fa-eye"></i>2,345
+                            </td>
+                            <td class="forum-stats-cell td-likes">
+                                <i class="fas fa-thumbs-up"></i>187
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="forum-category hot">HOT</span>
+                            </td>
+                            <td>
+                                <div class="forum-title">
+                                    <span>ESG 컨설턴트로 취업 성공한 후기와 팁 공유합니다</span>
+                                    <span class="new-badge">N</span>
+                                </div>
+                            </td>
+                            <td class="forum-author">이취업</td>
+                            <td class="forum-date">2025-12-27</td>
+                            <td class="forum-stats-cell td-views">
+                                <i class="fas fa-eye"></i>3,456
+                            </td>
+                            <td class="forum-stats-cell td-likes">
+                                <i class="fas fa-thumbs-up"></i>234
+                            </td>
+                        </tr>
+
+                        <!-- 일반 게시글 -->
+                        <tr>
+                            <td>
+                                <span class="forum-category">정보공유</span>
+                            </td>
+                            <td>
+                                <div class="forum-title">
+                                    <span>ESG 관련 무료 온라인 교육 플랫폼 정리</span>
+                                    <span class="new-badge">N</span>
+                                </div>
+                            </td>
+                            <td class="forum-author">정보맨</td>
+                            <td class="forum-date">2025-12-26</td>
+                            <td class="forum-stats-cell td-views">
+                                <i class="fas fa-eye"></i>1,567
+                            </td>
+                            <td class="forum-stats-cell td-likes">
+                                <i class="fas fa-thumbs-up"></i>143
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="forum-category">질문/답변</span>
+                            </td>
+                            <td>
+                                <div class="forum-title">
+                                    <span>ESG 보고서 작성 시 참고할 만한 자료 추천해주세요</span>
+                                </div>
+                            </td>
+                            <td class="forum-author">박질문</td>
+                            <td class="forum-date">2025-12-25</td>
+                            <td class="forum-stats-cell td-views">
+                                <i class="fas fa-eye"></i>876
+                            </td>
+                            <td class="forum-stats-cell td-likes">
+                                <i class="fas fa-thumbs-up"></i>67
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="forum-category">행사후기</span>
+                            </td>
+                            <td>
+                                <div class="forum-title">
+                                    <span>2025 ESG 글로벌 포럼 다녀온 후기</span>
+                                </div>
+                            </td>
+                            <td class="forum-author">최후기</td>
+                            <td class="forum-date">2025-12-24</td>
+                            <td class="forum-stats-cell td-views">
+                                <i class="fas fa-eye"></i>1,234
+                            </td>
+                            <td class="forum-stats-cell td-likes">
+                                <i class="fas fa-thumbs-up"></i>98
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="forum-category">취업/진로</span>
+                            </td>
+                            <td>
+                                <div class="forum-title">
+                                    <span>ESG 담당자 면접 질문 정리 (실전 경험담)</span>
+                                </div>
+                            </td>
+                            <td class="forum-author">강취업</td>
+                            <td class="forum-date">2025-12-23</td>
+                            <td class="forum-stats-cell td-views">
+                                <i class="fas fa-eye"></i>2,987
+                            </td>
+                            <td class="forum-stats-cell td-likes">
+                                <i class="fas fa-thumbs-up"></i>256
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="forum-category">일상</span>
+                            </td>
+                            <td>
+                                <div class="forum-title">
+                                    <span>회사에서 ESG 팀 신설, 드디어 전담 부서 생겼어요!</span>
+                                </div>
+                            </td>
+                            <td class="forum-author">윤일상</td>
+                            <td class="forum-date">2025-12-22</td>
+                            <td class="forum-stats-cell td-views">
+                                <i class="fas fa-eye"></i>1,456
+                            </td>
+                            <td class="forum-stats-cell td-likes">
+                                <i class="fas fa-thumbs-up"></i>134
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="forum-category">정보공유</span>
+                            </td>
+                            <td>
+                                <div class="forum-title">
+                                    <span>2025년 ESG 주요 일정 및 변경사항 정리</span>
+                                </div>
+                            </td>
+                            <td class="forum-author">홍정보</td>
+                            <td class="forum-date">2025-12-21</td>
+                            <td class="forum-stats-cell td-views">
+                                <i class="fas fa-eye"></i>2,345
+                            </td>
+                            <td class="forum-stats-cell td-likes">
+                                <i class="fas fa-thumbs-up"></i>187
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="forum-category">질문/답변</span>
+                            </td>
+                            <td>
+                                <div class="forum-title">
+                                    <span>스코프3 온실가스 측정 방법 궁금합니다</span>
+                                </div>
+                            </td>
+                            <td class="forum-author">조질문</td>
+                            <td class="forum-date">2025-12-20</td>
+                            <td class="forum-stats-cell td-views">
+                                <i class="fas fa-eye"></i>1,098
+                            </td>
+                            <td class="forum-stats-cell td-likes">
+                                <i class="fas fa-thumbs-up"></i>89
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="forum-category">일상</span>
+                            </td>
+                            <td>
+                                <div class="forum-title">
+                                    <span>오늘 ESG 보고서 제출 완료! 고생하신 분들 수고하셨습니다</span>
+                                </div>
+                            </td>
+                            <td class="forum-author">임완성</td>
+                            <td class="forum-date">2025-12-19</td>
+                            <td class="forum-stats-cell td-views">
+                                <i class="fas fa-eye"></i>987
+                            </td>
+                            <td class="forum-stats-cell td-likes">
+                                <i class="fas fa-thumbs-up"></i>123
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="forum-category">행사후기</span>
+                            </td>
+                            <td>
+                                <div class="forum-title">
+                                    <span>제3차 ESG 워크숍 후기 및 자료 공유</span>
+                                </div>
+                            </td>
+                            <td class="forum-author">신워크</td>
+                            <td class="forum-date">2025-12-18</td>
+                            <td class="forum-stats-cell td-views">
+                                <i class="fas fa-eye"></i>1,567
+                            </td>
+                            <td class="forum-stats-cell td-likes">
+                                <i class="fas fa-thumbs-up"></i>145
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="forum-category">취업/진로</span>
+                            </td>
+                            <td>
+                                <div class="forum-title">
+                                    <span>ESG 경력 1년차, 앞으로 어떻게 준비해야 할까요?</span>
+                                </div>
+                            </td>
+                            <td class="forum-author">한진로</td>
+                            <td class="forum-date">2025-12-17</td>
+                            <td class="forum-stats-cell td-views">
+                                <i class="fas fa-eye"></i>1,876
+                            </td>
+                            <td class="forum-stats-cell td-likes">
+                                <i class="fas fa-thumbs-up"></i>167
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="forum-category">정보공유</span>
+                            </td>
+                            <td>
+                                <div class="forum-title">
+                                    <span>주요 기업들의 ESG 보고서 비교 분석 (링크포함)</span>
+                                </div>
+                            </td>
+                            <td class="forum-author">류분석</td>
+                            <td class="forum-date">2025-12-16</td>
+                            <td class="forum-stats-cell td-views">
+                                <i class="fas fa-eye"></i>2,123
+                            </td>
+                            <td class="forum-stats-cell td-likes">
+                                <i class="fas fa-thumbs-up"></i>198
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="forum-category">질문/답변</span>
+                            </td>
+                            <td>
+                                <div class="forum-title">
+                                    <span>ESG 자격증 추천 부탁드립니다</span>
+                                </div>
+                            </td>
+                            <td class="forum-author">송자격</td>
+                            <td class="forum-date">2025-12-15</td>
+                            <td class="forum-stats-cell td-views">
+                                <i class="fas fa-eye"></i>2,456
+                            </td>
+                            <td class="forum-stats-cell td-likes">
+                                <i class="fas fa-thumbs-up"></i>176
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="forum-category">일상</span>
+                            </td>
+                            <td>
+                                <div class="forum-title">
+                                    <span>회사 ESG 평가 등급 상승! 팀원들과 축하 회식 다녀왔어요</span>
+                                </div>
+                            </td>
+                            <td class="forum-author">김축하</td>
+                            <td class="forum-date">2025-12-14</td>
+                            <td class="forum-stats-cell td-views">
+                                <i class="fas fa-eye"></i>1,345
+                            </td>
+                            <td class="forum-stats-cell td-likes">
+                                <i class="fas fa-thumbs-up"></i>187
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 페이지네이션 -->
+            <div class="pagination">
+                <button class="pagination-btn" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <button class="pagination-btn">4</button>
+                <button class="pagination-btn">5</button>
+                <button class="pagination-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="../../images/logo.png" alt="한국ESG학회" class="footer-logo-img">
+                    <p class="footer-tagline">지속가능한 미래를 위한 ESG 연구와 실천</p>
+                </div>
+                <div class="footer-info">
+                    <h4>사단법인 한국ESG학회</h4>
+                    <ul class="footer-info-list">
+                        <li><strong>회장:</strong> 고문현</li>
+                        <li><strong>Tel.</strong> 010-4263-7715</li>
+                        <li><strong>주소:</strong> [06978] 서울특별시 동작구 상도로 369, 숭실대학교 진리관 508호</li>
+                        <li><strong>개인정보관리책임자:</strong> 고문현 (kohmh@ssu.ac.kr)</li>
+                        <li><strong>홈페이지관리책임자:</strong> 강종진 (mail@iuci.kr)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Korean ESG Association. All Rights Reserved.</p>
+                <p class="footer-credit">Design by Korean ESG Association</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        // 카테고리 버튼
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // 정렬 버튼
+        document.querySelectorAll('.sort-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

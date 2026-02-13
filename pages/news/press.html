@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학회 보도자료 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo-symbol.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+        .press-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .press-filter-group {
+            display: flex;
+            gap: 8px;
+        }
+        .press-filter-btn {
+            padding: 8px 16px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        .press-filter-btn:hover {
+            border-color: #1e7e34;
+            color: #1e7e34;
+        }
+        .press-filter-btn.active {
+            background: #1e7e34;
+            color: white;
+            border-color: #1e7e34;
+        }
+        .press-list {
+            display: grid;
+            gap: 15px;
+        }
+        .press-item {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+            border-left: 4px solid transparent;
+        }
+        .press-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            border-left-color: #1e7e34;
+            transform: translateX(5px);
+        }
+        .press-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            gap: 15px;
+        }
+        .press-media-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .press-media-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #1e7e34;
+        }
+        .press-media-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e7e34;
+        }
+        .press-date {
+            font-size: 13px;
+            color: #999;
+            white-space: nowrap;
+        }
+        .press-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        .press-excerpt {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .press-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .press-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .press-tag {
+            padding: 4px 10px;
+            background: #f5f5f5;
+            color: #666;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .press-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .press-action-btn {
+            padding: 6px 14px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .press-action-btn:hover {
+            background: #f8f9fa;
+            border-color: #1e7e34;
+            color: #1e7e34;
+        }
+        .stats-summary {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e7e34;
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            font-size: 13px;
+            color: #666;
+        }
+        @media (max-width: 768px) {
+            .press-header {
+                flex-direction: column;
+            }
+            .press-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 010-4263-7715</span>
+                        <span><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</span>
+                    </div>
+                    <div class="quick-links">
+                        <a href="../member/process.html">회원가입</a>
+                        <a href="../mypage/profile.html">로그인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    <button class="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">핵심사업</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학술지·논문</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">자료실</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">마이페이지</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-bullhorn"></i> 학회 보도자료</h1>
+            <p>한국ESG학회 관련 언론 보도자료를 확인하세요</p>
+        </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../../index.html"><i class="fas fa-home"></i> 홈</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="#">ESG뉴스</a>
+            <i class="fas fa-chevron-right"></i>
+            <span class="current">학회 보도자료</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Content Area -->
+                <div class="content-area">
+                    <!-- 검색 영역 -->
+                    <div style="margin-bottom: 30px; padding: 25px; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
+                        <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end;">
+                            <div style="flex: 1; min-width: 250px;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333; font-size: 14px;">
+                                    <i class="fas fa-search"></i> 검색어
+                                </label>
+                                <input type="text" id="searchKeyword" placeholder="제목, 내용 검색" 
+                                    style="width: 100%; padding: 10px 15px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; transition: all 0.3s;"
+                                    onfocus="this.style.borderColor='#1e7e34'" onblur="this.style.borderColor='#e9ecef'">
+                            </div>
+                            <div style="min-width: 150px;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333; font-size: 14px;">
+                                    <i class="fas fa-building"></i> 언론사
+                                </label>
+                                <input type="text" id="searchMedia" placeholder="언론사 이름" 
+                                    style="width: 100%; padding: 10px 15px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; transition: all 0.3s;"
+                                    onfocus="this.style.borderColor='#1e7e34'" onblur="this.style.borderColor='#e9ecef'">
+                            </div>
+                            <div style="min-width: 140px;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333; font-size: 14px;">
+                                    <i class="fas fa-calendar"></i> 기간
+                                </label>
+                                <select id="searchPeriod" 
+                                    style="width: 100%; padding: 10px 15px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; background: white; cursor: pointer;">
+                                    <option value="all">전체</option>
+                                    <option value="week">최근 1주일</option>
+                                    <option value="month">최근 1개월</option>
+                                    <option value="3months">최근 3개월</option>
+                                </select>
+                            </div>
+                            <button onclick="searchPress()" 
+                                style="padding: 10px 25px; background: #1e7e34; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s;"
+                                onmouseover="this.style.background='#155724'" onmouseout="this.style.background='#1e7e34'">
+                                <i class="fas fa-search"></i> 검색
+                            </button>
+                            <button onclick="resetPressSearch()" 
+                                style="padding: 10px 20px; background: white; color: #666; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;"
+                                onmouseover="this.style.borderColor='#1e7e34'; this.style.color='#1e7e34'" onmouseout="this.style.borderColor='#e9ecef'; this.style.color='#666'">
+                                <i class="fas fa-redo"></i> 초기화
+                            </button>
+                        </div>
+                        <div id="searchResults" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e9ecef; display: none;">
+                            <p style="color: #1e7e34; font-weight: 600; font-size: 14px;">
+                                <i class="fas fa-check-circle"></i> 검색 결과: <span id="resultCount">0</span>건
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Stats Summary -->
+                    <div class="stats-summary">
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-value">247</div>
+                                <div class="stat-label">총 보도 건수</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">38</div>
+                                <div class="stat-label">이번 달 보도</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">15</div>
+                                <div class="stat-label">주요 언론사</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">92%</div>
+                                <div class="stat-label">긍정 평가</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="press-filters">
+                        <div class="press-filter-group">
+                            <button class="press-filter-btn active">전체</button>
+                            <button class="press-filter-btn">학회 활동</button>
+                            <button class="press-filter-btn">학술 행사</button>
+                            <button class="press-filter-btn">연구 성과</button>
+                            <button class="press-filter-btn">산학협력</button>
+                        </div>
+                    </div>
+
+                    <!-- Press List -->
+                    <div class="press-list">
+                        <!-- Press 1 -->
+                        <div class="press-item">
+                            <div class="press-header">
+                                <div class="press-media-info">
+                                    <div class="press-media-logo">
+                                        <i class="fas fa-newspaper"></i>
+                                    </div>
+                                    <div>
+                                        <div class="press-media-name">한국경제신문</div>
+                                    </div>
+                                </div>
+                                <div class="press-date">2025.01.18</div>
+                            </div>
+                            <h3 class="press-title">한국ESG학회, '2025 지속가능경영 포럼' 성료... 300여명 참석</h3>
+                            <p class="press-excerpt">
+                                한국ESG학회가 18일 서울 여의도에서 개최한 '2025 지속가능경영 포럼'이 성황리에 마무리됐다. 
+                                이번 포럼에는 국내 주요 기업 ESG 담당자와 학계 전문가 300여명이 참석해 탄소중립 달성 전략과 
+                                ESG 공시 의무화 대응 방안을 논의했다.
+                            </p>
+                            <div class="press-meta">
+                                <div class="press-tags">
+                                    <span class="press-tag">#학술포럼</span>
+                                    <span class="press-tag">#ESG</span>
+                                    <span class="press-tag">#지속가능경영</span>
+                                </div>
+                                <div class="press-actions">
+                                    <button class="press-action-btn">
+                                        <i class="fas fa-external-link-alt"></i> 원문보기
+                                    </button>
+                                    <button class="press-action-btn">
+                                        <i class="fas fa-share-alt"></i> 공유
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Press 2 -->
+                        <div class="press-item">
+                            <div class="press-header">
+                                <div class="press-media-info">
+                                    <div class="press-media-logo" style="color: #2874a6;">
+                                        <i class="fas fa-tv"></i>
+                                    </div>
+                                    <div>
+                                        <div class="press-media-name" style="color: #2874a6;">연합뉴스</div>
+                                    </div>
+                                </div>
+                                <div class="press-date">2025.01.15</div>
+                            </div>
+                            <h3 class="press-title">한국ESG학회-산업통상자원부, ESG 경영 확산 위한 업무협약 체결</h3>
+                            <p class="press-excerpt">
+                                한국ESG학회가 산업통상자원부와 중소·중견기업의 ESG 경영 확산을 위한 업무협약(MOU)을 체결했다. 
+                                양 기관은 K-ESG 가이드라인 보급, ESG 교육 프로그램 운영, 인증 제도 개선 등 실질적인 협력 방안을 추진하기로 했다.
+                            </p>
+                            <div class="press-meta">
+                                <div class="press-tags">
+                                    <span class="press-tag">#산학협력</span>
+                                    <span class="press-tag">#MOU</span>
+                                    <span class="press-tag">#산업부</span>
+                                </div>
+                                <div class="press-actions">
+                                    <button class="press-action-btn">
+                                        <i class="fas fa-external-link-alt"></i> 원문보기
+                                    </button>
+                                    <button class="press-action-btn">
+                                        <i class="fas fa-share-alt"></i> 공유
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Press 3 -->
+                        <div class="press-item">
+                            <div class="press-header">
+                                <div class="press-media-info">
+                                    <div class="press-media-logo" style="color: #e65100;">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <div>
+                                        <div class="press-media-name" style="color: #e65100;">매일경제</div>
+                                    </div>
+                                </div>
+                                <div class="press-date">2025.01.12</div>
+                            </div>
+                            <h3 class="press-title">"ESG 평가 국제표준 통일 시급" 한국ESG학회 정책 제안</h3>
+                            <p class="press-excerpt">
+                                한국ESG학회가 ESG 평가 기준의 국제 표준 통일이 시급하다는 정책 제안서를 발표했다. 
+                                현재 평가기관마다 다른 기준을 적용해 기업의 혼란이 가중되고 있다며, ISSB, GRI 등 글로벌 표준 도입과 
+                                국내 K-ESG 가이드라인의 정합성을 높여야 한다고 강조했다.
+                            </p>
+                            <div class="press-meta">
+                                <div class="press-tags">
+                                    <span class="press-tag">#정책제안</span>
+                                    <span class="press-tag">#국제표준</span>
+                                    <span class="press-tag">#평가기준</span>
+                                </div>
+                                <div class="press-actions">
+                                    <button class="press-action-btn">
+                                        <i class="fas fa-external-link-alt"></i> 원문보기
+                                    </button>
+                                    <button class="press-action-btn">
+                                        <i class="fas fa-share-alt"></i> 공유
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Press 4 -->
+                        <div class="press-item">
+                            <div class="press-header">
+                                <div class="press-media-info">
+                                    <div class="press-media-logo">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                    <div>
+                                        <div class="press-media-name">조선일보</div>
+                                    </div>
+                                </div>
+                                <div class="press-date">2025.01.09</div>
+                            </div>
+                            <h3 class="press-title">한국ESG학회 학술지, 한국연구재단 등재지 선정</h3>
+                            <p class="press-excerpt">
+                                한국ESG학회가 발간하는 '한국ESG경영연구' 학술지가 한국연구재단 등재지로 선정됐다. 
+                                창간 5년 만에 이룬 성과로, 엄격한 논문 심사와 높은 학술적 가치를 인정받았다. 
+                                학회는 향후 SSCI급 국제학술지 등재를 목표로 연구 역량을 강화할 계획이다.
+                            </p>
+                            <div class="press-meta">
+                                <div class="press-tags">
+                                    <span class="press-tag">#학술지</span>
+                                    <span class="press-tag">#등재지</span>
+                                    <span class="press-tag">#연구재단</span>
+                                </div>
+                                <div class="press-actions">
+                                    <button class="press-action-btn">
+                                        <i class="fas fa-external-link-alt"></i> 원문보기
+                                    </button>
+                                    <button class="press-action-btn">
+                                        <i class="fas fa-share-alt"></i> 공유
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Press 5 -->
+                        <div class="press-item">
+                            <div class="press-header">
+                                <div class="press-media-info">
+                                    <div class="press-media-logo" style="color: #2874a6;">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </div>
+                                    <div>
+                                        <div class="press-media-name" style="color: #2874a6;">대학저널</div>
+                                    </div>
+                                </div>
+                                <div class="press-date">2025.01.05</div>
+                            </div>
+                            <h3 class="press-title">한국ESG학회, 대학생 대상 ESG 아이디어 공모전 개최</h3>
+                            <p class="press-excerpt">
+                                한국ESG학회가 대학생을 대상으로 'ESG 혁신 아이디어 공모전'을 개최한다. 
+                                환경·사회·거버넌스 분야에서 혁신적인 해결책을 제시한 팀에게 총 1,000만원의 상금과 
+                                학회 인턴십 기회를 제공한다. 접수는 2월 28일까지다.
+                            </p>
+                            <div class="press-meta">
+                                <div class="press-tags">
+                                    <span class="press-tag">#공모전</span>
+                                    <span class="press-tag">#대학생</span>
+                                    <span class="press-tag">#아이디어</span>
+                                </div>
+                                <div class="press-actions">
+                                    <button class="press-action-btn">
+                                        <i class="fas fa-external-link-alt"></i> 원문보기
+                                    </button>
+                                    <button class="press-action-btn">
+                                        <i class="fas fa-share-alt"></i> 공유
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Press 6 -->
+                        <div class="press-item">
+                            <div class="press-header">
+                                <div class="press-media-info">
+                                    <div class="press-media-logo" style="color: #e65100;">
+                                        <i class="fas fa-globe"></i>
+                                    </div>
+                                    <div>
+                                        <div class="press-media-name" style="color: #e65100;">그린포스트코리아</div>
+                                    </div>
+                                </div>
+                                <div class="press-date">2025.01.03</div>
+                            </div>
+                            <h3 class="press-title">한국ESG학회 회원 수 1,500명 돌파... 지속가능경영 확산 기여</h3>
+                            <p class="press-excerpt">
+                                한국ESG학회 회원 수가 1,500명을 돌파하며 국내 최대 ESG 전문 학술단체로 자리잡았다. 
+                                학계, 산업계, 정책기관 전문가들이 참여해 ESG 연구와 실천을 선도하고 있으며, 
+                                올해는 회원 교류 프로그램과 실무 워크숍을 대폭 확대할 예정이다.
+                            </p>
+                            <div class="press-meta">
+                                <div class="press-tags">
+                                    <span class="press-tag">#회원</span>
+                                    <span class="press-tag">#학회활동</span>
+                                    <span class="press-tag">#성장</span>
+                                </div>
+                                <div class="press-actions">
+                                    <button class="press-action-btn">
+                                        <i class="fas fa-external-link-alt"></i> 원문보기
+                                    </button>
+                                    <button class="press-action-btn">
+                                        <i class="fas fa-share-alt"></i> 공유
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Press 7 -->
+                        <div class="press-item">
+                            <div class="press-header">
+                                <div class="press-media-info">
+                                    <div class="press-media-logo">
+                                        <i class="fas fa-building"></i>
+                                    </div>
+                                    <div>
+                                        <div class="press-media-name">비즈니스워치</div>
+                                    </div>
+                                </div>
+                                <div class="press-date">2025.12.28</div>
+                            </div>
+                            <h3 class="press-title">한국ESG학회, 기업 ESG 진단 및 컨설팅 서비스 본격화</h3>
+                            <p class="press-excerpt">
+                                한국ESG학회가 기업 맞춤형 ESG 진단 및 컨설팅 서비스를 본격적으로 시작한다. 
+                                학회 전문가 네트워크를 활용해 기업의 ESG 현황을 진단하고, 개선 방안을 제시하며, 
+                                ESG 공시 준비와 인증 취득까지 통합 지원한다.
+                            </p>
+                            <div class="press-meta">
+                                <div class="press-tags">
+                                    <span class="press-tag">#컨설팅</span>
+                                    <span class="press-tag">#진단</span>
+                                    <span class="press-tag">#기업지원</span>
+                                </div>
+                                <div class="press-actions">
+                                    <button class="press-action-btn">
+                                        <i class="fas fa-external-link-alt"></i> 원문보기
+                                    </button>
+                                    <button class="press-action-btn">
+                                        <i class="fas fa-share-alt"></i> 공유
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Press 8 -->
+                        <div class="press-item">
+                            <div class="press-header">
+                                <div class="press-media-info">
+                                    <div class="press-media-logo" style="color: #2874a6;">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div>
+                                        <div class="press-media-name" style="color: #2874a6;">헤럴드경제</div>
+                                    </div>
+                                </div>
+                                <div class="press-date">2025.12.22</div>
+                            </div>
+                            <h3 class="press-title">한국ESG학회-코리아ESG뉴스, 전략적 파트너십 체결</h3>
+                            <p class="press-excerpt">
+                                한국ESG학회와 코리아ESG뉴스가 ESG 정보 확산을 위한 전략적 파트너십을 체결했다. 
+                                양 기관은 학회의 연구 성과와 뉴스 매체의 전달력을 결합해 대중이 이해하기 쉬운 
+                                ESG 콘텐츠를 제작·배포하고, 공동 세미나와 캠페인을 전개할 예정이다.
+                            </p>
+                            <div class="press-meta">
+                                <div class="press-tags">
+                                    <span class="press-tag">#파트너십</span>
+                                    <span class="press-tag">#협력</span>
+                                    <span class="press-tag">#언론사</span>
+                                </div>
+                                <div class="press-actions">
+                                    <button class="press-action-btn">
+                                        <i class="fas fa-external-link-alt"></i> 원문보기
+                                    </button>
+                                    <button class="press-action-btn">
+                                        <i class="fas fa-share-alt"></i> 공유
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Press 9 -->
+                        <div class="press-item">
+                            <div class="press-header">
+                                <div class="press-media-info">
+                                    <div class="press-media-logo" style="color: #e65100;">
+                                        <i class="fas fa-award"></i>
+                                    </div>
+                                    <div>
+                                        <div class="press-media-name" style="color: #e65100;">서울경제</div>
+                                    </div>
+                                </div>
+                                <div class="press-date">2025.12.15</div>
+                            </div>
+                            <h3 class="press-title">'2025 ESG 우수기업 시상식' 개최... 10개 기업 선정</h3>
+                            <p class="press-excerpt">
+                                한국ESG학회가 주최한 '2025 ESG 우수기업 시상식'이 15일 열렸다. 
+                                환경·사회·거버넌스 각 분야에서 탁월한 성과를 보인 10개 기업이 수상했으며, 
+                                대상은 삼성전자가 수상했다. 학회는 우수 사례를 발굴해 확산시킬 계획이다.
+                            </p>
+                            <div class="press-meta">
+                                <div class="press-tags">
+                                    <span class="press-tag">#시상식</span>
+                                    <span class="press-tag">#우수기업</span>
+                                    <span class="press-tag">#포상</span>
+                                </div>
+                                <div class="press-actions">
+                                    <button class="press-action-btn">
+                                        <i class="fas fa-external-link-alt"></i> 원문보기
+                                    </button>
+                                    <button class="press-action-btn">
+                                        <i class="fas fa-share-alt"></i> 공유
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Press 10 -->
+                        <div class="press-item">
+                            <div class="press-header">
+                                <div class="press-media-info">
+                                    <div class="press-media-logo">
+                                        <i class="fas fa-lightbulb"></i>
+                                    </div>
+                                    <div>
+                                        <div class="press-media-name">이투데이</div>
+                                    </div>
+                                </div>
+                                <div class="press-date">2025.12.10</div>
+                            </div>
+                            <h3 class="press-title">한국ESG학회 "2025년 ESG 10대 트렌드" 발표</h3>
+                            <p class="press-excerpt">
+                                한국ESG학회가 '2025년 ESG 10대 트렌드'를 발표했다. 
+                                ▲ESG 공시 의무화 ▲AI 기반 ESG 관리 ▲순환경제 확산 ▲RE100 가속화 
+                                ▲이사회 다양성 강화 등이 주요 트렌드로 선정됐으며, 기업들은 이에 대비한 
+                                전략 수립이 필요하다고 강조했다.
+                            </p>
+                            <div class="press-meta">
+                                <div class="press-tags">
+                                    <span class="press-tag">#트렌드</span>
+                                    <span class="press-tag">#전망</span>
+                                    <span class="press-tag">#2025</span>
+                                </div>
+                                <div class="press-actions">
+                                    <button class="press-action-btn">
+                                        <i class="fas fa-external-link-alt"></i> 원문보기
+                                    </button>
+                                    <button class="press-action-btn">
+                                        <i class="fas fa-share-alt"></i> 공유
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>한국ESG학회</h3>
+                    <p>지속가능한 미래를 위한<br>ESG 연구와 실천</p>
+                </div>
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <ul>
+                        <li><a href="../about/intro.html">학회소개</a></li>
+                        <li><a href="../journal/intro.html">학술지</a></li>
+                        <li><a href="../member/process.html">회원가입</a></li>
+                        <li><a href="../community/notice.html">공지사항</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>연락처</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 서울특별시 동작구 상도로 369</li>
+                        <li><i class="fas fa-phone"></i> 010-4263-7715</li>
+                        <li><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Korean ESG Association. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        // 보도자료 검색 기능
+        function searchPress() {
+            const keyword = document.getElementById('searchKeyword').value.toLowerCase();
+            const media = document.getElementById('searchMedia').value.toLowerCase();
+            
+            const pressItems = document.querySelectorAll('.press-item');
+            let visibleCount = 0;
+            
+            pressItems.forEach(item => {
+                const title = item.querySelector('.press-title')?.textContent.toLowerCase() || '';
+                const content = item.querySelector('.press-excerpt')?.textContent.toLowerCase() || '';
+                const mediaName = item.querySelector('.press-media-name')?.textContent.toLowerCase() || '';
+                
+                const keywordMatch = !keyword || title.includes(keyword) || content.includes(keyword);
+                const mediaMatch = !media || mediaName.includes(media);
+                
+                if (keywordMatch && mediaMatch) {
+                    item.style.display = '';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            document.getElementById('resultCount').textContent = visibleCount;
+            document.getElementById('searchResults').style.display = 'block';
+        }
+        
+        function resetPressSearch() {
+            document.getElementById('searchKeyword').value = '';
+            document.getElementById('searchMedia').value = '';
+            document.getElementById('searchPeriod').value = 'all';
+            
+            document.querySelectorAll('.press-item').forEach(item => {
+                item.style.display = '';
+            });
+            
+            document.getElementById('searchResults').style.display = 'none';
+        }
+        
+        // Enter 키 검색
+        document.addEventListener('DOMContentLoaded', function() {
+            ['searchKeyword', 'searchMedia'].forEach(id => {
+                document.getElementById(id)?.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') searchPress();
+                });
+            });
+        });
+    </script>
+</body>
+</html>

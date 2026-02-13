@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="한국ESG학회 ESG 교육 프로그램 - ESG 전문가 양성 및 기업 맞춤형 교육">
+    <title>ESG 교육 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo-symbol.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+        .education-hero {
+            background: transparent;
+            color: var(--text-dark);
+            padding: 30px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--primary-green);
+        }
+        .education-hero h2 {
+            font-size: 2.3rem;
+            margin-bottom: 15px;
+            color: var(--primary-green);
+        }
+        .education-hero h2 i {
+            margin-right: 12px;
+        }
+        .education-hero p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        .program-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        .program-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+        }
+        .program-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-green));
+            color: #fff;
+            padding: 30px;
+            text-align: center;
+        }
+        .program-header i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        .program-header h3 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+        .program-header .badge {
+            background: rgba(255,255,255,0.3);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .program-body {
+            padding: 30px;
+        }
+        .program-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .info-item {
+            padding: 15px;
+            background: var(--bg-light);
+            border-radius: 8px;
+            text-align: center;
+        }
+        .info-item i {
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        .info-item strong {
+            display: block;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+        .info-item span {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        .curriculum-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .curriculum-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        .curriculum-list li:last-child {
+            border-bottom: none;
+        }
+        .curriculum-list li i {
+            color: var(--primary-green);
+            margin-right: 12px;
+            font-size: 1.1rem;
+        }
+        .certification-section {
+            background: var(--bg-green-light);
+            padding: 50px 30px;
+            border-radius: 15px;
+            margin: 50px 0;
+        }
+        .certification-title {
+            text-align: center;
+            color: var(--primary-green);
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+        .cert-levels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .cert-level-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+        .cert-badge {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 5px 15px rgba(255,215,0,0.3);
+        }
+        .cert-level-card.silver .cert-badge {
+            background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+            box-shadow: 0 5px 15px rgba(192,192,192,0.3);
+        }
+        .cert-level-card.bronze .cert-badge {
+            background: linear-gradient(135deg, #cd7f32, #e8a869);
+            box-shadow: 0 5px 15px rgba(205,127,50,0.3);
+        }
+        .cert-level-card h4 {
+            color: var(--primary-green);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+        .cert-level-card ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+        .cert-level-card ul li {
+            padding: 8px 0;
+            color: #666;
+            font-size: 0.95rem;
+        }
+        .cert-level-card ul li i {
+            color: var(--primary-green);
+            margin-right: 8px;
+        }
+        .instructor-section {
+            margin: 50px 0;
+        }
+        .instructor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .instructor-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        .instructor-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 3rem;
+            color: #fff;
+        }
+        .instructor-card h4 {
+            color: var(--primary-blue);
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+        .instructor-card .position {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        .instructor-card .expertise {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: left;
+        }
+        .instructor-card .expertise strong {
+            display: block;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+        .instructor-card .expertise ul {
+            list-style: none;
+            padding: 0;
+        }
+        .instructor-card .expertise ul li {
+            padding: 5px 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .schedule-section {
+            background: var(--bg-light);
+            padding: 50px 30px;
+            border-radius: 15px;
+            margin: 50px 0;
+        }
+        .schedule-title {
+            text-align: center;
+            color: var(--primary-blue);
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+        .schedule-table {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+        .schedule-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .schedule-table th,
+        .schedule-table td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        .schedule-table th {
+            background: var(--primary-blue);
+            color: #fff;
+            font-weight: 600;
+        }
+        .schedule-table tr:last-child td {
+            border-bottom: none;
+        }
+        .schedule-table tr:hover {
+            background: var(--bg-light);
+        }
+        .schedule-table .status-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .status-badge.recruiting {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-badge.full {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .status-badge.planned {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+        .benefit-card {
+            background: linear-gradient(135deg, #e3f2fd, #e8f5e9);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        .benefit-card i {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+        .benefit-card h4 {
+            color: var(--text-dark);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+        .benefit-card p {
+            color: #555;
+            line-height: 1.7;
+        }
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            color: #fff;
+            padding: 50px 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .cta-section h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .cta-btn {
+            padding: 15px 40px;
+            background: #fff;
+            color: var(--primary-blue);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        @media (max-width: 768px) {
+            .education-hero h2 {
+                font-size: 1.8rem;
+            }
+            .education-hero p {
+                font-size: 1rem;
+            }
+            .program-grid,
+            .instructor-grid {
+                grid-template-columns: 1fr;
+            }
+            .program-info {
+                grid-template-columns: 1fr;
+            }
+            .schedule-table {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 010-4263-7715</span>
+                        <span><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</span>
+                    </div>
+                    <div class="quick-links">
+                        <a href="../member/process.html">회원가입</a>
+                        <a href="../mypage/profile.html">로그인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    <button class="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">핵심사업</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학술지·논문</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">자료실</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../../index.html"><i class="fas fa-home"></i> 홈</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="#">핵심사업</a>
+            <i class="fas fa-chevron-right"></i>
+            <span class="current">ESG 교육</span>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1><i class="fas fa-graduation-cap"></i> ESG 교육</h1>
+            <p class="page-description">ESG 전문가 양성 및 기업 맞춤형 교육 프로그램</p>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="education-hero">
+                <h2>ESG 전문 교육 프로그램</h2>
+                <p>체계적인 이론과 실무 중심의 교육으로<br>
+                ESG 전문 인력을 양성하고 기업의 ESG 역량을 강화합니다</p>
+            </div>
+
+            <section>
+                <h2 class="section-title">
+                    <i class="fas fa-book"></i> 교육 프로그램
+                </h2>
+                <div class="program-grid">
+                    <div class="program-card">
+                        <div class="program-header">
+                            <i class="fas fa-user-graduate"></i>
+                            <h3>ESG 전문가 과정</h3>
+                            <span class="badge">정규 과정</span>
+                        </div>
+                        <div class="program-body">
+                            <div class="program-info">
+                                <div class="info-item">
+                                    <i class="fas fa-clock"></i>
+                                    <strong>교육 기간</strong>
+                                    <span>3개월 (주 1회)</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-users"></i>
+                                    <strong>정원</strong>
+                                    <span>30명</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-won-sign"></i>
+                                    <strong>수강료</strong>
+                                    <span>200만원</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-certificate"></i>
+                                    <strong>수료증</strong>
+                                    <span>발급</span>
+                                </div>
+                            </div>
+                            <h4 style="color: var(--primary-blue); margin: 20px 0 15px;">주요 커리큘럼</h4>
+                            <ul class="curriculum-list">
+                                <li><i class="fas fa-check-circle"></i> ESG 개론 및 글로벌 동향</li>
+                                <li><i class="fas fa-check-circle"></i> 환경(E) 경영 실무</li>
+                                <li><i class="fas fa-check-circle"></i> 사회(S) 책임 경영</li>
+                                <li><i class="fas fa-check-circle"></i> 거버넌스(G) 구조 설계</li>
+                                <li><i class="fas fa-check-circle"></i> ESG 보고서 작성</li>
+                                <li><i class="fas fa-check-circle"></i> 사례 연구 및 실습</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="program-card">
+                        <div class="program-header">
+                            <i class="fas fa-building"></i>
+                            <h3>기업 맞춤형 교육</h3>
+                            <span class="badge">기업 전용</span>
+                        </div>
+                        <div class="program-body">
+                            <div class="program-info">
+                                <div class="info-item">
+                                    <i class="fas fa-clock"></i>
+                                    <strong>교육 기간</strong>
+                                    <span>협의 조정</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-users"></i>
+                                    <strong>정원</strong>
+                                    <span>협의</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-won-sign"></i>
+                                    <strong>비용</strong>
+                                    <span>별도 협의</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <strong>장소</strong>
+                                    <span>방문/온라인</span>
+                                </div>
+                            </div>
+                            <h4 style="color: var(--primary-blue); margin: 20px 0 15px;">교육 내용</h4>
+                            <ul class="curriculum-list">
+                                <li><i class="fas fa-check-circle"></i> 기업 현황 맞춤 진단</li>
+                                <li><i class="fas fa-check-circle"></i> 업종별 ESG 이슈</li>
+                                <li><i class="fas fa-check-circle"></i> 임직원 ESG 인식 제고</li>
+                                <li><i class="fas fa-check-circle"></i> 실무 담당자 역량 강화</li>
+                                <li><i class="fas fa-check-circle"></i> 부서별 ESG 실행 전략</li>
+                                <li><i class="fas fa-check-circle"></i> Q&A 및 워크숍</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="program-card">
+                        <div class="program-header">
+                            <i class="fas fa-laptop"></i>
+                            <h3>온라인 교육</h3>
+                            <span class="badge">언제 어디서나</span>
+                        </div>
+                        <div class="program-body">
+                            <div class="program-info">
+                                <div class="info-item">
+                                    <i class="fas fa-clock"></i>
+                                    <strong>교육 기간</strong>
+                                    <span>4주 (자율)</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-users"></i>
+                                    <strong>정원</strong>
+                                    <span>제한 없음</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-won-sign"></i>
+                                    <strong>수강료</strong>
+                                    <span>50만원</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-video"></i>
+                                    <strong>형태</strong>
+                                    <span>동영상 강의</span>
+                                </div>
+                            </div>
+                            <h4 style="color: var(--primary-blue); margin: 20px 0 15px;">강의 구성</h4>
+                            <ul class="curriculum-list">
+                                <li><i class="fas fa-check-circle"></i> ESG 기초 이론 (8강)</li>
+                                <li><i class="fas fa-check-circle"></i> 환경 경영 실무 (6강)</li>
+                                <li><i class="fas fa-check-circle"></i> 사회 책임 경영 (6강)</li>
+                                <li><i class="fas fa-check-circle"></i> 거버넌스 체계 (5강)</li>
+                                <li><i class="fas fa-check-circle"></i> 글로벌 표준 및 사례 (5강)</li>
+                                <li><i class="fas fa-check-circle"></i> 온라인 테스트 및 수료</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="certification-section">
+                <h2 class="certification-title"><i class="fas fa-medal"></i> ESG 전문가 자격 인증</h2>
+                <div class="cert-levels">
+                    <div class="cert-level-card">
+                        <div class="cert-badge">
+                            <i class="fas fa-trophy" style="color: #fff;"></i>
+                        </div>
+                        <h4>ESG 마스터</h4>
+                        <p style="color: #666; margin-bottom: 20px;">최상위 전문가</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i> 전문가 과정 수료</li>
+                            <li><i class="fas fa-check"></i> 실무 경력 3년 이상</li>
+                            <li><i class="fas fa-check"></i> 논문 게재 1편 이상</li>
+                            <li><i class="fas fa-check"></i> 최종 심사 통과</li>
+                        </ul>
+                    </div>
+
+                    <div class="cert-level-card silver">
+                        <div class="cert-badge">
+                            <i class="fas fa-award" style="color: #555;"></i>
+                        </div>
+                        <h4>ESG 전문가</h4>
+                        <p style="color: #666; margin-bottom: 20px;">중급 전문가</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i> 전문가 과정 수료</li>
+                            <li><i class="fas fa-check"></i> 실무 경력 1년 이상</li>
+                            <li><i class="fas fa-check"></i> 필기 시험 합격</li>
+                            <li><i class="fas fa-check"></i> 실기 평가 통과</li>
+                        </ul>
+                    </div>
+
+                    <div class="cert-level-card bronze">
+                        <div class="cert-badge">
+                            <i class="fas fa-certificate" style="color: #fff;"></i>
+                        </div>
+                        <h4>ESG 실무자</h4>
+                        <p style="color: #666; margin-bottom: 20px;">입문 단계</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i> 기본 과정 수료</li>
+                            <li><i class="fas fa-check"></i> 온라인 시험 합격 (70점 이상)</li>
+                            <li><i class="fas fa-check"></i> 수료증 발급</li>
+                            <li><i class="fas fa-check"></i> 학회 회원 가입</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <section class="instructor-section">
+                <h2 class="section-title">
+                    <i class="fas fa-chalkboard-teacher"></i> 교수진
+                </h2>
+                <div class="instructor-grid">
+                    <div class="instructor-card">
+                        <div class="instructor-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>고문현 교수</h4>
+                        <p class="position">한국ESG학회 회장<br>숭실대학교 경영학과</p>
+                        <div class="expertise">
+                            <strong>전문 분야</strong>
+                            <ul>
+                                <li>ESG 경영 전략</li>
+                                <li>지속가능경영</li>
+                                <li>기업 거버넌스</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="instructor-card">
+                        <div class="instructor-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>이지환 교수</h4>
+                        <p class="position">환경위원회 위원장<br>서울대학교 환경대학원</p>
+                        <div class="expertise">
+                            <strong>전문 분야</strong>
+                            <ul>
+                                <li>탄소중립 정책</li>
+                                <li>기후변화 대응</li>
+                                <li>녹색 금융</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="instructor-card">
+                        <div class="instructor-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>김영수 박사</h4>
+                        <p class="position">ESG 컨설턴트<br>前 대기업 ESG 팀장</p>
+                        <div class="expertise">
+                            <strong>전문 분야</strong>
+                            <ul>
+                                <li>ESG 보고서 작성</li>
+                                <li>공급망 관리</li>
+                                <li>실무 사례 연구</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="instructor-card">
+                        <div class="instructor-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>박미경 변호사</h4>
+                        <p class="position">법무법인 그린<br>ESG 전문 변호사</p>
+                        <div class="expertise">
+                            <strong>전문 분야</strong>
+                            <ul>
+                                <li>ESG 법규 해석</li>
+                                <li>기업 지배구조</li>
+                                <li>규제 대응 전략</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="schedule-section">
+                <h2 class="schedule-title"><i class="fas fa-calendar-alt"></i> 2025년 교육 일정</h2>
+                <div class="schedule-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>과정명</th>
+                                <th>기간</th>
+                                <th>모집 인원</th>
+                                <th>상태</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>ESG 전문가 과정 (1기)</strong></td>
+                                <td>2025.03.05 ~ 2025.05.28</td>
+                                <td>30명</td>
+                                <td><span class="status-badge recruiting">모집중</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>탄소중립 실무 과정</strong></td>
+                                <td>2025.04.10 ~ 2025.04.25</td>
+                                <td>20명</td>
+                                <td><span class="status-badge recruiting">모집중</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ESG 보고서 작성 워크숍</strong></td>
+                                <td>2025.05.15 ~ 2025.05.16</td>
+                                <td>15명</td>
+                                <td><span class="status-badge planned">예정</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ESG 전문가 과정 (2기)</strong></td>
+                                <td>2025.06.03 ~ 2025.08.26</td>
+                                <td>30명</td>
+                                <td><span class="status-badge planned">예정</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>공급망 ESG 관리 과정</strong></td>
+                                <td>2025.07.08 ~ 2025.07.23</td>
+                                <td>20명</td>
+                                <td><span class="status-badge planned">예정</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ESG 전문가 과정 (3기)</strong></td>
+                                <td>2025.09.02 ~ 2025.11.25</td>
+                                <td>30명</td>
+                                <td><span class="status-badge planned">예정</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <section>
+                <h2 class="section-title">
+                    <i class="fas fa-gift"></i> 교육 수강 혜택
+                </h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <i class="fas fa-certificate"></i>
+                        <h4>공식 수료증 발급</h4>
+                        <p>한국ESG학회 명의의 공식 수료증 및 자격증 발급</p>
+                    </div>
+                    <div class="benefit-card">
+                        <i class="fas fa-book-open"></i>
+                        <h4>교육 자료 제공</h4>
+                        <p>체계적으로 정리된 교재 및 실무 템플릿 제공</p>
+                    </div>
+                    <div class="benefit-card">
+                        <i class="fas fa-users"></i>
+                        <h4>네트워킹 기회</h4>
+                        <p>ESG 전문가 및 실무자 네트워크 구축 기회</p>
+                    </div>
+                    <div class="benefit-card">
+                        <i class="fas fa-laptop"></i>
+                        <h4>온라인 자료실</h4>
+                        <p>수료 후에도 온라인 자료실 및 커뮤니티 이용 가능</p>
+                    </div>
+                    <div class="benefit-card">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h4>학회 회원 혜택</h4>
+                        <p>학회 행사 우대, 논문 투고 지원, 자격 유지 교육</p>
+                    </div>
+                    <div class="benefit-card">
+                        <i class="fas fa-briefcase"></i>
+                        <h4>취업 지원</h4>
+                        <p>ESG 관련 채용 정보 제공 및 이력서 첨부 가능</p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="cta-section">
+                <h3>ESG 교육 신청하기</h3>
+                <p>ESG 전문가로 성장할 수 있는 최고의 교육 프로그램<br>
+                지금 바로 신청하고 지속가능한 미래를 만들어가세요</p>
+                <div class="cta-buttons">
+                    <a href="mailto:kohmh@ssu.ac.kr" class="cta-btn">
+                        <i class="fas fa-envelope"></i> 교육 문의
+                    </a>
+                    <a href="tel:010-4263-7715" class="cta-btn">
+                        <i class="fas fa-phone"></i> 전화 상담
+                    </a>
+                </div>
+                <p style="margin-top: 30px; font-size: 0.95rem; opacity: 0.9;">
+                    <i class="fas fa-headset"></i> 상담 시간: 평일 09:00 - 18:00
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="../../images/logo.png" alt="한국ESG학회" class="footer-logo">
+                    <p class="footer-description">
+                        지속가능한 미래를 위한 ESG 연구와 실천
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>학회 정보</h4>
+                    <ul class="footer-links">
+                        <li><a href="../about/intro.html">학회소개</a></li>
+                        <li><a href="../about/history.html">학회연혁</a></li>
+                        <li><a href="../organization/executive.html">임원진</a></li>
+                        <li><a href="../member/process.html">회원가입</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>주요 서비스</h4>
+                    <ul class="footer-links">
+                        <li><a href="forum.html">ESG 포럼</a></li>
+                        <li><a href="certification.html">ESG 인증</a></li>
+                        <li><a href="consulting.html">ESG 컨설팅</a></li>
+                        <li><a href="education.html">ESG 교육</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>문의처</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-map-marker-alt"></i> 서울특별시 동작구 상도로 369<br>숭실대학교 진리관 508호</li>
+                        <li><i class="fas fa-phone"></i> 010-4263-7715</li>
+                        <li><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Korean ESG Association. All Rights Reserved.</p>
+                <p>개인정보관리책임자: 고문현 (kohmh@ssu.ac.kr) | 홈페이지관리책임자: 강종진 (mail@iuci.kr)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+</body>
+</html>

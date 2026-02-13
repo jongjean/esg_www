@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개인 기부 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo-symbol.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+
+        
+        .donation-levels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        .level-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .level-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, #1e7e34, #2874a6);
+        }
+        .level-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        .level-card.featured {
+            border: 3px solid #1e7e34;
+        }
+        .level-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #1e7e34, #2874a6);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .level-card h3 {
+            color: #1e7e34;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        .level-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .level-period {
+            color: #6c757d;
+            margin-bottom: 25px;
+        }
+        .level-benefits {
+            text-align: left;
+            margin: 20px 0;
+        }
+        .level-benefits li {
+            padding: 10px 0;
+            color: #495057;
+            display: flex;
+            align-items: start;
+            gap: 10px;
+        }
+        .level-benefits li i {
+            color: #1e7e34;
+            margin-top: 3px;
+        }
+        .level-card .donate-btn {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #1e7e34, #2874a6);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .level-card .donate-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(30, 126, 52, 0.3);
+        }
+
+        .benefits-section {
+            background: #f8f9fa;
+            padding: 60px 40px;
+            border-radius: 16px;
+            margin: 60px 0;
+        }
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .benefit-item {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        .benefit-item .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #1e7e34, #2874a6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .benefit-item h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .benefit-item p {
+            color: #6c757d;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .donation-form {
+            background: white;
+            padding: 50px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 30px;
+        }
+        .form-group label {
+            display: block;
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #1e7e34;
+        }
+        .amount-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .amount-btn {
+            padding: 15px;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: #495057;
+        }
+        .amount-btn:hover {
+            border-color: #1e7e34;
+            color: #1e7e34;
+        }
+        .amount-btn.selected {
+            background: linear-gradient(135deg, #1e7e34, #2874a6);
+            color: white;
+            border-color: transparent;
+        }
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .payment-btn {
+            padding: 20px;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .payment-btn:hover {
+            border-color: #1e7e34;
+        }
+        .payment-btn.selected {
+            border-color: #1e7e34;
+            background: #e8f5e9;
+        }
+        .payment-btn i {
+            font-size: 2rem;
+            color: #1e7e34;
+            margin-bottom: 10px;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #1e7e34, #2874a6);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(30, 126, 52, 0.3);
+        }
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2874a6;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        .info-box h4 {
+            color: #2874a6;
+            margin-bottom: 10px;
+        }
+        .info-box ul {
+            padding-left: 20px;
+        }
+        .info-box li {
+            color: #495057;
+            padding: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            .donation-levels {
+                grid-template-columns: 1fr;
+            }
+            .donation-form {
+                padding: 30px 20px;
+            }
+            .amount-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 010-4263-7715</span>
+                        <span><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</span>
+                    </div>
+                    <div class="quick-links">
+                        <a href="../member/process.html">회원가입</a>
+                        <a href="../mypage/profile.html">로그인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    <button class="mobile-menu-btn"><span></span><span></span><span></span></button>
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../about/greeting.html">학회장 인사말</a></li>
+                                <li><a href="../about/purpose.html">설립 목적·비전</a></li>
+                                <li><a href="../about/history.html">연혁</a></li>
+                                <li><a href="../about/constitution.html">정관·규정</a></li>
+                                <li><a href="../about/ci.html">CI·BI</a></li>
+                                <li><a href="../about/location.html">오시는 길</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../organization/executives.html">임원진</a></li>
+                                <li><a href="../organization/committees.html">위원회</a></li>
+                                <li><a href="../organization/divisions.html">분과학회·연구회</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../member/types-new.html">회원 구분</a></li>
+                                <li><a href="../member/process.html">가입 절차</a></li>
+                                <li><a href="../member/fee.html">회비 안내</a></li>
+                                <li><a href="../member/benefits.html">회원 혜택</a></li>
+                                <li><a href="../member/companies.html">회원사 소개</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">핵심사업</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../core/forum-new.html">월드ESG포럼</a></li>
+                                <li><a href="../core/award.html">한국ESG대상</a></li>
+                                <li><a href="../core/ordinance.html">한국ESG조례대상</a></li>
+                                <li><a href="../core/seminar.html">월요학술세미나</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학술지·논문</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../journal/about.html">학술지 소개</a></li>
+                                <li><a href="../journal/submission.html">논문 투고 안내</a></li>
+                                <li><a href="../journal/editorial.html">편집위원회</a></li>
+                                <li><a href="../journal/review.html">심사 규정</a></li>
+                                <li><a href="../journal/archive.html">논문 아카이브</a></li>
+                                <li><a href="../journal/dbpia-embed.html">DBPIA 논문 검색</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../policy/research.html">ESG 정책 연구</a></li>
+                                <li><a href="../policy/standards.html">ESG 지표·표준</a></li>
+                                <li><a href="../policy/law.html">법·제도 분석</a></li>
+                                <li><a href="../policy/global.html">국제 ESG 동향</a></li>
+                                <li><a href="../policy/reports.html">연구보고서</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../news/main.html">ESG 주요 뉴스</a></li>
+                                <li><a href="../news/policy.html">정책·입법 동향</a></li>
+                                <li><a href="../news/cases.html">기업 ESG 사례</a></li>
+                                <li><a href="../news/press.html">학회 보도자료</a></li>
+                                <li><a href="../news/column.html">기고·칼럼</a></li>
+                                <li><a href="../news/video.html">영상 콘텐츠</a></li>
+                                <li><a href="../news/esg-news-embed.html">코리아ESG뉴스</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../community/notice.html">공지사항</a></li>
+                                <li><a href="../community/forum.html">자유게시판</a></li>
+                                <li><a href="../community/discussion.html">학술·정책 토론</a></li>
+                                <li><a href="../community/member-news.html">회원 소식</a></li>
+                                <li><a href="../community/qna.html">Q&A</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">자료실</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../materials/academic.html">학술자료</a></li>
+                                <li><a href="../materials/policy.html">정책자료</a></li>
+                                <li><a href="../materials/presentation.html">발표자료</a></li>
+                                <li><a href="../materials/report.html">ESG 리포트</a></li>
+                                <li><a href="../materials/video.html">영상자료</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="guide.html">후원 안내</a></li>
+                                <li><a href="corporate.html">기업 후원</a></li>
+                                <li><a href="personal.html">개인 기부</a></li>
+                                <li><a href="usage.html">기부금 사용 내역</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">마이페이지</a>
+                            <ul class="dropdown-menu">
+                                <!-- 로그인 전 메뉴 -->
+                                <li class="auth-only logged-out"><a href="../auth/signup.html"><i class="fas fa-user-plus"></i> 회원가입</a></li>
+                                <li class="auth-only logged-out"><a href="../auth/login.html"><i class="fas fa-sign-in-alt"></i> 로그인</a></li>
+                                <li class="auth-only logged-out dropdown-divider"></li>
+                                
+                                <!-- 로그인 후 메뉴 -->
+                                <li class="auth-only logged-in"><a href="../mypage/profile.html"><i class="fas fa-user-edit"></i> 회원정보 관리</a></li>
+                                <li class="auth-only logged-in"><a href="../mypage/payment.html"><i class="fas fa-credit-card"></i> 회비 납부</a></li>
+                                <li class="auth-only logged-in"><a href="../mypage/history.html"><i class="fas fa-history"></i> 납부 내역</a></li>
+                                <li class="auth-only logged-in"><a href="../mypage/paper.html"><i class="fas fa-file-alt"></i> 논문 투고 현황</a></li>
+                                <li class="auth-only logged-in"><a href="../mypage/event.html"><i class="fas fa-calendar-check"></i> 행사·세미나 신청 내역</a></li>
+                                <li class="auth-only logged-in"><a href="../mypage/certificate.html"><i class="fas fa-certificate"></i> 회원증·증명서</a></li>
+                                <li class="auth-only logged-in dropdown-divider"></li>
+                                <li class="auth-only logged-in"><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> 로그아웃</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-heart"></i> 개인 기부</h1>
+            <p>여러분의 소중한 후원이 지속가능한 미래를 만드는 첫걸음입니다</p>
+        </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../../index.html"><i class="fas fa-home"></i> 홈</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="#">후원·기부</a>
+            <i class="fas fa-chevron-right"></i>
+            <span class="current">개인 기부</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+
+            <!-- Donation Levels -->
+            <section>
+                <h2 style="text-align: center; color: #1e7e34; margin-bottom: 20px;">후원 등급 안내</h2>
+                <p style="text-align: center; color: #6c757d; margin-bottom: 50px;">
+                    정기 후원으로 지속적인 ESG 활동을 지원해주세요. 후원 등급에 따라 다양한 혜택을 제공합니다.
+                </p>
+                
+                <div class="donation-levels">
+                    <!-- Bronze -->
+                    <div class="level-card">
+                        <div class="level-badge" style="background: linear-gradient(135deg, #cd7f32, #b8732f);">Bronze</div>
+                        <h3>브론즈 회원</h3>
+                        <div class="level-amount">1만원</div>
+                        <div class="level-period">월 정기 후원</div>
+                        <ul class="level-benefits">
+                            <li><i class="fas fa-check-circle"></i> 기부금 영수증 발급</li>
+                            <li><i class="fas fa-check-circle"></i> 뉴스레터 발송</li>
+                            <li><i class="fas fa-check-circle"></i> 연례보고서 발송</li>
+                            <li><i class="fas fa-check-circle"></i> 후원자 명단 등재</li>
+                        </ul>
+                        <button class="donate-btn" onclick="window.location.href='../mypage/payment.html'">후원금 납부하기</button>
+                    </div>
+
+                    <!-- Silver -->
+                    <div class="level-card">
+                        <div class="level-badge" style="background: linear-gradient(135deg, #c0c0c0, #a8a8a8);">Silver</div>
+                        <h3>실버 회원</h3>
+                        <div class="level-amount">3만원</div>
+                        <div class="level-period">월 정기 후원</div>
+                        <ul class="level-benefits">
+                            <li><i class="fas fa-check-circle"></i> 브론즈 혜택 전체</li>
+                            <li><i class="fas fa-check-circle"></i> 학술지 무료 구독</li>
+                            <li><i class="fas fa-check-circle"></i> 세미나 20% 할인</li>
+                            <li><i class="fas fa-check-circle"></i> ESG 자료 우선 제공</li>
+                        </ul>
+                        <button class="donate-btn" onclick="window.location.href='../mypage/payment.html'">후원금 납부하기</button>
+                    </div>
+
+                    <!-- Gold -->
+                    <div class="level-card featured">
+                        <div class="level-badge" style="background: linear-gradient(135deg, #ffd700, #ffb900);">Gold ⭐</div>
+                        <h3>골드 회원</h3>
+                        <div class="level-amount">5만원</div>
+                        <div class="level-period">월 정기 후원</div>
+                        <ul class="level-benefits">
+                            <li><i class="fas fa-check-circle"></i> 실버 혜택 전체</li>
+                            <li><i class="fas fa-check-circle"></i> 세미나·포럼 무료 참가</li>
+                            <li><i class="fas fa-check-circle"></i> 우수논문집 무료 제공</li>
+                            <li><i class="fas fa-check-circle"></i> VIP 네트워킹 행사 초대</li>
+                            <li><i class="fas fa-check-circle"></i> 감사패 증정 (연말)</li>
+                        </ul>
+                        <button class="donate-btn" onclick="window.location.href='../mypage/payment.html'">후원금 납부하기</button>
+                    </div>
+
+                    <!-- Platinum -->
+                    <div class="level-card">
+                        <div class="level-badge" style="background: linear-gradient(135deg, #e5e4e2, #d4d3d0);">Platinum</div>
+                        <h3>플래티넘 회원</h3>
+                        <div class="level-amount">10만원+</div>
+                        <div class="level-period">월 정기 후원</div>
+                        <ul class="level-benefits">
+                            <li><i class="fas fa-check-circle"></i> 골드 혜택 전체</li>
+                            <li><i class="fas fa-check-circle"></i> 연례 학술대회 VIP 초대</li>
+                            <li><i class="fas fa-check-circle"></i> ESG 연구보고서 전권 제공</li>
+                            <li><i class="fas fa-check-circle"></i> 개인 맞춤 ESG 자문 1회</li>
+                            <li><i class="fas fa-check-circle"></i> 홈페이지 특별 감사 게재</li>
+                        </ul>
+                        <button class="donate-btn" onclick="window.location.href='../mypage/payment.html'">후원금 납부하기</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Benefits Section -->
+            <div class="benefits-section">
+                <h2 style="text-align: center; color: #1e7e34; margin-bottom: 20px;">후원자 특별 혜택</h2>
+                <p style="text-align: center; color: #6c757d; margin-bottom: 40px;">
+                    정기 후원자에게는 다양한 학술 활동과 네트워킹 기회가 제공됩니다.
+                </p>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <div class="icon"><i class="fas fa-certificate"></i></div>
+                        <h4>기부금 영수증</h4>
+                        <p>연말정산 시 세액공제 혜택을 받으실 수 있습니다 (최대 30%)</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="icon"><i class="fas fa-newspaper"></i></div>
+                        <h4>학술지 구독</h4>
+                        <p>실버 등급 이상 후원자에게 학술지를 무료로 제공합니다</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="icon"><i class="fas fa-users"></i></div>
+                        <h4>네트워킹 행사</h4>
+                        <p>후원자 전용 네트워킹 행사에 초대되어 ESG 전문가들과 교류합니다</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="icon"><i class="fas fa-award"></i></div>
+                        <h4>감사패 증정</h4>
+                        <p>연간 50만원 이상 후원자에게 감사패를 증정합니다</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Donation Form -->
+            <section id="donation-form-section" style="margin-top: 80px;">
+                <h2 style="text-align: center; color: #1e7e34; margin-bottom: 40px;">후원 신청하기</h2>
+                <div class="donation-form">
+                    <form id="donationForm" onsubmit="handleSubmit(event)">
+                        <!-- 후원 유형 -->
+                        <div class="form-group">
+                            <label>후원 유형</label>
+                            <select id="donationType" required>
+                                <option value="">선택하세요</option>
+                                <option value="regular">정기 후원 (매월)</option>
+                                <option value="onetime">일시 후원</option>
+                            </select>
+                        </div>
+
+                        <!-- 후원 금액 -->
+                        <div class="form-group">
+                            <label>후원 금액</label>
+                            <div class="amount-options">
+                                <button type="button" class="amount-btn" onclick="selectAmount(10000)">1만원</button>
+                                <button type="button" class="amount-btn" onclick="selectAmount(30000)">3만원</button>
+                                <button type="button" class="amount-btn" onclick="selectAmount(50000)">5만원</button>
+                                <button type="button" class="amount-btn" onclick="selectAmount(100000)">10만원</button>
+                            </div>
+                            <input type="number" id="amount" placeholder="직접 입력 (최소 10,000원)" min="10000" step="1000" required>
+                        </div>
+
+                        <!-- 개인 정보 -->
+                        <div class="form-group">
+                            <label>이름</label>
+                            <input type="text" id="name" required placeholder="홍길동">
+                        </div>
+
+                        <div class="form-group">
+                            <label>연락처</label>
+                            <input type="tel" id="phone" required placeholder="010-0000-0000">
+                        </div>
+
+                        <div class="form-group">
+                            <label>이메일</label>
+                            <input type="email" id="email" required placeholder="example@email.com">
+                        </div>
+
+                        <!-- 결제 방법 -->
+                        <div class="form-group">
+                            <label>결제 방법</label>
+                            <div class="payment-methods">
+                                <div class="payment-btn" onclick="selectPayment('card')">
+                                    <i class="fas fa-credit-card"></i>
+                                    <div>신용카드</div>
+                                </div>
+                                <div class="payment-btn" onclick="selectPayment('account')">
+                                    <i class="fas fa-university"></i>
+                                    <div>계좌이체</div>
+                                </div>
+                                <div class="payment-btn" onclick="selectPayment('cms')">
+                                    <i class="fas fa-file-invoice"></i>
+                                    <div>CMS</div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="paymentMethod" required>
+                        </div>
+
+                        <!-- 기부금 영수증 -->
+                        <div class="form-group">
+                            <label style="display: flex; align-items: center; gap: 10px;">
+                                <input type="checkbox" id="receiptRequired" checked>
+                                기부금 영수증 발급 신청 (연말정산 세액공제)
+                            </label>
+                        </div>
+
+                        <div class="info-box">
+                            <h4><i class="fas fa-info-circle"></i> 유의사항</h4>
+                            <ul>
+                                <li>정기 후원은 매월 1일 또는 15일에 자동 출금됩니다.</li>
+                                <li>기부금 영수증은 국세청 연말정산간소화 서비스에서 조회 가능합니다.</li>
+                                <li>후원금은 ESG 연구, 교육, 학술 활동에 사용됩니다.</li>
+                                <li>후원 변경 및 해지는 언제든지 가능합니다.</li>
+                            </ul>
+                        </div>
+
+                        <button type="button" class="submit-btn" onclick="window.location.href='../mypage/payment.html'">
+                            <i class="fas fa-credit-card"></i> 후원금 납부하기
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>한국ESG학회</h3>
+                    <p>Korean ESG Association</p>
+                    <p>지속가능한 미래를 위한 ESG 연구와 실천</p>
+                </div>
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <ul>
+                        <li><a href="../about/vision.html">학회소개</a></li>
+                        <li><a href="../member/process.html">회원가입</a></li>
+                        <li><a href="../journal/guide.html">논문투고</a></li>
+                        <li><a href="../community/notice.html">공지사항</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>연락처</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> [06978] 서울특별시 동작구 상도로 369<br>숭실대학교 진리관 508호</p>
+                    <p><i class="fas fa-phone"></i> 010-4263-7715</p>
+                    <p><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Korean ESG Association. All Rights Reserved.</p>
+                <p>개인정보관리책임자: 고문현 (kohmh@ssu.ac.kr) | 홈페이지관리책임자: 강종진 (mail@iuci.kr)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        let selectedAmount = 0;
+        let selectedPayment = '';
+        let selectedLevelName = '';
+
+        function selectLevel(level, amount) {
+            selectedLevelName = level;
+            selectedAmount = amount;
+            document.getElementById('amount').value = amount;
+            document.getElementById('donationType').value = 'regular';
+            
+            // Scroll to form
+            document.getElementById('donation-form-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function selectAmount(amount) {
+            selectedAmount = amount;
+            document.getElementById('amount').value = amount;
+            
+            // Update button states
+            const buttons = document.querySelectorAll('.amount-btn');
+            buttons.forEach(btn => btn.classList.remove('selected'));
+            event.target.classList.add('selected');
+        }
+
+        function selectPayment(method) {
+            selectedPayment = method;
+            document.getElementById('paymentMethod').value = method;
+            
+            // Update button states
+            const buttons = document.querySelectorAll('.payment-btn');
+            buttons.forEach(btn => btn.classList.remove('selected'));
+            event.target.closest('.payment-btn').classList.add('selected');
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            // 모든 결제는 회비 납부 페이지로 이동
+            window.location.href = '../mypage/payment.html';
+        }
+    </script>
+</body>
+</html>

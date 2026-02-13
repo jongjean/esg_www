@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="한국ESG학회 - 히스토리 관리">
+    <title>히스토리 관리 - 한국ESG학회</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../../images/logo.png">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    
+    <style>
+        /* 히스토리 관리 전용 스타일 */
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .history-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 450px 1fr;
+            min-height: 90vh;
+        }
+        
+        /* 왼쪽: 히스토리 목록 */
+        .history-sidebar {
+            background: #f8f9fa;
+            border-right: 3px solid #e9ecef;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar-header {
+            background: linear-gradient(135deg, #1e7e34 0%, #27ae60 100%);
+            padding: 30px;
+            color: white;
+        }
+        
+        .sidebar-header h1 {
+            margin: 0 0 10px 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .sidebar-header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .sidebar-actions {
+            padding: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .sidebar-btn {
+            flex: 1;
+            padding: 12px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            color: #2d3748;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .sidebar-btn:hover {
+            border-color: #1e7e34;
+            color: #1e7e34;
+            transform: translateY(-2px);
+        }
+        
+        .search-box {
+            padding: 20px;
+            background: white;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+        
+        .history-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+        }
+        
+        .history-item {
+            background: white;
+            padding: 20px;
+            border-bottom: 2px solid #e9ecef;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .history-item:hover {
+            background: #f7fafc;
+        }
+        
+        .history-item.active {
+            background: #e6f2f0;
+            border-left: 5px solid #1e7e34;
+        }
+        
+        .history-item.current {
+            background: #fff8e1;
+            border-left: 5px solid #f59e0b;
+        }
+        
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .history-title {
+            font-weight: 700;
+            color: #1a202c;
+            font-size: 1rem;
+            margin: 0 0 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .version-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .current-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .history-meta {
+            color: #718096;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+        
+        .history-description {
+            color: #4a5568;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .empty-history {
+            text-align: center;
+            padding: 60px 30px;
+            color: #a0aec0;
+        }
+        
+        .empty-history i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        
+        /* 오른쪽: 미리보기 영역 */
+        .preview-area {
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .preview-header {
+            background: linear-gradient(135deg, #f7fafc 0%, #e6f2f0 100%);
+            padding: 30px;
+            border-bottom: 3px solid #e9ecef;
+        }
+        
+        .preview-header h2 {
+            margin: 0 0 10px 0;
+            color: #1a202c;
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .preview-header p {
+            margin: 0;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        
+        .preview-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .preview-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .preview-btn.primary {
+            background: linear-gradient(135deg, #1e7e34 0%, #27ae60 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(30, 126, 52, 0.3);
+        }
+        
+        .preview-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 126, 52, 0.4);
+        }
+        
+        .preview-btn.secondary {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+        
+        .preview-btn.secondary:hover {
+            background: #cbd5e0;
+            transform: translateY(-2px);
+        }
+        
+        .preview-btn.danger {
+            background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+            color: white;
+        }
+        
+        .preview-btn.danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(229, 62, 62, 0.4);
+        }
+        
+        .preview-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px;
+        }
+        
+        .slide-preview {
+            background: #f8f9fa;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            border: 3px solid #e2e8f0;
+        }
+        
+        .slide-preview-header {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            padding: 15px 20px;
+            color: white;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .slide-preview-body {
+            padding: 25px;
+        }
+        
+        .slide-preview-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a0aec0;
+        }
+        
+        .slide-preview-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        
+        .slide-preview-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 15px;
+        }
+        
+        .slide-preview-description {
+            font-size: 1rem;
+            color: #4a5568;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .slide-preview-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #1e7e34 0%, #27ae60 100%);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .empty-preview {
+            text-align: center;
+            padding: 100px 40px;
+            color: #a0aec0;
+        }
+        
+        .empty-preview i {
+            font-size: 5rem;
+            margin-bottom: 30px;
+            opacity: 0.3;
+        }
+        
+        .empty-preview h3 {
+            margin: 0 0 15px 0;
+            color: #718096;
+            font-size: 1.5rem;
+        }
+        
+        .empty-preview p {
+            margin: 0;
+            font-size: 1rem;
+        }
+        
+        /* 모바일 반응형 */
+        @media (max-width: 1200px) {
+            .history-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .history-sidebar {
+                border-right: none;
+                border-bottom: 3px solid #e9ecef;
+                min-height: 500px;
+            }
+        }
+        
+        /* 로딩 스피너 */
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="history-container">
+        <!-- 왼쪽: 히스토리 목록 -->
+        <div class="history-sidebar">
+            <div class="sidebar-header">
+                <h1>
+                    <i class="fas fa-history"></i>
+                    히스토리
+                </h1>
+                <p>저장된 모든 버전을 확인하고 관리하세요</p>
+            </div>
+            
+            <div class="sidebar-actions">
+                <a href="posting-tool.html" class="sidebar-btn">
+                    <i class="fas fa-edit"></i>
+                    포스팅툴
+                </a>
+                <a href="../../index.html" class="sidebar-btn">
+                    <i class="fas fa-home"></i>
+                    메인으로
+                </a>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" 
+                       class="search-input" 
+                       id="searchInput"
+                       placeholder="🔍 제목 또는 설명으로 검색...">
+            </div>
+            
+            <div class="history-list" id="historyList">
+                <!-- 히스토리 목록이 동적으로 생성됩니다 -->
+                <div class="empty-history">
+                    <i class="fas fa-inbox"></i>
+                    <p>저장된 히스토리가 없습니다.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 오른쪽: 미리보기 영역 -->
+        <div class="preview-area">
+            <div class="preview-header">
+                <h2>
+                    <i class="fas fa-eye"></i>
+                    미리보기
+                </h2>
+                <p id="previewHeaderText">왼쪽 목록에서 버전을 선택하여 미리보기하세요</p>
+                
+                <div class="preview-actions" id="previewActions" style="display: none;">
+                    <button class="preview-btn primary" id="applyBtn">
+                        <i class="fas fa-check-circle"></i>
+                        이 버전 적용하기
+                    </button>
+                    <button class="preview-btn secondary" id="editBtn">
+                        <i class="fas fa-edit"></i>
+                        수정하기
+                    </button>
+                    <button class="preview-btn danger" id="deleteBtn">
+                        <i class="fas fa-trash"></i>
+                        삭제하기
+                    </button>
+                </div>
+            </div>
+            
+            <div class="preview-content" id="previewContent">
+                <div class="empty-preview">
+                    <i class="fas fa-mouse-pointer"></i>
+                    <h3>버전을 선택하세요</h3>
+                    <p>왼쪽 히스토리 목록에서 버전을 클릭하면<br>미리보기가 여기에 표시됩니다</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="../../js/history-manager.js"></script>
+    
+</body>
+</html>

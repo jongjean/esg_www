@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>행사·세미나 신청 내역 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+        .event-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .summary-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .summary-card.primary {
+            background: #1e7e34;
+            border: 3px solid #166028;
+            color: white;
+        }
+
+        .summary-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .summary-label {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .summary-card.primary .summary-label {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .summary-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1e7e34;
+        }
+
+        .summary-card.primary .summary-value {
+            color: white;
+        }
+
+        .upcoming-events {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+            margin-bottom: 30px;
+            border: 3px solid #1e7e34;
+        }
+
+        .upcoming-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e7e34;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .upcoming-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .upcoming-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .upcoming-date {
+            display: inline-block;
+            padding: 5px 12px;
+            background: #1e7e34;
+            color: white;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .upcoming-event-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .upcoming-info {
+            font-size: 13px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 5px;
+        }
+
+        .filter-section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-size: 15px;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            color: #1e7e34;
+        }
+
+        .tab-btn.active {
+            color: #1e7e34;
+            border-bottom-color: #1e7e34;
+        }
+
+        .event-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #1e7e34;
+        }
+
+        .event-card {
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            display: flex;
+            gap: 25px;
+        }
+
+        .event-card:hover {
+            border-color: #1e7e34;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .event-date-badge {
+            min-width: 80px;
+            height: 80px;
+            background: #1e7e34;
+            border: 3px solid #e8f5e9;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .badge-day {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .badge-month {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .event-content {
+            flex: 1;
+        }
+
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+
+        .event-type {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #e8f5e9;
+            color: #1e7e34;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .event-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .event-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .event-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .event-meta-item i {
+            color: #1e7e34;
+        }
+
+        .status-badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-badge.confirmed {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-badge.pending {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .status-badge.completed {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .status-badge.cancelled {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .event-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary-small {
+            background: #1e7e34;
+            color: white;
+        }
+
+        .btn-primary-small:hover {
+            background: #166028;
+        }
+
+        .btn-secondary-small {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary-small:hover {
+            background: #5a6268;
+        }
+
+        .btn-danger-small {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger-small:hover {
+            background: #c82333;
+        }
+
+        .btn-outline-small {
+            background: white;
+            color: #1e7e34;
+            border: 2px solid #1e7e34;
+        }
+
+        .btn-outline-small:hover {
+            background: #1e7e34;
+            color: white;
+        }
+
+        .attendance-info {
+            background: #f8f9fa;
+            border-left: 4px solid #1e7e34;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+        .attendance-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e7e34;
+            margin-bottom: 8px;
+        }
+
+        .attendance-details {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .qr-code-box {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .qr-placeholder {
+            width: 120px;
+            height: 120px;
+            background: #f8f9fa;
+            border: 2px dashed #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .calendar-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .month-selector {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .month-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .month-btn:hover {
+            background: #e8f5e9;
+            border-color: #1e7e34;
+        }
+
+        .current-month {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-weight: 600;
+            color: #666;
+            padding: 10px;
+            font-size: 13px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .calendar-day:hover {
+            background: #e8f5e9;
+            border-color: #1e7e34;
+        }
+
+        .calendar-day.has-event {
+            background: #e8f5e9;
+            color: #1e7e34;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .calendar-day.has-event::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            width: 4px;
+            height: 4px;
+            background: #1e7e34;
+            border-radius: 50%;
+        }
+
+        .calendar-day.today {
+            background: #1e7e34;
+            color: white;
+            font-weight: 700;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        @media (max-width: 768px) {
+            .summary-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .upcoming-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .event-card {
+                flex-direction: column;
+            }
+
+            .event-date-badge {
+                width: 100%;
+                flex-direction: row;
+                gap: 10px;
+            }
+
+            .filter-tabs {
+                overflow-x: auto;
+            }
+
+            .event-actions {
+                flex-direction: column;
+            }
+
+            .btn-small {
+                width: 100%;
+            }
+
+            .calendar-grid {
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    
+                    <button class="mobile-menu-btn" aria-label="메뉴 열기">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../about/greeting.html">학회장 인사말</a></li>
+                                <li><a href="../about/purpose.html">설립 목적·비전</a></li>
+                                <li><a href="../about/history.html">연혁</a></li>
+                                <li><a href="../about/constitution.html">정관·규정</a></li>
+                                <li><a href="../about/ci.html">CI·BI</a></li>
+                                <li><a href="../about/location.html">오시는 길</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../organization/executives.html">임원진</a></li>
+                                <li><a href="../organization/committees.html">위원회</a></li>
+                                <li><a href="../organization/divisions.html">분과학회·연구회</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../member/types.html">회원 구분</a></li>
+                                <li><a href="../member/process.html">가입 절차</a></li>
+                                <li><a href="../member/fee.html">회비 안내</a></li>
+                                <li><a href="../member/benefits.html">회원 혜택</a></li>
+                                <li><a href="../member/companies.html">회원사 소개</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">핵심사업</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../core/forum.html">월드ESG포럼</a></li>
+                                <li><a href="../core/award.html">한국ESG대상</a></li>
+                                <li><a href="../core/ordinance.html">한국ESG조례대상</a></li>
+                                <li><a href="../core/seminar.html">월요학술세미나</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학술지·논문</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../journal/about.html">학술지 소개</a></li>
+                                <li><a href="../journal/submission.html">논문 투고 안내</a></li>
+                                <li><a href="../journal/editorial.html">편집위원회</a></li>
+                                <li><a href="../journal/review.html">심사 규정</a></li>
+                                <li><a href="../journal/archive.html">논문 아카이브</a></li>
+                                <li><a href="../journal/dbpia-embed.html">DBPIA 논문 검색</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../policy/research.html">ESG 정책 연구</a></li>
+                                <li><a href="../policy/standards.html">ESG 지표·표준</a></li>
+                                <li><a href="../policy/law.html">법·제도 분석</a></li>
+                                <li><a href="../policy/global.html">국제 ESG 동향</a></li>
+                                <li><a href="../policy/reports.html">연구보고서</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../news/main.html">ESG 주요 뉴스</a></li>
+                                <li><a href="../news/policy.html">정책·입법 동향</a></li>
+                                <li><a href="../news/cases.html">기업 ESG 사례</a></li>
+                                <li><a href="../news/press.html">학회 보도자료</a></li>
+                                <li><a href="../news/column.html">기고·칼럼</a></li>
+                                <li><a href="../news/video.html">영상 콘텐츠</a></li>
+                                <li><a href="../news/esg-news-embed.html">코리아ESG뉴스</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../community/notice.html">공지사항</a></li>
+                                <li><a href="../community/forum.html">자유게시판</a></li>
+                                <li><a href="../community/discussion.html">학술·정책 토론</a></li>
+                                <li><a href="../community/member-news.html">회원 소식</a></li>
+                                <li><a href="../community/qna.html">Q&A</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">자료실</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../materials/academic.html">학술자료</a></li>
+                                <li><a href="../materials/policy.html">정책자료</a></li>
+                                <li><a href="../materials/presentation.html">발표자료</a></li>
+                                <li><a href="../materials/report.html">ESG 리포트</a></li>
+                                <li><a href="../materials/video.html">영상자료</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../support/guide.html">후원 안내</a></li>
+                                <li><a href="../support/corporate.html">기업 후원</a></li>
+                                <li><a href="../support/personal.html">개인 기부</a></li>
+                                <li><a href="../support/usage.html">기부금 사용 내역</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">마이페이지</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="profile.html">회원정보 관리</a></li>
+                                <li><a href="payment.html">회비 납부</a></li>
+                                <li><a href="history.html">납부 내역</a></li>
+                                <li><a href="paper.html">논문 투고 현황</a></li>
+                                <li><a href="event.html">행사·세미나 신청 내역</a></li>
+                                <li><a href="certificate.html">회원증·증명서</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="breadcrumb">
+            <a href="../../index.html"><i class="fas fa-home"></i> 홈</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="#">마이페이지</a>
+            <i class="fas fa-chevron-right"></i>
+            <span class="current">행사·세미나 신청 내역</span>
+        </div>
+    </header>
+
+    <div class="subpage-container">
+        <main class="content">
+            <div class="page-header">
+                <h1><i class="fas fa-calendar-check"></i> 행사·세미나 신청 내역</h1>
+                <p class="page-description">신청하신 행사 및 세미나 정보를 확인하고 관리하실 수 있습니다.</p>
+            </div>
+
+            <div class="event-container">
+                <!-- 통계 카드 -->
+                <div class="summary-row">
+                    <div class="summary-card primary">
+                        <div class="summary-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="summary-label">총 참가 행사</div>
+                        <div class="summary-value">12회</div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="summary-icon" style="color: #2e7d32;">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="summary-label">참석 완료</div>
+                        <div class="summary-value">8회</div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="summary-icon" style="color: #f57c00;">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="summary-label">예정된 행사</div>
+                        <div class="summary-value">2회</div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="summary-icon" style="color: #1976d2;">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="summary-label">수료증 발급</div>
+                        <div class="summary-value">6건</div>
+                    </div>
+                </div>
+
+                <!-- 예정된 행사 -->
+                <div class="upcoming-events">
+                    <h2 class="upcoming-title">
+                        <i class="fas fa-bell"></i>
+                        다가오는 행사
+                    </h2>
+                    <div class="upcoming-grid">
+                        <div class="upcoming-card">
+                            <span class="upcoming-date">D-7</span>
+                            <div class="upcoming-event-title">2025 월드ESG포럼</div>
+                            <div class="upcoming-info">
+                                <i class="fas fa-calendar"></i> 2025년 1월 15일 (수)
+                            </div>
+                            <div class="upcoming-info">
+                                <i class="fas fa-map-marker-alt"></i> 서울 코엑스 그랜드볼룸
+                            </div>
+                        </div>
+                        <div class="upcoming-card">
+                            <span class="upcoming-date">D-14</span>
+                            <div class="upcoming-event-title">ESG 실무자 워크숍</div>
+                            <div class="upcoming-info">
+                                <i class="fas fa-calendar"></i> 2025년 1월 22일 (월)
+                            </div>
+                            <div class="upcoming-info">
+                                <i class="fas fa-map-marker-alt"></i> 숭실대학교 진리관
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 필터 탭 -->
+                <div class="filter-section">
+                    <div class="filter-tabs">
+                        <button class="tab-btn active" onclick="filterEvents('all')">전체 (12)</button>
+                        <button class="tab-btn" onclick="filterEvents('upcoming')">예정 (2)</button>
+                        <button class="tab-btn" onclick="filterEvents('completed')">완료 (8)</button>
+                        <button class="tab-btn" onclick="filterEvents('cancelled')">취소 (2)</button>
+                    </div>
+                </div>
+
+                <!-- 행사 목록 -->
+                <div class="event-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-list"></i>
+                        신청 내역
+                    </h2>
+
+                    <!-- 행사 1: 예정 -->
+                    <div class="event-card" data-status="upcoming">
+                        <div class="event-date-badge">
+                            <div class="badge-day">15</div>
+                            <div class="badge-month">2025.01</div>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-header">
+                                <div style="flex: 1;">
+                                    <span class="event-type">포럼</span>
+                                    <h3 class="event-title">2025 월드ESG포럼</h3>
+                                    <div class="event-meta">
+                                        <span class="event-meta-item">
+                                            <i class="fas fa-calendar"></i> 2025.01.15 (수) 09:00-18:00
+                                        </span>
+                                        <span class="event-meta-item">
+                                            <i class="fas fa-map-marker-alt"></i> 서울 코엑스 그랜드볼룸
+                                        </span>
+                                        <span class="event-meta-item">
+                                            <i class="fas fa-users"></i> 정원 500명 / 신청 423명
+                                        </span>
+                                    </div>
+                                </div>
+                                <span class="status-badge confirmed">참가확정</span>
+                            </div>
+
+                            <div class="attendance-info">
+                                <div class="attendance-title">
+                                    <i class="fas fa-info-circle"></i> 입장 안내
+                                </div>
+                                <div class="attendance-details">
+                                    • 입장 시간: 08:30부터 입장 가능<br>
+                                    • 지참 사항: 신분증, QR코드 (아래 확인)<br>
+                                    • 주차: 코엑스 지하주차장 이용 가능 (유료)<br>
+                                    • 문의: 010-4263-7715
+                                </div>
+                                <div class="qr-code-box">
+                                    <div class="qr-placeholder">
+                                        <i class="fas fa-qrcode" style="font-size: 48px; color: #ddd;"></i>
+                                    </div>
+                                    <small style="color: #666;">입장용 QR코드</small>
+                                </div>
+                            </div>
+
+                            <div class="event-actions">
+                                <button class="btn-small btn-primary-small" onclick="viewEventDetail(1)">
+                                    <i class="fas fa-info-circle"></i> 상세정보
+                                </button>
+                                <button class="btn-small btn-secondary-small" onclick="downloadTicket(1)">
+                                    <i class="fas fa-ticket-alt"></i> 참가권 다운로드
+                                </button>
+                                <button class="btn-small btn-outline-small" onclick="addToCalendar(1)">
+                                    <i class="fas fa-calendar-plus"></i> 캘린더 추가
+                                </button>
+                                <button class="btn-small btn-danger-small" onclick="cancelRegistration(1)">
+                                    <i class="fas fa-times"></i> 신청 취소
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 행사 2: 예정 -->
+                    <div class="event-card" data-status="upcoming">
+                        <div class="event-date-badge">
+                            <div class="badge-day">22</div>
+                            <div class="badge-month">2025.01</div>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-header">
+                                <div style="flex: 1;">
+                                    <span class="event-type">워크숍</span>
+                                    <h3 class="event-title">ESG 실무자 워크숍: 공시 의무화 대응 전략</h3>
+                                    <div class="event-meta">
+                                        <span class="event-meta-item">
+                                            <i class="fas fa-calendar"></i> 2025.01.22 (월) 14:00-17:00
+                                        </span>
+                                        <span class="event-meta-item">
+                                            <i class="fas fa-map-marker-alt"></i> 숭실대학교 진리관 508호
+                                        </span>
+                                        <span class="event-meta-item">
+                                            <i class="fas fa-users"></i> 정원 50명 / 신청 38명
+                                        </span>
+                                    </div>
+                                </div>
+                                <span class="status-badge confirmed">참가확정</span>
+                            </div>
+
+                            <div class="event-actions">
+                                <button class="btn-small btn-primary-small" onclick="viewEventDetail(2)">
+                                    <i class="fas fa-info-circle"></i> 상세정보
+                                </button>
+                                <button class="btn-small btn-secondary-small" onclick="downloadTicket(2)">
+                                    <i class="fas fa-ticket-alt"></i> 참가권 다운로드
+                                </button>
+                                <button class="btn-small btn-outline-small" onclick="addToCalendar(2)">
+                                    <i class="fas fa-calendar-plus"></i> 캘린더 추가
+                                </button>
+                                <button class="btn-small btn-danger-small" onclick="cancelRegistration(2)">
+                                    <i class="fas fa-times"></i> 신청 취소
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 행사 3: 완료 -->
+                    <div class="event-card" data-status="completed">
+                        <div class="event-date-badge" style="background: linear-gradient(135deg, #6c757d, #495057);">
+                            <div class="badge-day">18</div>
+                            <div class="badge-month">2025.12</div>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-header">
+                                <div style="flex: 1;">
+                                    <span class="event-type">세미나</span>
+                                    <h3 class="event-title">월요학술세미나: 2025 ESG 트렌드 리뷰</h3>
+                                    <div class="event-meta">
+                                        <span class="event-meta-item">
+                                            <i class="fas fa-calendar"></i> 2025.12.18 (월) 15:00-17:00
+                                        </span>
+                                        <span class="event-meta-item">
+                                            <i class="fas fa-map-marker-alt"></i> 온라인 Zoom
+                                        </span>
+                                        <span class="event-meta-item">
+                                            <i class="fas fa-check-circle"></i> 참석 완료
+                                        </span>
+                                    </div>
+                                </div>
+                                <span class="status-badge completed">참석완료</span>
+                            </div>
+
+                            <div class="event-actions">
+                                <button class="btn-small btn-primary-small" onclick="downloadCertificate(3)">
+                                    <i class="fas fa-certificate"></i> 수료증 다운로드
+                                </button>
+                                <button class="btn-small btn-secondary-small" onclick="downloadMaterial(3)">
+                                    <i class="fas fa-file-download"></i> 발표자료 다운로드
+                                </button>
+                                <button class="btn-small btn-outline-small" onclick="viewRecording(3)">
+                                    <i class="fas fa-video"></i> 녹화 영상 보기
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 행사 4: 완료 -->
+                    <div class="event-card" data-status="completed">
+                        <div class="event-date-badge" style="background: linear-gradient(135deg, #6c757d, #495057);">
+                            <div class="badge-day">05</div>
+                            <div class="badge-month">2025.11</div>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-header">
+                                <div style="flex: 1;">
+                                    <span class="event-type">컨퍼런스</span>
+                                    <h3 class="event-title">한국ESG대상 시상식 및 컨퍼런스</h3>
+                                    <div class="event-meta">
+                                        <span class="event-meta-item">
+                                            <i class="fas fa-calendar"></i> 2025.11.05 (화) 14:00-18:00
+                                        </span>
+                                        <span class="event-meta-item">
+                                            <i class="fas fa-map-marker-alt"></i> 서울 롯데호텔 크리스탈볼룸
+                                        </span>
+                                        <span class="event-meta-item">
+                                            <i class="fas fa-check-circle"></i> 참석 완료
+                                        </span>
+                                    </div>
+                                </div>
+                                <span class="status-badge completed">참석완료</span>
+                            </div>
+
+                            <div class="event-actions">
+                                <button class="btn-small btn-primary-small" onclick="downloadCertificate(4)">
+                                    <i class="fas fa-certificate"></i> 참석증 다운로드
+                                </button>
+                                <button class="btn-small btn-secondary-small" onclick="downloadMaterial(4)">
+                                    <i class="fas fa-file-download"></i> 발표자료
+                                </button>
+                                <button class="btn-small btn-outline-small" onclick="viewGallery(4)">
+                                    <i class="fas fa-images"></i> 행사 사진
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 행사 5: 취소됨 -->
+                    <div class="event-card" data-status="cancelled">
+                        <div class="event-date-badge" style="background: linear-gradient(135deg, #dc3545, #c82333);">
+                            <div class="badge-day">28</div>
+                            <div class="badge-month">2025.10</div>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-header">
+                                <div style="flex: 1;">
+                                    <span class="event-type">워크숍</span>
+                                    <h3 class="event-title">ESG 경영 실무 워크숍</h3>
+                                    <div class="event-meta">
+                                        <span class="event-meta-item">
+                                            <i class="fas fa-calendar"></i> 2025.10.28 (월) 14:00-17:00
+                                        </span>
+                                        <span class="event-meta-item">
+                                            <i class="fas fa-info-circle"></i> 신청 취소 (2025.10.20)
+                                        </span>
+                                    </div>
+                                </div>
+                                <span class="status-badge cancelled">취소됨</span>
+                            </div>
+
+                            <div style="background: #fff3cd; padding: 12px; border-radius: 8px; margin-top: 10px;">
+                                <small style="color: #856404;">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    참가비 환불 완료 (환불일: 2025.10.21)
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 행사 캘린더 -->
+                <div class="calendar-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-calendar"></i>
+                        행사 캘린더
+                    </h2>
+
+                    <div class="calendar-header">
+                        <div class="month-selector">
+                            <button class="month-btn" onclick="changeMonth(-1)">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <div class="current-month">2025년 1월</div>
+                            <button class="month-btn" onclick="changeMonth(1)">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <button class="btn-outline-small" onclick="goToToday()">
+                            <i class="fas fa-calendar-day"></i> 오늘
+                        </button>
+                    </div>
+
+                    <div class="calendar-grid">
+                        <div class="calendar-day-header">일</div>
+                        <div class="calendar-day-header">월</div>
+                        <div class="calendar-day-header">화</div>
+                        <div class="calendar-day-header">수</div>
+                        <div class="calendar-day-header">목</div>
+                        <div class="calendar-day-header">금</div>
+                        <div class="calendar-day-header">토</div>
+
+                        <!-- 1월 달력 -->
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day">1</div>
+                        <div class="calendar-day">2</div>
+                        <div class="calendar-day">3</div>
+                        <div class="calendar-day">4</div>
+                        <div class="calendar-day">5</div>
+                        <div class="calendar-day">6</div>
+                        <div class="calendar-day">7</div>
+                        <div class="calendar-day today">8</div>
+                        <div class="calendar-day">9</div>
+                        <div class="calendar-day">10</div>
+                        <div class="calendar-day">11</div>
+                        <div class="calendar-day">12</div>
+                        <div class="calendar-day">13</div>
+                        <div class="calendar-day">14</div>
+                        <div class="calendar-day has-event" title="2025 월드ESG포럼">15</div>
+                        <div class="calendar-day">16</div>
+                        <div class="calendar-day">17</div>
+                        <div class="calendar-day">18</div>
+                        <div class="calendar-day">19</div>
+                        <div class="calendar-day">20</div>
+                        <div class="calendar-day">21</div>
+                        <div class="calendar-day has-event" title="ESG 실무자 워크숍">22</div>
+                        <div class="calendar-day">23</div>
+                        <div class="calendar-day">24</div>
+                        <div class="calendar-day">25</div>
+                        <div class="calendar-day">26</div>
+                        <div class="calendar-day">27</div>
+                        <div class="calendar-day">28</div>
+                        <div class="calendar-day">29</div>
+                        <div class="calendar-day">30</div>
+                        <div class="calendar-day">31</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>한국ESG학회</h3>
+                    <p>지속가능한 미래를 위한 ESG 연구와 실천</p>
+                </div>
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <ul>
+                        <li><a href="../about/greeting.html">학회소개</a></li>
+                        <li><a href="../member/process.html">회원가입</a></li>
+                        <li><a href="../journal/submission.html">논문투고</a></li>
+                        <li><a href="../community/notice.html">공지사항</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>문의</h4>
+                    <p><i class="fas fa-phone"></i> 010-4263-7715</p>
+                    <p><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 서울특별시 동작구 상도로 369<br>숭실대학교 진리관 508호</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Korean ESG Association. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        function filterEvents(status) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            const eventCards = document.querySelectorAll('.event-card');
+            eventCards.forEach(card => {
+                if (status === 'all' || card.dataset.status === status) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function viewEventDetail(id) {
+            alert('행사 ' + id + '번의 상세 정보를 조회합니다.');
+        }
+
+        function downloadTicket(id) {
+            alert('행사 ' + id + '번의 참가권을 다운로드합니다.');
+        }
+
+        function addToCalendar(id) {
+            alert('행사 ' + id + '번을 캘린더에 추가합니다.');
+        }
+
+        function cancelRegistration(id) {
+            if (confirm('정말 신청을 취소하시겠습니까?\n\n취소 정책에 따라 환불이 진행됩니다.')) {
+                alert('신청이 취소되었습니다.');
+            }
+        }
+
+        function downloadCertificate(id) {
+            alert('행사 ' + id + '번의 수료증/참석증을 다운로드합니다.');
+        }
+
+        function downloadMaterial(id) {
+            alert('행사 ' + id + '번의 발표자료를 다운로드합니다.');
+        }
+
+        function viewRecording(id) {
+            alert('행사 ' + id + '번의 녹화 영상을 재생합니다.');
+        }
+
+        function viewGallery(id) {
+            alert('행사 ' + id + '번의 사진 갤러리를 엽니다.');
+        }
+
+        function changeMonth(delta) {
+            alert((delta > 0 ? '다음' : '이전') + ' 달로 이동합니다.');
+        }
+
+        function goToToday() {
+            alert('오늘 날짜로 이동합니다.');
+        }
+    </script>
+</body>
+</html>

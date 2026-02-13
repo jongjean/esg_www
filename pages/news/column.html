@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기고·칼럼 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo-symbol.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+        .column-grid {
+            display: grid;
+            gap: 30px;
+        }
+        .column-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        .column-card:hover {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+        }
+        .column-featured {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 0;
+        }
+        .column-image {
+            width: 100%;
+            height: 100%;
+            min-height: 280px;
+            background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 64px;
+        }
+        .column-content {
+            padding: 30px;
+        }
+        .column-author-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .author-details {
+            flex: 1;
+        }
+        .author-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 3px;
+        }
+        .author-title {
+            font-size: 13px;
+            color: #666;
+        }
+        .column-date {
+            font-size: 13px;
+            color: #999;
+        }
+        .column-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+        .column-excerpt {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .column-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .column-tag {
+            padding: 5px 12px;
+            background: #e8f5e9;
+            color: #1e7e34;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .column-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .column-stats {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        .column-stat {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .column-read-btn {
+            padding: 10px 24px;
+            background: #1e7e34;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        .column-read-btn:hover {
+            background: #155724;
+        }
+        .column-regular {
+            display: flex;
+            gap: 0;
+        }
+        .column-regular .column-image {
+            width: 280px;
+            min-height: 200px;
+            font-size: 48px;
+        }
+        .column-regular .column-content {
+            flex: 1;
+            padding: 25px;
+        }
+        .column-regular .column-title {
+            font-size: 20px;
+        }
+        .column-regular .column-excerpt {
+            font-size: 14px;
+        }
+        .column-regular .author-avatar {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+        }
+        .featured-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 8px 16px;
+            background: #ffd700;
+            color: #333;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        @media (max-width: 968px) {
+            .column-featured,
+            .column-regular {
+                grid-template-columns: 1fr;
+            }
+            .column-regular .column-image {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 010-4263-7715</span>
+                        <span><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</span>
+                    </div>
+                    <div class="quick-links">
+                        <a href="../member/process.html">회원가입</a>
+                        <a href="../mypage/profile.html">로그인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    <button class="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">핵심사업</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학술지·논문</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">자료실</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">마이페이지</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-pen-fancy"></i> 기고·칼럼</h1>
+            <p>학회 전문가들의 ESG 인사이트와 의견을 만나보세요</p>
+        </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../../index.html"><i class="fas fa-home"></i> 홈</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="#">ESG뉴스</a>
+            <i class="fas fa-chevron-right"></i>
+            <span class="current">기고·칼럼</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Content Area -->
+                <div class="content-area">
+                    <!-- 검색 영역 -->
+                    <div style="margin-bottom: 40px; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
+                            <div style="flex: 1; min-width: 200px;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">
+                                    <i class="fas fa-search"></i> 검색어
+                                </label>
+                                <input type="text" id="searchKeyword" placeholder="제목, 내용, 태그 검색" 
+                                    style="width: 100%; padding: 12px 15px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 15px; transition: all 0.3s;"
+                                    onfocus="this.style.borderColor='#1e7e34'" onblur="this.style.borderColor='#e9ecef'">
+                            </div>
+                            <div style="min-width: 180px;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">
+                                    <i class="fas fa-user"></i> 작성자
+                                </label>
+                                <input type="text" id="searchAuthor" placeholder="작성자 이름" 
+                                    style="width: 100%; padding: 12px 15px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 15px; transition: all 0.3s;"
+                                    onfocus="this.style.borderColor='#1e7e34'" onblur="this.style.borderColor='#e9ecef'">
+                            </div>
+                            <div style="min-width: 150px;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">
+                                    <i class="fas fa-calendar"></i> 기간
+                                </label>
+                                <select id="searchPeriod" 
+                                    style="width: 100%; padding: 12px 15px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 15px; background: white; cursor: pointer; transition: all 0.3s;"
+                                    onfocus="this.style.borderColor='#1e7e34'" onblur="this.style.borderColor='#e9ecef'">
+                                    <option value="all">전체</option>
+                                    <option value="week">최근 1주일</option>
+                                    <option value="month">최근 1개월</option>
+                                    <option value="3months">최근 3개월</option>
+                                    <option value="year">최근 1년</option>
+                                </select>
+                            </div>
+                            <div style="min-width: 150px;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">
+                                    <i class="fas fa-sort"></i> 정렬
+                                </label>
+                                <select id="searchSort" 
+                                    style="width: 100%; padding: 12px 15px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 15px; background: white; cursor: pointer; transition: all 0.3s;"
+                                    onfocus="this.style.borderColor='#1e7e34'" onblur="this.style.borderColor='#e9ecef'">
+                                    <option value="latest">최신순</option>
+                                    <option value="views">조회수순</option>
+                                    <option value="likes">좋아요순</option>
+                                </select>
+                            </div>
+                            <button onclick="searchColumns()" 
+                                style="padding: 12px 30px; background: #1e7e34; color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s; min-width: 120px;"
+                                onmouseover="this.style.background='#155724'" onmouseout="this.style.background='#1e7e34'">
+                                <i class="fas fa-search"></i> 검색
+                            </button>
+                            <button onclick="resetSearch()" 
+                                style="padding: 12px 20px; background: white; color: #666; border: 2px solid #e9ecef; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s;"
+                                onmouseover="this.style.borderColor='#1e7e34'; this.style.color='#1e7e34'" onmouseout="this.style.borderColor='#e9ecef'; this.style.color='#666'">
+                                <i class="fas fa-redo"></i> 초기화
+                            </button>
+                        </div>
+                        <div id="searchResults" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e9ecef; display: none;">
+                            <p style="color: #1e7e34; font-weight: 600;">
+                                <i class="fas fa-check-circle"></i> 검색 결과: <span id="resultCount">0</span>건
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="column-grid">
+                        <!-- Featured Column -->
+                        <div class="column-card column-featured" style="position: relative;">
+                            <span class="featured-badge"><i class="fas fa-star"></i> 추천 칼럼</span>
+                            <div class="column-image">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <div class="column-content">
+                                <div class="column-author-info">
+                                    <div class="author-avatar">고</div>
+                                    <div class="author-details">
+                                        <div class="author-name">고문현 회장</div>
+                                        <div class="author-title">한국ESG학회 회장, 숭실대학교 교수</div>
+                                    </div>
+                                    <div class="column-date">2025.01.20</div>
+                                </div>
+                                <h3 class="column-title">ESG, 선택이 아닌 생존의 문제입니다</h3>
+                                <p class="column-excerpt">
+                                    ESG는 더 이상 대기업만의 과제가 아닙니다. 글로벌 공급망에 참여하는 모든 기업이 ESG 요구사항을 충족해야 하며, 
+                                    금융기관의 투자 기준 역시 ESG 성과를 핵심 지표로 삼고 있습니다. 
+                                    2025년 ESG 공시 의무화를 앞두고, 기업들은 단순한 준수를 넘어 ESG를 경쟁력 강화의 기회로 삼아야 합니다. 
+                                    환경 보호, 사회적 책임, 투명한 지배구조는 지속가능한 성장의 필수 조건이며, 
+                                    이를 실천하는 기업만이 미래 시장에서 살아남을 수 있을 것입니다.
+                                </p>
+                                <div class="column-tags">
+                                    <span class="column-tag">#ESG경영</span>
+                                    <span class="column-tag">#지속가능성</span>
+                                    <span class="column-tag">#공시의무화</span>
+                                    <span class="column-tag">#기업경쟁력</span>
+                                </div>
+                                <div class="column-footer">
+                                    <div class="column-stats">
+                                        <span class="column-stat"><i class="far fa-eye"></i> 1,247</span>
+                                        <span class="column-stat"><i class="far fa-heart"></i> 89</span>
+                                        <span class="column-stat"><i class="far fa-comment"></i> 23</span>
+                                    </div>
+                                    <button class="column-read-btn">전문 읽기 <i class="fas fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Regular Column 1 -->
+                        <div class="column-card column-regular">
+                            <div class="column-image" style="background: linear-gradient(135deg, #2874a6 0%, #1a5276 100%);">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            <div class="column-content">
+                                <div class="column-author-info">
+                                    <div class="author-avatar" style="background: linear-gradient(135deg, #2874a6 0%, #1a5276 100%);">김</div>
+                                    <div class="author-details">
+                                        <div class="author-name">김영수 교수</div>
+                                        <div class="author-title">서울대학교 경영학과</div>
+                                    </div>
+                                    <div class="column-date">2025.01.18</div>
+                                </div>
+                                <h3 class="column-title">이사회 다양성, ESG 거버넌스의 핵심</h3>
+                                <p class="column-excerpt">
+                                    글로벌 기업들은 이사회 구성의 다양성을 확보하기 위해 노력하고 있습니다. 
+                                    성별, 연령, 전문성, 국적 등 다양한 배경을 가진 이사진이 의사결정에 참여할 때 
+                                    더 균형 잡힌 관점과 혁신적인 아이디어가 나올 수 있습니다...
+                                </p>
+                                <div class="column-tags">
+                                    <span class="column-tag">#거버넌스</span>
+                                    <span class="column-tag">#이사회</span>
+                                    <span class="column-tag">#다양성</span>
+                                </div>
+                                <div class="column-footer">
+                                    <div class="column-stats">
+                                        <span class="column-stat"><i class="far fa-eye"></i> 842</span>
+                                        <span class="column-stat"><i class="far fa-heart"></i> 56</span>
+                                    </div>
+                                    <button class="column-read-btn">전문 읽기 <i class="fas fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Regular Column 2 -->
+                        <div class="column-card column-regular">
+                            <div class="column-image" style="background: linear-gradient(135deg, #e65100 0%, #bf360c 100%);">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                            <div class="column-content">
+                                <div class="column-author-info">
+                                    <div class="author-avatar" style="background: linear-gradient(135deg, #e65100 0%, #bf360c 100%);">박</div>
+                                    <div class="author-details">
+                                        <div class="author-name">박지현 교수</div>
+                                        <div class="author-title">연세대학교 환경공학과</div>
+                                    </div>
+                                    <div class="column-date">2025.01.15</div>
+                                </div>
+                                <h3 class="column-title">순환경제로 전환하는 기업들의 도전</h3>
+                                <p class="column-excerpt">
+                                    선형 경제에서 순환 경제로의 전환은 환경 보호를 넘어 새로운 비즈니스 기회를 창출하고 있습니다. 
+                                    폐기물을 자원으로 전환하고, 제품 수명을 연장하며, 재사용과 재활용을 극대화하는 
+                                    순환경제 모델은 탄소배출 감축과 자원 효율성을 동시에 달성할 수 있습니다...
+                                </p>
+                                <div class="column-tags">
+                                    <span class="column-tag">#순환경제</span>
+                                    <span class="column-tag">#환경</span>
+                                    <span class="column-tag">#지속가능성</span>
+                                </div>
+                                <div class="column-footer">
+                                    <div class="column-stats">
+                                        <span class="column-stat"><i class="far fa-eye"></i> 723</span>
+                                        <span class="column-stat"><i class="far fa-heart"></i> 48</span>
+                                    </div>
+                                    <button class="column-read-btn">전문 읽기 <i class="fas fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Regular Column 3 -->
+                        <div class="column-card column-regular">
+                            <div class="column-image" style="background: linear-gradient(135deg, #7b1fa2 0%, #4a148c 100%);">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="column-content">
+                                <div class="column-author-info">
+                                    <div class="author-avatar" style="background: linear-gradient(135deg, #7b1fa2 0%, #4a148c 100%);">이</div>
+                                    <div class="author-details">
+                                        <div class="author-name">이수진 교수</div>
+                                        <div class="author-title">고려대학교 사회학과</div>
+                                    </div>
+                                    <div class="column-date">2025.01.12</div>
+                                </div>
+                                <h3 class="column-title">MZ세대가 만드는 ESG 소비 트렌드</h3>
+                                <p class="column-excerpt">
+                                    MZ세대는 단순히 제품의 품질과 가격을 넘어, 기업의 가치와 사회적 책임을 중요하게 생각합니다. 
+                                    이들은 공정무역 제품을 선택하고, 친환경 브랜드를 지지하며, 비윤리적 기업을 보이콧하는 
+                                    '가치소비'를 실천하고 있습니다. 기업은 이러한 변화에 민감하게 반응해야 합니다...
+                                </p>
+                                <div class="column-tags">
+                                    <span class="column-tag">#MZ세대</span>
+                                    <span class="column-tag">#가치소비</span>
+                                    <span class="column-tag">#사회적책임</span>
+                                </div>
+                                <div class="column-footer">
+                                    <div class="column-stats">
+                                        <span class="column-stat"><i class="far fa-eye"></i> 956</span>
+                                        <span class="column-stat"><i class="far fa-heart"></i> 72</span>
+                                    </div>
+                                    <button class="column-read-btn">전문 읽기 <i class="fas fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Regular Column 4 -->
+                        <div class="column-card column-regular">
+                            <div class="column-image" style="background: linear-gradient(135deg, #c62828 0%, #8e0000 100%);">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="column-content">
+                                <div class="column-author-info">
+                                    <div class="author-avatar" style="background: linear-gradient(135deg, #c62828 0%, #8e0000 100%);">정</div>
+                                    <div class="author-details">
+                                        <div class="author-name">정민수 박사</div>
+                                        <div class="author-title">한국금융연구원 선임연구위원</div>
+                                    </div>
+                                    <div class="column-date">2025.01.09</div>
+                                </div>
+                                <h3 class="column-title">ESG 투자, 금융시장의 새로운 표준</h3>
+                                <p class="column-excerpt">
+                                    ESG 투자는 단기 수익만을 추구하던 전통적 투자 방식을 넘어, 장기적 관점에서 
+                                    환경·사회·지배구조 리스크를 고려합니다. 글로벌 ESG 투자 규모는 이미 40조 달러를 넘어섰으며, 
+                                    국내 금융기관들도 ESG 펀드와 채권을 확대하고 있습니다. 투자자들은 ESG 성과를 
+                                    재무 성과만큼 중요한 판단 기준으로 삼고 있습니다...
+                                </p>
+                                <div class="column-tags">
+                                    <span class="column-tag">#ESG투자</span>
+                                    <span class="column-tag">#금융</span>
+                                    <span class="column-tag">#자본시장</span>
+                                </div>
+                                <div class="column-footer">
+                                    <div class="column-stats">
+                                        <span class="column-stat"><i class="far fa-eye"></i> 1,134</span>
+                                        <span class="column-stat"><i class="far fa-heart"></i> 67</span>
+                                    </div>
+                                    <button class="column-read-btn">전문 읽기 <i class="fas fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Regular Column 5 -->
+                        <div class="column-card column-regular">
+                            <div class="column-image" style="background: linear-gradient(135deg, #00796b 0%, #004d40 100%);">
+                                <i class="fas fa-solar-panel"></i>
+                            </div>
+                            <div class="column-content">
+                                <div class="column-author-info">
+                                    <div class="author-avatar" style="background: linear-gradient(135deg, #00796b 0%, #004d40 100%);">최</div>
+                                    <div class="author-details">
+                                        <div class="author-name">최강희 교수</div>
+                                        <div class="author-title">한양대학교 에너지공학과</div>
+                                    </div>
+                                    <div class="column-date">2025.01.06</div>
+                                </div>
+                                <h3 class="column-title">RE100, 기업의 탄소중립 실현 전략</h3>
+                                <p class="column-excerpt">
+                                    RE100은 기업이 사용하는 전력의 100%를 재생에너지로 전환하겠다는 글로벌 캠페인입니다. 
+                                    국내 기업들도 RE100에 가입하며 태양광, 풍력 등 재생에너지 도입을 가속화하고 있습니다. 
+                                    그러나 재생에너지 조달 비용과 안정적 공급 확보라는 과제가 남아있습니다. 
+                                    정부와 기업의 협력을 통해 재생에너지 인프라를 구축해야 합니다...
+                                </p>
+                                <div class="column-tags">
+                                    <span class="column-tag">#RE100</span>
+                                    <span class="column-tag">#재생에너지</span>
+                                    <span class="column-tag">#탄소중립</span>
+                                </div>
+                                <div class="column-footer">
+                                    <div class="column-stats">
+                                        <span class="column-stat"><i class="far fa-eye"></i> 891</span>
+                                        <span class="column-stat"><i class="far fa-heart"></i> 54</span>
+                                    </div>
+                                    <button class="column-read-btn">전문 읽기 <i class="fas fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Regular Column 6 -->
+                        <div class="column-card column-regular">
+                            <div class="column-image" style="background: linear-gradient(135deg, #6a1b9a 0%, #38006b 100%);">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div class="column-content">
+                                <div class="column-author-info">
+                                    <div class="author-avatar" style="background: linear-gradient(135deg, #6a1b9a 0%, #38006b 100%);">강</div>
+                                    <div class="author-details">
+                                        <div class="author-name">강은미 교수</div>
+                                        <div class="author-title">이화여대 경영학과</div>
+                                    </div>
+                                    <div class="column-date">2025.01.03</div>
+                                </div>
+                                <h3 class="column-title">공급망 ESG 관리의 중요성</h3>
+                                <p class="column-excerpt">
+                                    기업의 ESG 책임은 자사에만 국한되지 않습니다. 글로벌 공급망 전체에서 
+                                    인권 침해, 환경 파괴, 불공정 거래가 없는지 관리해야 합니다. 
+                                    EU 공급망 실사 지침 등 국제 규제가 강화되면서, 협력업체의 ESG 리스크 관리가 
+                                    기업 경쟁력에 직접적인 영향을 미치고 있습니다. 중소 협력사 지원과 
+                                    투명한 공급망 구축이 시급합니다...
+                                </p>
+                                <div class="column-tags">
+                                    <span class="column-tag">#공급망</span>
+                                    <span class="column-tag">#실사</span>
+                                    <span class="column-tag">#협력업체</span>
+                                </div>
+                                <div class="column-footer">
+                                    <div class="column-stats">
+                                        <span class="column-stat"><i class="far fa-eye"></i> 678</span>
+                                        <span class="column-stat"><i class="far fa-heart"></i> 41</span>
+                                    </div>
+                                    <button class="column-read-btn">전문 읽기 <i class="fas fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>한국ESG학회</h3>
+                    <p>지속가능한 미래를 위한<br>ESG 연구와 실천</p>
+                </div>
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <ul>
+                        <li><a href="../about/intro.html">학회소개</a></li>
+                        <li><a href="../journal/intro.html">학술지</a></li>
+                        <li><a href="../member/process.html">회원가입</a></li>
+                        <li><a href="../community/notice.html">공지사항</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>연락처</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 서울특별시 동작구 상도로 369</li>
+                        <li><i class="fas fa-phone"></i> 010-4263-7715</li>
+                        <li><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Korean ESG Association. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        // 검색 기능
+        function searchColumns() {
+            const keyword = document.getElementById('searchKeyword').value.toLowerCase();
+            const author = document.getElementById('searchAuthor').value.toLowerCase();
+            const period = document.getElementById('searchPeriod').value;
+            const sort = document.getElementById('searchSort').value;
+            
+            const columnCards = document.querySelectorAll('.column-card');
+            let visibleCount = 0;
+            
+            columnCards.forEach(card => {
+                const title = card.querySelector('.column-title')?.textContent.toLowerCase() || '';
+                const excerpt = card.querySelector('.column-excerpt')?.textContent.toLowerCase() || '';
+                const authorName = card.querySelector('.author-name')?.textContent.toLowerCase() || '';
+                const tags = Array.from(card.querySelectorAll('.column-tag')).map(tag => tag.textContent.toLowerCase()).join(' ');
+                
+                // 검색어 필터
+                const keywordMatch = !keyword || title.includes(keyword) || excerpt.includes(keyword) || tags.includes(keyword);
+                
+                // 작성자 필터
+                const authorMatch = !author || authorName.includes(author);
+                
+                if (keywordMatch && authorMatch) {
+                    card.style.display = '';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // 검색 결과 표시
+            const resultsDiv = document.getElementById('searchResults');
+            const resultCount = document.getElementById('resultCount');
+            resultCount.textContent = visibleCount;
+            resultsDiv.style.display = 'block';
+            
+            // 정렬 적용 (추가 기능)
+            if (visibleCount > 0) {
+                sortColumns(sort);
+            }
+        }
+        
+        // 정렬 기능
+        function sortColumns(sortType) {
+            // 실제 구현시 조회수, 좋아요 데이터 기반 정렬
+            console.log('정렬 기준:', sortType);
+        }
+        
+        // 검색 초기화
+        function resetSearch() {
+            document.getElementById('searchKeyword').value = '';
+            document.getElementById('searchAuthor').value = '';
+            document.getElementById('searchPeriod').value = 'all';
+            document.getElementById('searchSort').value = 'latest';
+            
+            const columnCards = document.querySelectorAll('.column-card');
+            columnCards.forEach(card => {
+                card.style.display = '';
+            });
+            
+            document.getElementById('searchResults').style.display = 'none';
+        }
+        
+        // Enter 키로 검색
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInputs = document.querySelectorAll('#searchKeyword, #searchAuthor');
+            searchInputs.forEach(input => {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        searchColumns();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

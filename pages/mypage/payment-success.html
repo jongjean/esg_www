@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결제 완료 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+        .success-container {
+            max-width: 700px;
+            margin: 60px auto;
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 120px;
+            height: 120px;
+            background: #1e7e34;
+            border: 5px solid #e8f5e9;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: successBounce 0.6s ease-out;
+            box-shadow: 0 4px 20px rgba(30, 126, 52, 0.3);
+        }
+
+        @keyframes successBounce {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-icon i {
+            font-size: 60px;
+            color: white;
+        }
+
+        .success-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1e7e34;
+            margin-bottom: 15px;
+        }
+
+        .success-message {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .receipt-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .receipt-header {
+            text-align: center;
+            padding-bottom: 25px;
+            border-bottom: 2px dashed #e9ecef;
+            margin-bottom: 25px;
+        }
+
+        .receipt-number {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .receipt-date {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .receipt-row:last-child {
+            border-bottom: none;
+            padding-top: 20px;
+            margin-top: 10px;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .receipt-label {
+            font-weight: 500;
+            color: #666;
+        }
+
+        .receipt-value {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .receipt-total .receipt-label,
+        .receipt-total .receipt-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e7e34;
+        }
+
+        .info-box {
+            background: #e8f5e9;
+            border-left: 4px solid #1e7e34;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .info-box i {
+            color: #1e7e34;
+            margin-right: 10px;
+        }
+
+        .info-title {
+            font-weight: 700;
+            color: #1e7e34;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .info-text {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #1e7e34;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #166028;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 126, 52, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #333;
+            border: 2px solid #e9ecef;
+        }
+
+        .btn-secondary:hover {
+            border-color: #1e7e34;
+            color: #1e7e34;
+        }
+
+        @media (max-width: 768px) {
+            .success-container {
+                padding: 20px;
+            }
+
+            .btn-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header>
+        <nav>
+            <!-- 네비게이션은 main.js에서 동적 생성 -->
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="success-container">
+            <!-- 성공 아이콘 -->
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+
+            <!-- 성공 메시지 -->
+            <h1 class="success-title">결제가 완료되었습니다!</h1>
+            <p class="success-message">
+                회비 납부가 정상적으로 처리되었습니다.<br>
+                영수증은 등록하신 이메일로 발송되었습니다.
+            </p>
+
+            <!-- 영수증 카드 -->
+            <div class="receipt-card">
+                <div class="receipt-header">
+                    <h2 style="font-size: 20px; font-weight: 700; color: #333; margin-bottom: 10px;">결제 영수증</h2>
+                    <div class="receipt-number" id="receiptNumber">주문번호: -</div>
+                    <div class="receipt-date" id="receiptDate">결제일시: -</div>
+                </div>
+
+                <div class="receipt-row">
+                    <div class="receipt-label">결제 수단</div>
+                    <div class="receipt-value" id="paymentMethod">-</div>
+                </div>
+
+                <div class="receipt-row" id="cardInfoRow" style="display: none;">
+                    <div class="receipt-label">카드 정보</div>
+                    <div class="receipt-value" id="cardInfo">-</div>
+                </div>
+
+                <div class="receipt-row" id="bankInfoRow" style="display: none;">
+                    <div class="receipt-label">은행 정보</div>
+                    <div class="receipt-value" id="bankInfo">-</div>
+                </div>
+
+                <div class="receipt-row" id="cmsInfoRow" style="display: none;">
+                    <div class="receipt-label">CMS 정보</div>
+                    <div class="receipt-value" id="cmsInfo">-</div>
+                </div>
+
+                <div class="receipt-row">
+                    <div class="receipt-label">납부 항목</div>
+                    <div class="receipt-value" id="paymentItem">-</div>
+                </div>
+
+                <div class="receipt-row receipt-total">
+                    <div class="receipt-label">총 결제 금액</div>
+                    <div class="receipt-value" id="totalAmount">-</div>
+                </div>
+            </div>
+
+            <!-- 안내 박스 -->
+            <div class="info-box">
+                <div class="info-title">
+                    <i class="fas fa-info-circle"></i>
+                    결제 완료 안내
+                </div>
+                <div class="info-text">
+                    • 결제 영수증은 등록하신 이메일로 발송되었습니다.<br>
+                    • 납부 내역은 마이페이지 > 납부 내역에서 확인하실 수 있습니다.<br>
+                    • 기부금 영수증이 필요하신 경우 마이페이지에서 발급 가능합니다.<br>
+                    • 문의사항은 학회 사무국(010-4263-7715)으로 연락 주시기 바랍니다.
+                </div>
+            </div>
+
+            <!-- 버튼 그룹 -->
+            <div class="btn-group">
+                <a href="history.html" class="btn btn-secondary">
+                    <i class="fas fa-list"></i>
+                    납부 내역 보기
+                </a>
+                <a href="../../index.html" class="btn btn-primary">
+                    <i class="fas fa-home"></i>
+                    메인으로 가기
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- 푸터 -->
+    <footer>
+        <!-- 푸터는 main.js에서 동적 생성 -->
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../../js/main.js"></script>
+    <script>
+        // URL에서 결제 정보 가져오기
+        const urlParams = new URLSearchParams(window.location.search);
+        const paymentData = JSON.parse(urlParams.get('data') || '{}');
+
+        // 결제 정보가 없으면 payment.html로 리다이렉트
+        if (!paymentData.orderId) {
+            // LocalStorage에서 마지막 결제 정보 가져오기
+            const lastPayment = localStorage.getItem('lastPayment');
+            if (lastPayment) {
+                const data = JSON.parse(lastPayment);
+                displayReceipt(data);
+            } else {
+                // alert('결제 정보를 찾을 수 없습니다.');
+                // window.location.href = 'payment.html';
+                // 데모용으로 샘플 데이터 표시
+                displayReceipt({
+                    orderId: 'KESG' + Date.now(),
+                    date: new Date().toISOString(),
+                    method: '신용카드',
+                    cardCompany: '신한카드',
+                    cardNumber: '1234-****-****-5678',
+                    installment: 0,
+                    item: '2025년 정회원 연회비',
+                    amount: 100000
+                });
+            }
+        } else {
+            displayReceipt(paymentData);
+        }
+
+        function displayReceipt(data) {
+            // 주문번호
+            document.getElementById('receiptNumber').textContent = `주문번호: ${data.orderId}`;
+            
+            // 결제일시
+            const date = new Date(data.date);
+            const dateStr = date.toLocaleString('ko-KR', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            });
+            document.getElementById('receiptDate').textContent = `결제일시: ${dateStr}`;
+
+            // 결제 수단
+            let methodText = data.method;
+            if (data.method === 'card') {
+                methodText = '신용카드';
+                document.getElementById('cardInfoRow').style.display = 'flex';
+                document.getElementById('cardInfo').textContent = 
+                    `${data.cardCompany} (${data.cardNumber}) / ${data.installment === 0 ? '일시불' : data.installment + '개월'}`;
+            } else if (data.method === 'transfer') {
+                methodText = '실시간 계좌이체';
+                document.getElementById('bankInfoRow').style.display = 'flex';
+                document.getElementById('bankInfo').textContent = data.bank || '-';
+            } else if (data.method === 'cms') {
+                methodText = 'CMS 자동이체';
+                document.getElementById('cmsInfoRow').style.display = 'flex';
+                document.getElementById('cmsInfo').textContent = 
+                    `${data.bank} / 출금일: 매월 ${data.withdrawalDate}일`;
+            }
+            document.getElementById('paymentMethod').textContent = methodText;
+
+            // 납부 항목
+            document.getElementById('paymentItem').textContent = data.item;
+
+            // 총 결제 금액
+            document.getElementById('totalAmount').textContent = data.amount.toLocaleString() + '원';
+
+            // LocalStorage에 저장 (최근 결제 정보)
+            localStorage.setItem('lastPayment', JSON.stringify(data));
+        }
+
+        // 영수증 출력 기능 (선택사항)
+        function printReceipt() {
+            window.print();
+        }
+    </script>
+</body>
+</html>

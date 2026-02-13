@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="한국ESG학회 자주 묻는 질문 - 회원가입, 학술지, ESG 서비스 관련 FAQ">
+    <title>Q&A - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo-symbol.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+        .faq-hero {
+            background: transparent;
+            color: var(--text-dark);
+            padding: 30px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--primary-blue);
+        }
+        .faq-hero h2 {
+            font-size: 2.3rem;
+            margin-bottom: 15px;
+            color: var(--primary-blue);
+        }
+        .faq-hero h2 i {
+            margin-right: 12px;
+        }
+        .faq-hero p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+        .search-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+        }
+        .search-input-wrapper {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .search-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid var(--bg-light);
+            border-radius: 50px;
+            font-size: 1rem;
+        }
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-blue);
+            font-size: 1.3rem;
+        }
+        .category-tabs {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        .tab-btn {
+            padding: 12px 25px;
+            background: #fff;
+            border: 2px solid var(--bg-light);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            color: #666;
+        }
+        .tab-btn:hover,
+        .tab-btn.active {
+            background: var(--primary-blue);
+            color: #fff;
+            border-color: var(--primary-blue);
+        }
+        .faq-section {
+            margin-bottom: 50px;
+        }
+        .category-title {
+            color: var(--primary-blue);
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--primary-green);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .faq-item {
+            background: #fff;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        .faq-item:hover {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+        }
+        .faq-question {
+            padding: 25px 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: #fff;
+            transition: all 0.3s;
+        }
+        .faq-question:hover {
+            background: var(--bg-light);
+        }
+        .faq-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-green));
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        .faq-question-text {
+            flex: 1;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        .faq-toggle {
+            width: 35px;
+            height: 35px;
+            background: var(--bg-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+        }
+        .faq-item.active .faq-toggle {
+            background: var(--primary-blue);
+            color: #fff;
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            background: var(--bg-light);
+        }
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+        }
+        .faq-answer-content {
+            padding: 25px 30px 25px 95px;
+            color: #555;
+            line-height: 1.9;
+            font-size: 1.05rem;
+        }
+        .faq-answer-content strong {
+            color: var(--primary-green);
+        }
+        .faq-answer-content ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+        .faq-answer-content ul li {
+            margin: 8px 0;
+        }
+        .quick-contact {
+            background: linear-gradient(135deg, #e3f2fd, #e8f5e9);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .quick-contact h3 {
+            color: var(--primary-blue);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        .quick-contact p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        .contact-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background: #fff;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .contact-btn:hover {
+            background: var(--primary-blue);
+            color: #fff;
+        }
+        .stats-banner {
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+        .stat-item {
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+        }
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        @media (max-width: 768px) {
+            .faq-hero h2 {
+                font-size: 1.6rem;
+            }
+            .category-tabs {
+                flex-direction: column;
+            }
+            .tab-btn {
+                width: 100%;
+            }
+            .faq-answer-content {
+                padding-left: 30px;
+            }
+            .contact-buttons {
+                flex-direction: column;
+            }
+            .contact-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> 010-4263-7715</span>
+                        <span><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</span>
+                    </div>
+                    <div class="quick-links">
+                        <a href="../member/process.html">회원가입</a>
+                        <a href="../mypage/profile.html">로그인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    <button class="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">핵심사업</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학술지·논문</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">자료실</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <div class="page-header" style="background: linear-gradient(90deg, #2d8659 0%, #1a7b9c 100%); padding: 60px 20px; text-align: center; margin: 0;">
+        <h1 style="color: white; font-size: 36px; font-weight: 700; margin: 0 0 15px 0;">
+            <i class="fas fa-question-circle"></i> 자주 묻는 질문 (FAQ)
+        </h1>
+        <p style="color: rgba(255, 255, 255, 0.95); font-size: 16px; margin: 0; line-height: 1.6;">
+            궁금한 사항을 빠르게 찾아보세요
+        </p>
+    </div>
+
+    <main class="main-content">
+
+        <div class="content-wrapper">
+            <div class="faq-hero">
+                <h2>FAQ - 자주 묻는 질문</h2>
+                <p>한국ESG학회에 대해 자주 묻는 질문과 답변을 확인하세요</p>
+            </div>
+
+            <div class="search-box">
+                <div class="search-input-wrapper">
+                    <input type="text" class="search-input" placeholder="궁금한 내용을 검색하세요">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+            </div>
+
+            <div class="stats-banner">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">85+</div>
+                        <div class="stat-label">FAQ 항목</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">문제 해결률</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">언제든지 확인</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-tabs">
+                <button class="tab-btn active">전체</button>
+                <button class="tab-btn">회원가입</button>
+                <button class="tab-btn">학술지·논문</button>
+                <button class="tab-btn">ESG 서비스</button>
+                <button class="tab-btn">행사·교육</button>
+                <button class="tab-btn">결제·환불</button>
+            </div>
+
+            <!-- 회원가입 관련 FAQ -->
+            <div class="faq-section">
+                <h2 class="category-title">
+                    <i class="fas fa-user-plus"></i> 회원가입 및 회원제도
+                </h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-icon"><i class="fas fa-q"></i></div>
+                        <div class="faq-question-text">한국ESG학회 회원이 되려면 어떻게 해야 하나요?</div>
+                        <div class="faq-toggle"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            홈페이지 상단의 <strong>"회원가입"</strong> 버튼을 클릭하여 가입 절차를 진행하시면 됩니다.<br><br>
+                            <strong>가입 절차:</strong>
+                            <ul>
+                                <li>1단계: 회원 유형 선택 (정회원/학생회원/기업회원 등)</li>
+                                <li>2단계: 개인정보 입력 및 약관 동의</li>
+                                <li>3단계: 이메일 인증</li>
+                                <li>4단계: 연회비 납부</li>
+                                <li>5단계: 가입 승인 (1~2일 소요)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-icon"><i class="fas fa-q"></i></div>
+                        <div class="faq-question-text">회원 유형별 차이점은 무엇인가요?</div>
+                        <div class="faq-toggle"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <strong>정회원:</strong> 개인 연구자, 교수, 실무자 등 (연회비 10만원)<br>
+                            - 학술지 무료 열람, 논문 투고 가능, 모든 행사 참여 가능<br><br>
+                            
+                            <strong>학생회원:</strong> 대학(원)생 (연회비 5만원)<br>
+                            - 학술지 무료 열람, 행사 참가비 할인, 논문 투고 가능<br><br>
+                            
+                            <strong>기업회원:</strong> 기업 및 기관 (연회비 50만원)<br>
+                            - 회사 임직원 전체 학술지 열람, ESG 서비스 할인, 우선 컨설팅<br><br>
+                            
+                            <strong>평생회원:</strong> 100만원 일시납 후 평생 회원 자격 유지
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-icon"><i class="fas fa-q"></i></div>
+                        <div class="faq-question-text">연회비는 언제 납부해야 하나요?</div>
+                        <div class="faq-toggle"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            신규 회원은 <strong>가입 시 즉시 납부</strong>하셔야 하며, 기존 회원은 <strong>매년 1월 1일~1월 31일</strong> 사이에 납부하시면 됩니다.<br><br>
+                            기간 내 미납 시 회원 자격이 일시 정지되며, 학술지 열람 및 논문 투고가 제한됩니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학술지·논문 관련 FAQ -->
+            <div class="faq-section">
+                <h2 class="category-title">
+                    <i class="fas fa-book"></i> 학술지 및 논문
+                </h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-icon"><i class="fas fa-q"></i></div>
+                        <div class="faq-question-text">논문 투고 자격은 어떻게 되나요?</div>
+                        <div class="faq-toggle"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <strong>논문 투고 자격:</strong><br>
+                            - 한국ESG학회 정회원 또는 평생회원<br>
+                            - 공동 저자의 경우, 제1저자 또는 교신저자 중 1인 이상이 학회 회원이어야 함<br>
+                            - 비회원은 투고 전 회원 가입 필수<br><br>
+                            
+                            학생회원도 논문 투고가 가능하며, 지도교수가 공동 저자로 참여할 수 있습니다.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-icon"><i class="fas fa-q"></i></div>
+                        <div class="faq-question-text">논문 심사 기간은 얼마나 걸리나요?</div>
+                        <div class="faq-toggle"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            일반적으로 투고 접수 후 <strong>최종 판정까지 약 4~6주</strong>가 소요됩니다.<br><br>
+                            
+                            <strong>심사 단계별 소요 기간:</strong>
+                            <ul>
+                                <li>논문 접수 및 확인: 3일</li>
+                                <li>편집위원회 1차 검토: 5일</li>
+                                <li>심사위원 배정: 3일</li>
+                                <li>본심사 진행: 14일</li>
+                                <li>편집위원회 종합 판정: 3일</li>
+                                <li>수정 및 재심사 (필요시): 7~14일</li>
+                            </ul><br>
+                            
+                            심사 진행 상황은 학술지 온라인 시스템에서 실시간 확인 가능합니다.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-icon"><i class="fas fa-q"></i></div>
+                        <div class="faq-question-text">논문 게재료는 얼마인가요?</div>
+                        <div class="faq-toggle"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <strong>심사비:</strong> 100,000원 (1편당)<br>
+                            <strong>게재료:</strong> 200,000원 (기본 20매 기준)<br>
+                            - 초과 페이지: 10,000원/매<br><br>
+                            
+                            게재 불가 판정 시 심사비는 환불되지 않으나 게재료는 부과되지 않습니다.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-icon"><i class="fas fa-q"></i></div>
+                        <div class="faq-question-text">학술지는 연 몇 회 발간되나요?</div>
+                        <div class="faq-toggle"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            한국ESG학회 학술지는 <strong>연 4회</strong> (3월, 6월, 9월, 12월) 정기 발간됩니다.<br><br>
+                            
+                            <strong>발간 일정:</strong>
+                            <ul>
+                                <li>제1권 1호: 3월 31일</li>
+                                <li>제1권 2호: 6월 30일</li>
+                                <li>제1권 3호: 9월 30일</li>
+                                <li>제1권 4호: 12월 31일</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESG 서비스 관련 FAQ -->
+            <div class="faq-section">
+                <h2 class="category-title">
+                    <i class="fas fa-briefcase"></i> ESG 서비스 (인증, 컨설팅, 교육)
+                </h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-icon"><i class="fas fa-q"></i></div>
+                        <div class="faq-question-text">ESG 인증은 어떤 기업이 신청할 수 있나요?</div>
+                        <div class="faq-toggle"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <strong>모든 기업 및 기관</strong>이 신청 가능합니다.<br><br>
+                            
+                            기업 규모, 업종, 상장 여부와 관계없이 ESG 경영을 실천하는 모든 조직이 인증을 받을 수 있습니다.<br><br>
+                            
+                            <strong>인증 유형:</strong>
+                            <ul>
+                                <li>ESG 종합 인증 (환경+사회+거버넌스 통합 평가)</li>
+                                <li>환경(E) 전문 인증</li>
+                                <li>사회(S) 전문 인증</li>
+                                <li>거버넌스(G) 전문 인증</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-icon"><i class="fas fa-q"></i></div>
+                        <div class="faq-question-text">ESG 컨설팅 비용은 어떻게 되나요?</div>
+                        <div class="faq-toggle"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            컨설팅 비용은 <strong>기업 규모, 업종, 컨설팅 범위</strong>에 따라 달라집니다.<br><br>
+                            
+                            <strong>기본 패키지:</strong>
+                            <ul>
+                                <li>기본 진단: 500만원~ (2주 소요)</li>
+                                <li>전략 수립: 3,000만원~ (3개월 소요)</li>
+                                <li>종합 컨설팅: 1억원~ (12개월 소요)</li>
+                            </ul><br>
+                            
+                            정확한 견적은 무료 상담을 통해 제공됩니다.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-icon"><i class="fas fa-q"></i></div>
+                        <div class="faq-question-text">ESG 교육 과정은 어떻게 수강하나요?</div>
+                        <div class="faq-toggle"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <strong>온라인 또는 오프라인</strong>으로 수강 가능합니다.<br><br>
+                            
+                            <strong>교육 프로그램:</strong>
+                            <ul>
+                                <li>ESG 전문가 과정 (3개월, 주 1회) - 200만원</li>
+                                <li>기업 맞춤형 교육 (기간 협의) - 별도 협의</li>
+                                <li>온라인 교육 (4주, 자율 학습) - 50만원</li>
+                            </ul><br>
+                            
+                            학회 회원은 <strong>10~20% 할인</strong> 혜택이 제공됩니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 행사·교육 관련 FAQ -->
+            <div class="faq-section">
+                <h2 class="category-title">
+                    <i class="fas fa-calendar-alt"></i> 행사 및 포럼
+                </h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-icon"><i class="fas fa-q"></i></div>
+                        <div class="faq-question-text">월드ESG포럼은 누구나 참석할 수 있나요?</div>
+                        <div class="faq-toggle"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <strong>사전 등록을 하신 모든 분</strong>이 참석 가능합니다.<br><br>
+                            
+                            학회 회원은 무료 또는 할인된 참가비로 참석하실 수 있으며, 비회원도 참가비 납부 후 참석하실 수 있습니다.<br><br>
+                            
+                            <strong>참가 신청:</strong> 홈페이지 공지사항 또는 행사 페이지에서 신청
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-icon"><i class="fas fa-q"></i></div>
+                        <div class="faq-question-text">한국ESG대상 시상 기준은 무엇인가요?</div>
+                        <div class="faq-toggle"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <strong>ESG 경영 우수성</strong>을 종합적으로 평가하여 시상합니다.<br><br>
+                            
+                            <strong>평가 기준:</strong>
+                            <ul>
+                                <li>환경 경영 실적 (탄소중립, 친환경 제품 등)</li>
+                                <li>사회적 책임 이행 (인권, 안전, 지역사회 공헌 등)</li>
+                                <li>거버넌스 구조 (이사회 독립성, 윤리 경영 등)</li>
+                                <li>ESG 정보 공시 투명성</li>
+                                <li>ESG 혁신 사례</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 결제·환불 관련 FAQ -->
+            <div class="faq-section">
+                <h2 class="category-title">
+                    <i class="fas fa-credit-card"></i> 결제 및 환불
+                </h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-icon"><i class="fas fa-q"></i></div>
+                        <div class="faq-question-text">결제 수단은 어떤 것이 있나요?</div>
+                        <div class="faq-toggle"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <strong>계좌이체, 신용카드, 현금영수증 발급</strong>이 가능합니다.<br><br>
+                            
+                            <strong>계좌이체:</strong><br>
+                            - 은행: 국민은행<br>
+                            - 계좌번호: 123-45-678910<br>
+                            - 예금주: 한국ESG학회<br><br>
+                            
+                            입금 시 "결제항목_성명"으로 입금자명을 기재해 주세요.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-icon"><i class="fas fa-q"></i></div>
+                        <div class="faq-question-text">연회비 환불이 가능한가요?</div>
+                        <div class="faq-toggle"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <strong>납부 후 30일 이내</strong> 탈퇴 신청 시 전액 환불 가능합니다.<br><br>
+                            
+                            단, 다음의 경우 환불이 제한될 수 있습니다:
+                            <ul>
+                                <li>학술지 열람 이력이 있는 경우</li>
+                                <li>논문 투고 이력이 있는 경우</li>
+                                <li>행사 참여 이력이 있는 경우</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-icon"><i class="fas fa-q"></i></div>
+                        <div class="faq-question-text">세금계산서 발급이 가능한가요?</div>
+                        <div class="faq-toggle"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <strong>기업회원 및 기업 서비스 이용 시</strong> 세금계산서 발급이 가능합니다.<br><br>
+                            
+                            개인회원의 경우 현금영수증 또는 영수증 발급이 가능하며, 세금계산서는 발급되지 않습니다.<br><br>
+                            
+                            발급 요청은 담당자 이메일(kohmh@ssu.ac.kr)로 사업자등록증 사본과 함께 보내주시면 됩니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-contact">
+                <h3><i class="fas fa-headset"></i> 추가 문의가 필요하신가요?</h3>
+                <p>FAQ에서 원하는 답변을 찾지 못하셨다면 언제든지 문의해 주세요</p>
+                <div class="contact-buttons">
+                    <span class="contact-btn" role="text">
+                        <i class="fas fa-envelope"></i> 이메일 문의
+                    </span>
+                    <span class="contact-btn" role="text">
+                        <i class="fas fa-phone"></i> 전화 문의
+                    </span>
+                    <a href="../about/intro.html" class="contact-btn">
+                        <i class="fas fa-building"></i> 학회 안내
+                    </a>
+                </div>
+                <p style="margin-top: 25px; color: #666;">
+                    <i class="fas fa-clock"></i> 상담 시간: 평일 09:00 - 18:00
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="../../images/logo.png" alt="한국ESG학회" class="footer-logo">
+                    <p class="footer-description">
+                        지속가능한 미래를 위한 ESG 연구와 실천
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>학회 정보</h4>
+                    <ul class="footer-links">
+                        <li><a href="../about/intro.html">학회소개</a></li>
+                        <li><a href="../about/history.html">학회연혁</a></li>
+                        <li><a href="../organization/executive.html">임원진</a></li>
+                        <li><a href="../member/process.html">회원가입</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>커뮤니티</h4>
+                    <ul class="footer-links">
+                        <li><a href="notice.html">공지사항</a></li>
+                        <li><a href="forum.html">학술 포럼</a></li>
+                        <li><a href="discussion.html">자유게시판</a></li>
+                        <li><a href="qna.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>문의처</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-map-marker-alt"></i> 서울특별시 동작구 상도로 369<br>숭실대학교 진리관 508호</li>
+                        <li><i class="fas fa-phone"></i> 010-4263-7715</li>
+                        <li><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Korean ESG Association. All Rights Reserved.</p>
+                <p>개인정보관리책임자: 고문현 (kohmh@ssu.ac.kr) | 홈페이지관리책임자: 강종진 (mail@iuci.kr)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        // FAQ 아코디언 기능
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
+                
+                // 모든 FAQ 닫기
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // 클릭한 FAQ만 열기/닫기
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

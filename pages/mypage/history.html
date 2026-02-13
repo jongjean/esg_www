@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>납부 내역 - 한국ESG학회</title>
+    <link rel="icon" type="image/png" href="../../images/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/subpage.css">
+    <style>
+        .history-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            padding: 30px 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .summary-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1e7e34, #27ae60);
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .summary-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .summary-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(30, 126, 52, 0.15);
+            border-color: #1e7e34;
+        }
+
+        .summary-card.primary {
+            background: linear-gradient(135deg, #1e7e34 0%, #27ae60 100%);
+            border: none;
+            color: white;
+            box-shadow: 0 4px 20px rgba(30, 126, 52, 0.3);
+        }
+
+        .summary-card.primary:hover {
+            box-shadow: 0 12px 40px rgba(30, 126, 52, 0.4);
+        }
+
+        .summary-icon {
+            font-size: 36px;
+            margin-bottom: 18px;
+            opacity: 0.9;
+            animation: iconBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .summary-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 12px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .summary-card.primary .summary-label {
+            color: rgba(255,255,255,0.95);
+        }
+
+        .summary-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: #1e7e34;
+            letter-spacing: -0.5px;
+        }
+
+        .summary-card.primary .summary-value {
+            color: white;
+        }
+
+        .filter-section {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fbf9 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 2px solid #e8f5e9;
+        }
+
+        .filter-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr) auto;
+            gap: 15px;
+            align-items: end;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .filter-control {
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .filter-control:focus {
+            outline: none;
+            border-color: #1e7e34;
+            box-shadow: 0 0 0 4px rgba(30, 126, 52, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .filter-control:hover {
+            border-color: #1e7e34;
+        }
+
+        .btn-filter {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #1e7e34 0%, #27ae60 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(30, 126, 52, 0.3);
+        }
+
+        .btn-filter:hover {
+            background: linear-gradient(135deg, #166028 0%, #1e7e34 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 126, 52, 0.4);
+        }
+
+        .btn-filter:active {
+            transform: translateY(0);
+        }
+
+        .history-table-section {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fbf9 100%);
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 2px solid #e8f5e9;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #1e7e34;
+        }
+
+        .btn-export {
+            padding: 12px 24px;
+            background: white;
+            color: #1e7e34;
+            border: 2px solid #1e7e34;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(30, 126, 52, 0.1);
+        }
+
+        .btn-export:hover {
+            background: linear-gradient(135deg, #1e7e34 0%, #27ae60 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(30, 126, 52, 0.3);
+        }
+
+        .btn-export:active {
+            transform: translateY(0);
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .history-table thead {
+            background: linear-gradient(135deg, #e8f5e9 0%, #d4edda 100%);
+        }
+
+        .history-table th,
+        .history-table td {
+            padding: 18px 15px;
+            text-align: left;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .history-table th {
+            font-weight: 700;
+            color: #1e7e34;
+            font-size: 14px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .history-table tbody tr {
+            transition: all 0.3s;
+        }
+
+        .history-table tbody tr:hover {
+            background: #f8fcf9;
+            transform: scale(1.01);
+            box-shadow: 0 4px 15px rgba(30, 126, 52, 0.08);
+        }
+
+        .status-badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-block;
+            letter-spacing: 0.3px;
+            transition: all 0.3s;
+        }
+
+        .status-badge.completed {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            color: #155724;
+            border: 2px solid #b1dfbb;
+        }
+
+        .status-badge.completed:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(21, 87, 36, 0.2);
+        }
+
+        .status-badge.pending {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            color: #856404;
+            border: 2px solid #ffd93d;
+        }
+
+        .status-badge.cancelled {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            color: #721c24;
+            border: 2px solid #f1b0b7;
+        }
+
+        .payment-method-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+        }
+
+        .btn-receipt {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(108, 117, 125, 0.2);
+        }
+
+        .btn-receipt:hover {
+            background: linear-gradient(135deg, #5a6268 0%, #4a5157 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+        }
+
+        .btn-receipt:active {
+            transform: translateY(0);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 30px;
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #e9ecef;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .page-btn:hover {
+            background: linear-gradient(135deg, #e8f5e9 0%, #d4edda 100%);
+            border-color: #1e7e34;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(30, 126, 52, 0.15);
+        }
+
+        .page-btn.active {
+            background: linear-gradient(135deg, #1e7e34 0%, #27ae60 100%);
+            color: white;
+            border-color: #1e7e34;
+            box-shadow: 0 4px 15px rgba(30, 126, 52, 0.3);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .empty-state-text {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .chart-section {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fbf9 100%);
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 2px solid #e8f5e9;
+        }
+
+        .year-selector {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .year-btn {
+            padding: 10px 24px;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .year-btn:hover {
+            border-color: #1e7e34;
+            color: #1e7e34;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 126, 52, 0.15);
+        }
+
+        .year-btn.active {
+            background: linear-gradient(135deg, #1e7e34 0%, #27ae60 100%);
+            color: white;
+            border-color: #1e7e34;
+            box-shadow: 0 4px 15px rgba(30, 126, 52, 0.3);
+        }
+
+        .chart-bars {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chart-bar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .bar {
+            width: 100%;
+            background: linear-gradient(180deg, #e8f5e9 0%, #d4edda 100%);
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .bar:hover {
+            background: linear-gradient(180deg, #27ae60 0%, #1e7e34 100%);
+            transform: scaleY(1.05);
+            box-shadow: 0 4px 15px rgba(30, 126, 52, 0.3);
+        }
+
+        .bar.paid {
+            background: linear-gradient(180deg, #27ae60 0%, #1e7e34 100%);
+            box-shadow: 0 4px 12px rgba(30, 126, 52, 0.2);
+        }
+
+        .bar-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .summary-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .filter-row {
+                grid-template-columns: 1fr;
+            }
+
+            .history-table {
+                font-size: 13px;
+            }
+
+            .history-table th,
+            .history-table td {
+                padding: 10px 8px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .btn-export {
+                width: 100%;
+            }
+
+            .chart-bars {
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="../../index.html" class="logo">
+                        <img src="../../images/logo.png" alt="한국ESG학회" class="logo-img">
+                    </a>
+                    
+                    <button class="mobile-menu-btn" aria-label="메뉴 열기">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    
+                    <ul class="nav-menu">
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회소개</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../about/greeting.html">학회장 인사말</a></li>
+                                <li><a href="../about/purpose.html">설립 목적·비전</a></li>
+                                <li><a href="../about/history.html">연혁</a></li>
+                                <li><a href="../about/constitution.html">정관·규정</a></li>
+                                <li><a href="../about/ci.html">CI·BI</a></li>
+                                <li><a href="../about/location.html">오시는 길</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학회조직</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../organization/executives.html">임원진</a></li>
+                                <li><a href="../organization/committees.html">위원회</a></li>
+                                <li><a href="../organization/divisions.html">분과학회·연구회</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">회원안내</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../member/types.html">회원 구분</a></li>
+                                <li><a href="../member/process.html">가입 절차</a></li>
+                                <li><a href="../member/fee.html">회비 안내</a></li>
+                                <li><a href="../member/benefits.html">회원 혜택</a></li>
+                                <li><a href="../member/companies.html">회원사 소개</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">핵심사업</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../core/forum.html">월드ESG포럼</a></li>
+                                <li><a href="../core/award.html">한국ESG대상</a></li>
+                                <li><a href="../core/ordinance.html">한국ESG조례대상</a></li>
+                                <li><a href="../core/seminar.html">월요학술세미나</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">학술지·논문</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../journal/about.html">학술지 소개</a></li>
+                                <li><a href="../journal/submission.html">논문 투고 안내</a></li>
+                                <li><a href="../journal/editorial.html">편집위원회</a></li>
+                                <li><a href="../journal/review.html">심사 규정</a></li>
+                                <li><a href="../journal/archive.html">논문 아카이브</a></li>
+                                <li><a href="../journal/dbpia-embed.html">DBPIA 논문 검색</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG정책·연구</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../policy/research.html">ESG 정책 연구</a></li>
+                                <li><a href="../policy/standards.html">ESG 지표·표준</a></li>
+                                <li><a href="../policy/law.html">법·제도 분석</a></li>
+                                <li><a href="../policy/global.html">국제 ESG 동향</a></li>
+                                <li><a href="../policy/reports.html">연구보고서</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">ESG뉴스</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../news/main.html">ESG 주요 뉴스</a></li>
+                                <li><a href="../news/policy.html">정책·입법 동향</a></li>
+                                <li><a href="../news/cases.html">기업 ESG 사례</a></li>
+                                <li><a href="../news/press.html">학회 보도자료</a></li>
+                                <li><a href="../news/column.html">기고·칼럼</a></li>
+                                <li><a href="../news/video.html">영상 콘텐츠</a></li>
+                                <li><a href="../news/esg-news-embed.html">코리아ESG뉴스</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">커뮤니티</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../community/notice.html">공지사항</a></li>
+                                <li><a href="../community/forum.html">자유게시판</a></li>
+                                <li><a href="../community/discussion.html">학술·정책 토론</a></li>
+                                <li><a href="../community/member-news.html">회원 소식</a></li>
+                                <li><a href="../community/qna.html">Q&A</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">자료실</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../materials/academic.html">학술자료</a></li>
+                                <li><a href="../materials/policy.html">정책자료</a></li>
+                                <li><a href="../materials/presentation.html">발표자료</a></li>
+                                <li><a href="../materials/report.html">ESG 리포트</a></li>
+                                <li><a href="../materials/video.html">영상자료</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">후원·기부</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../support/guide.html">후원 안내</a></li>
+                                <li><a href="../support/corporate.html">기업 후원</a></li>
+                                <li><a href="../support/personal.html">개인 기부</a></li>
+                                <li><a href="../support/usage.html">기부금 사용 내역</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">마이페이지</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="profile.html">회원정보 관리</a></li>
+                                <li><a href="payment.html">회비 납부</a></li>
+                                <li><a href="history.html">납부 내역</a></li>
+                                <li><a href="paper.html">논문 투고 현황</a></li>
+                                <li><a href="event.html">행사·세미나 신청 내역</a></li>
+                                <li><a href="certificate.html">회원증·증명서</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="breadcrumb">
+            <a href="../../index.html"><i class="fas fa-home"></i> 홈</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="#">마이페이지</a>
+            <i class="fas fa-chevron-right"></i>
+            <span class="current">납부 내역</span>
+        </div>
+    </header>
+
+    <div class="subpage-container">
+        <main class="content">
+            <div class="page-header">
+                <h1><i class="fas fa-history"></i> 납부 내역</h1>
+                <p class="page-description">회비 납부 내역을 조회하고 영수증을 발급받을 수 있습니다.</p>
+            </div>
+
+            <div class="history-container">
+                <!-- 요약 카드 -->
+                <div class="summary-cards">
+                    <div class="summary-card primary">
+                        <div class="summary-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="summary-label">총 납부 금액</div>
+                        <div class="summary-value">300,000원</div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-calendar-check" style="color: #27ae60;"></i>
+                        </div>
+                        <div class="summary-label">올해 납부 금액</div>
+                        <div class="summary-value">200,000원</div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-list-ol" style="color: #2874a6;"></i>
+                        </div>
+                        <div class="summary-label">납부 횟수</div>
+                        <div class="summary-value">10회</div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-chart-line" style="color: #f39c12;"></i>
+                        </div>
+                        <div class="summary-label">평균 납부액</div>
+                        <div class="summary-value">85,000원</div>
+                    </div>
+                </div>
+
+                <!-- 연도별 납부 현황 차트 -->
+                <div class="chart-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-chart-bar"></i>
+                        연도별 납부 현황
+                    </h2>
+
+                    <div class="year-selector">
+                        <button class="year-btn" onclick="selectYear(2022)">2022</button>
+                        <button class="year-btn" onclick="selectYear(2023)">2023</button>
+                        <button class="year-btn active" onclick="selectYear(2025)">2025</button>
+                    </div>
+
+                    <div class="chart-bars" id="chartBars">
+                        <!-- 1-12월 납부 현황 바 차트 -->
+                        <div class="chart-bar">
+                            <div class="bar" style="height: 80px;" title="1월: 납부완료"></div>
+                            <div class="bar-label">1월</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="bar" style="height: 0px;" title="2월: 미납부"></div>
+                            <div class="bar-label">2월</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="bar paid" style="height: 80px;" title="3월: 납부완료 (100,000원)"></div>
+                            <div class="bar-label">3월</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="bar" style="height: 0px;"></div>
+                            <div class="bar-label">4월</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="bar" style="height: 0px;"></div>
+                            <div class="bar-label">5월</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="bar" style="height: 0px;"></div>
+                            <div class="bar-label">6월</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="bar" style="height: 0px;"></div>
+                            <div class="bar-label">7월</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="bar paid" style="height: 80px;" title="8월: 납부완료 (100,000원)"></div>
+                            <div class="bar-label">8월</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="bar" style="height: 0px;"></div>
+                            <div class="bar-label">9월</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="bar" style="height: 0px;"></div>
+                            <div class="bar-label">10월</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="bar" style="height: 0px;"></div>
+                            <div class="bar-label">11월</div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="bar paid" style="height: 80px;" title="12월: 납부완료 (100,000원)"></div>
+                            <div class="bar-label">12월</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 검색 필터 -->
+                <div class="filter-section">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label class="filter-label">연도</label>
+                            <select class="filter-control">
+                                <option value="">전체</option>
+                                <option value="2025" selected>2025년</option>
+                                <option value="2023">2023년</option>
+                                <option value="2022">2022년</option>
+                                <option value="2021">2021년</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label class="filter-label">납부 상태</label>
+                            <select class="filter-control">
+                                <option value="">전체</option>
+                                <option value="completed">완료</option>
+                                <option value="pending">대기중</option>
+                                <option value="cancelled">취소</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label class="filter-label">결제 수단</label>
+                            <select class="filter-control">
+                                <option value="">전체</option>
+                                <option value="card">신용카드</option>
+                                <option value="transfer">계좌이체</option>
+                                <option value="virtual">가상계좌</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label class="filter-label">검색어</label>
+                            <input type="text" class="filter-control" placeholder="금액, 메모 등">
+                        </div>
+
+                        <button class="btn-filter">
+                            <i class="fas fa-search"></i> 검색
+                        </button>
+                    </div>
+                    
+                    <!-- 데모 데이터 생성 버튼 (개발/시연용) -->
+                    <div style="margin-top: 20px; text-align: right;">
+                        <button onclick="generateDemoData()" style="padding: 10px 18px; background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; box-shadow: 0 2px 8px rgba(108, 117, 125, 0.2); transition: all 0.3s;">
+                            <i class="fas fa-database"></i> 데모 데이터 생성
+                        </button>
+                        <button onclick="clearPaymentHistory()" style="padding: 10px 18px; background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; margin-left: 8px; box-shadow: 0 2px 8px rgba(220, 53, 69, 0.2); transition: all 0.3s;">
+                            <i class="fas fa-trash-alt"></i> 데이터 초기화
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 납부 내역 테이블 -->
+                <div class="history-table-section">
+                    <div class="section-header">
+                        <h2 class="section-title">
+                            <i class="fas fa-list"></i>
+                            납부 내역
+                        </h2>
+                        <button class="btn-export" onclick="exportToExcel()">
+                            <i class="fas fa-file-excel"></i> 엑셀 다운로드
+                        </button>
+                    </div>
+
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>납부일</th>
+                                <th>구분</th>
+                                <th>금액</th>
+                                <th>결제수단</th>
+                                <th>상태</th>
+                                <th>영수증</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10</td>
+                                <td>2025.12.15</td>
+                                <td>2025년 연회비</td>
+                                <td><strong>100,000원</strong></td>
+                                <td>
+                                    <span class="payment-method-icon">
+                                        <i class="fas fa-credit-card"></i> 신용카드
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status-badge completed">납부완료</span>
+                                </td>
+                                <td>
+                                    <button class="btn-receipt" onclick="downloadReceipt(10)">
+                                        <i class="fas fa-download"></i> 영수증
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td>2025.08.20</td>
+                                <td>2025년 추가 후원금</td>
+                                <td><strong>50,000원</strong></td>
+                                <td>
+                                    <span class="payment-method-icon">
+                                        <i class="fas fa-university"></i> 계좌이체
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status-badge completed">납부완료</span>
+                                </td>
+                                <td>
+                                    <button class="btn-receipt" onclick="downloadReceipt(9)">
+                                        <i class="fas fa-download"></i> 영수증
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>2025.03.10</td>
+                                <td>2023년 연회비</td>
+                                <td><strong>100,000원</strong></td>
+                                <td>
+                                    <span class="payment-method-icon">
+                                        <i class="fas fa-barcode"></i> 가상계좌
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status-badge completed">납부완료</span>
+                                </td>
+                                <td>
+                                    <button class="btn-receipt" onclick="downloadReceipt(8)">
+                                        <i class="fas fa-download"></i> 영수증
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>2023.12.18</td>
+                                <td>월드ESG포럼 참가비</td>
+                                <td><strong>200,000원</strong></td>
+                                <td>
+                                    <span class="payment-method-icon">
+                                        <i class="fas fa-credit-card"></i> 신용카드
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status-badge completed">납부완료</span>
+                                </td>
+                                <td>
+                                    <button class="btn-receipt" onclick="downloadReceipt(7)">
+                                        <i class="fas fa-download"></i> 영수증
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>2023.11.05</td>
+                                <td>논문 게재료</td>
+                                <td><strong>150,000원</strong></td>
+                                <td>
+                                    <span class="payment-method-icon">
+                                        <i class="fas fa-university"></i> 계좌이체
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status-badge completed">납부완료</span>
+                                </td>
+                                <td>
+                                    <button class="btn-receipt" onclick="downloadReceipt(6)">
+                                        <i class="fas fa-download"></i> 영수증
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>2023.08.22</td>
+                                <td>세미나 참가비</td>
+                                <td><strong>30,000원</strong></td>
+                                <td>
+                                    <span class="payment-method-icon">
+                                        <i class="fas fa-credit-card"></i> 신용카드
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status-badge completed">납부완료</span>
+                                </td>
+                                <td>
+                                    <button class="btn-receipt" onclick="downloadReceipt(5)">
+                                        <i class="fas fa-download"></i> 영수증
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>2023.03.15</td>
+                                <td>2022년 연회비</td>
+                                <td><strong>100,000원</strong></td>
+                                <td>
+                                    <span class="payment-method-icon">
+                                        <i class="fas fa-university"></i> 계좌이체
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status-badge completed">납부완료</span>
+                                </td>
+                                <td>
+                                    <button class="btn-receipt" onclick="downloadReceipt(4)">
+                                        <i class="fas fa-download"></i> 영수증
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>2022.12.28</td>
+                                <td>후원금</td>
+                                <td><strong>100,000원</strong></td>
+                                <td>
+                                    <span class="payment-method-icon">
+                                        <i class="fas fa-credit-card"></i> 신용카드
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status-badge completed">납부완료</span>
+                                </td>
+                                <td>
+                                    <button class="btn-receipt" onclick="downloadReceipt(3)">
+                                        <i class="fas fa-download"></i> 영수증
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>2022.09.10</td>
+                                <td>논문 게재료</td>
+                                <td><strong>150,000원</strong></td>
+                                <td>
+                                    <span class="payment-method-icon">
+                                        <i class="fas fa-university"></i> 계좌이체
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status-badge completed">납부완료</span>
+                                </td>
+                                <td>
+                                    <button class="btn-receipt" onclick="downloadReceipt(2)">
+                                        <i class="fas fa-download"></i> 영수증
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>2022.03.20</td>
+                                <td>2021년 연회비 (신규가입)</td>
+                                <td><strong>100,000원</strong></td>
+                                <td>
+                                    <span class="payment-method-icon">
+                                        <i class="fas fa-credit-card"></i> 신용카드
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status-badge completed">납부완료</span>
+                                </td>
+                                <td>
+                                    <button class="btn-receipt" onclick="downloadReceipt(1)">
+                                        <i class="fas fa-download"></i> 영수증
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- 페이지네이션 -->
+                    <div class="pagination">
+                        <button class="page-btn"><i class="fas fa-angle-left"></i></button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn"><i class="fas fa-angle-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>한국ESG학회</h3>
+                    <p>지속가능한 미래를 위한 ESG 연구와 실천</p>
+                </div>
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <ul>
+                        <li><a href="../about/greeting.html">학회소개</a></li>
+                        <li><a href="../member/process.html">회원가입</a></li>
+                        <li><a href="../journal/submission.html">논문투고</a></li>
+                        <li><a href="../community/notice.html">공지사항</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>문의</h4>
+                    <p><i class="fas fa-phone"></i> 010-4263-7715</p>
+                    <p><i class="fas fa-envelope"></i> kohmh@ssu.ac.kr</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 서울특별시 동작구 상도로 369<br>숭실대학교 진리관 508호</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Korean ESG Association. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        // 페이지 로드 시 결제 내역 불러오기
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPaymentHistory();
+            updateSummary();
+        });
+
+        // LocalStorage에서 결제 내역 불러오기
+        function loadPaymentHistory() {
+            const history = JSON.parse(localStorage.getItem('paymentHistory') || '[]');
+            const tbody = document.querySelector('.history-table tbody');
+            
+            if (!tbody) return;
+            
+            // 기존 내용 지우기
+            tbody.innerHTML = '';
+            
+            if (history.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 50px; color: #999;">
+                            <i class="fas fa-inbox" style="font-size: 48px; margin-bottom: 20px; display: block; opacity: 0.5;"></i>
+                            <div style="font-size: 16px; margin-bottom: 10px;">납부 내역이 없습니다.</div>
+                            <div style="font-size: 14px;">
+                                <a href="payment.html" style="color: #1e7e34; text-decoration: underline;">회비 납부하기</a>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            // 결제 내역 표시
+            history.forEach((payment, index) => {
+                const date = new Date(payment.date);
+                const dateStr = date.toLocaleDateString('ko-KR', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit'
+                });
+                
+                let methodText = '';
+                let methodDetail = '';
+                
+                if (payment.method === 'card') {
+                    methodText = '신용카드';
+                    methodDetail = `${payment.cardCompany}<br><small>${payment.cardNumber}</small>`;
+                } else if (payment.method === 'transfer') {
+                    methodText = '계좌이체';
+                    methodDetail = payment.bank;
+                } else if (payment.method === 'cms') {
+                    methodText = 'CMS';
+                    methodDetail = `${payment.bank}<br><small>매월 ${payment.withdrawalDate}일</small>`;
+                }
+                
+                const statusBadge = payment.status === 'completed' 
+                    ? '<span class="badge badge-success">완료</span>' 
+                    : '<span class="badge badge-pending">대기</span>';
+                
+                const row = `
+                    <tr>
+                        <td><strong>${payment.orderId}</strong></td>
+                        <td>${dateStr}</td>
+                        <td>${payment.item}</td>
+                        <td>${methodText}<br><small style="color: #999;">${methodDetail}</small></td>
+                        <td><strong style="color: #1e7e34;">${payment.amount.toLocaleString()}원</strong></td>
+                        <td>${statusBadge}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline" onclick="downloadReceipt('${payment.orderId}')">
+                                <i class="fas fa-download"></i> 영수증
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        // 요약 통계 업데이트
+        function updateSummary() {
+            const history = JSON.parse(localStorage.getItem('paymentHistory') || '[]');
+            
+            // 총 납부 금액
+            const totalAmount = history.reduce((sum, p) => sum + p.amount, 0);
+            
+            // 올해 납부 금액
+            const thisYear = new Date().getFullYear();
+            const thisYearAmount = history
+                .filter(p => new Date(p.date).getFullYear() === thisYear)
+                .reduce((sum, p) => sum + p.amount, 0);
+            
+            // 납부 횟수
+            const paymentCount = history.length;
+            
+            // 평균 납부액
+            const avgAmount = paymentCount > 0 ? Math.round(totalAmount / paymentCount) : 0;
+            
+            // DOM 업데이트
+            const totalEl = document.querySelector('.summary-card.primary .summary-value');
+            if (totalEl) {
+                totalEl.textContent = totalAmount.toLocaleString() + '원';
+            }
+            
+            const thisYearEl = document.querySelectorAll('.summary-card .summary-value')[1];
+            if (thisYearEl) {
+                thisYearEl.textContent = thisYearAmount.toLocaleString() + '원';
+            }
+            
+            const countEl = document.querySelectorAll('.summary-card .summary-value')[2];
+            if (countEl) {
+                countEl.textContent = paymentCount + '회';
+            }
+            
+            const avgEl = document.querySelectorAll('.summary-card .summary-value')[3];
+            if (avgEl) {
+                avgEl.textContent = avgAmount.toLocaleString() + '원';
+            }
+        }
+
+        function selectYear(year) {
+            document.querySelectorAll('.year-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 해당 연도 필터링
+            const history = JSON.parse(localStorage.getItem('paymentHistory') || '[]');
+            const filtered = history.filter(p => new Date(p.date).getFullYear() === year);
+            
+            // 필터링된 데이터로 테이블 업데이트
+            // (간단하게 전체 다시 로드)
+            loadPaymentHistory();
+        }
+
+        function downloadReceipt(orderId) {
+            alert('영수증 다운로드: ' + orderId + '\n\n실제 서비스에서는 PDF 파일이 다운로드됩니다.');
+            // 실제로는 PDF 생성 API 호출
+        }
+
+        function exportToExcel() {
+            const history = JSON.parse(localStorage.getItem('paymentHistory') || '[]');
+            
+            if (history.length === 0) {
+                alert('내보낼 데이터가 없습니다.');
+                return;
+            }
+            
+            alert('납부 내역 ' + history.length + '건을 Excel 파일로 다운로드합니다.\n\n실제 서비스에서는 Excel 파일이 다운로드됩니다.');
+            // 실제로는 Excel 파일 생성 및 다운로드
+        }
+
+        // 데모 데이터 생성 함수 (테스트용)
+        function generateDemoData() {
+            const demoData = [
+                {
+                    orderId: 'KESG' + (Date.now() - 86400000 * 365),
+                    date: new Date(Date.now() - 86400000 * 365).toISOString(),
+                    method: 'card',
+                    cardCompany: '신한카드',
+                    cardNumber: '1234-****-****-5678',
+                    installment: 0,
+                    item: '2024년 정회원 연회비',
+                    amount: 100000,
+                    status: 'completed'
+                },
+                {
+                    orderId: 'KESG' + (Date.now() - 86400000 * 180),
+                    date: new Date(Date.now() - 86400000 * 180).toISOString(),
+                    method: 'transfer',
+                    bank: 'KB국민은행',
+                    item: '추가 후원금',
+                    amount: 50000,
+                    status: 'completed'
+                },
+                {
+                    orderId: 'KESG' + (Date.now() - 86400000 * 30),
+                    date: new Date(Date.now() - 86400000 * 30).toISOString(),
+                    method: 'cms',
+                    bank: '우리은행',
+                    withdrawalDate: 5,
+                    item: '2025년 정회원 연회비 (자동이체)',
+                    amount: 100000,
+                    status: 'completed'
+                }
+            ];
+            
+            localStorage.setItem('paymentHistory', JSON.stringify(demoData));
+            alert('✅ 데모 데이터 3건이 생성되었습니다!');
+            location.reload();
+        }
+        
+        // 결제 내역 초기화 함수
+        function clearPaymentHistory() {
+            if (confirm('모든 결제 내역을 삭제하시겠습니까?\n\n이 작업은 되돌릴 수 없습니다.')) {
+                localStorage.removeItem('paymentHistory');
+                localStorage.removeItem('lastPayment');
+                alert('✅ 모든 결제 내역이 삭제되었습니다.');
+                location.reload();
+            }
+        }
+        
+        // 콘솔에서 호출 가능: generateDemoData(), clearPaymentHistory()
+    </script>
+</body>
+</html>
