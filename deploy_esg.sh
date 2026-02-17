@@ -39,6 +39,7 @@ safe_copy "pages"
 safe_copy "includes"
 safe_copy "index.html"
 safe_copy "favicon.ico" # If exists
+safe_copy "aitg" # Telegram WebApp folder
 
 # 3. Clean up generic junk from subdirectories (if any copied by accident)
 # (Since we copied specific folders, we only need to clean inside them if they strictly contain junk)
