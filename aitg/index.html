@@ -10,96 +10,137 @@
         :root {
             --tg-theme-bg-color: #0f172a;
             --tg-theme-text-color: #f8fafc;
-            --tg-theme-hint-color: #94a3b8;
             --tg-theme-button-color: #10b981;
-            --tg-theme-button-text-color: #ffffff;
             --tg-theme-secondary-bg-color: rgba(30, 41, 59, 0.7);
         }
 
         body {
             margin: 0;
-            padding: 20px;
+            padding: 16px;
             background: var(--tg-theme-bg-color);
             color: var(--tg-theme-text-color);
-            font-family: sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+            font-family: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, sans-serif;
         }
 
         .card {
-            width: 100%;
-            max-width: 400px;
             background: var(--tg-theme-secondary-bg-color);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 24px;
-            text-align: center;
-            margin-bottom: 24px;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
         h1 {
-            font-size: 20px;
-            margin: 0 0 8px 0;
+            font-size: 18px;
+            margin: 0 0 16px 0;
             color: var(--tg-theme-button-color);
+            text-align: center;
         }
 
-        .action-btn {
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: #94a3b8;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+            color: #fff;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        .btn {
             width: 100%;
             padding: 14px;
-            margin-bottom: 12px;
             border: none;
             border-radius: 12px;
-            background: var(--tg-theme-button-color);
-            color: var(--tg-theme-button-text-color);
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
+            transition: 0.2s;
+            margin-bottom: 10px;
         }
 
-        .action-btn.secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--tg-theme-text-color);
+        .btn-primary {
+            background: var(--tg-theme-button-color);
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
         }
     </style>
 </head>
 
 <body>
     <div class="card">
-        <h1>UCONAI ESG Control</h1>
-        <div id="greeting">사용자 확인 중...</div>
-    </div>
-    <div style="width: 100%; max-width: 400px;">
-        <button class="action-btn" onclick="sendToBot('CREATE_POST')">✨ 새 기사 작성</button>
-        <button class="action-btn secondary" onclick="sendToBot('CHECK_STATUS')">📊 현재 상태 확인</button>
-        <button class="action-btn secondary" onclick="Telegram.WebApp.close()">닫기</button>
-    </div>
+        <h1>🚀 ESG 기사 간편 작성</h1>
 
+        <div class="form-group">
+            <label>기사 제목</label>
+            <input type="text" id="title" placeholder="예: 제5회 월드ESG포럼 개최">
+        </div>
+        <div class="form-group">
+            <label>주요 내용 (6하원칙)</label>
+            <textarea id="summary" placeholder="누가, 언제, 어디서, 무엇을..."></textarea>
+        </div>
+        <button class="btn btn-primary" onclick="submitForm()">✨ AI 기사 생성 시작</button>
+        <button class="btn btn-secondary" onclick="checkStatus()">📊 시스템 상태 확인</button>
+        <button class="btn btn-secondary" onclick="Telegram.WebApp.close()">닫기</button>
+    </div>
     <script>
         const tg = window.Telegram.WebApp;
-        tg.ready();
-        tg.expand();
-
-        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-            document.getElementById('greeting').innerText = `안녕하세요, ${tg.initDataUnsafe.user.first_name}님!`;
-        }
-
-        function sendToBot(action) {
-            const chatId = tg.initDataUnsafe.user.id;
-
-            // 프록시 설정된 URL로 신호 전송 (기존 3003 포트 직접 접속 대신)
-            fetch('https://uconai.ddns.net/api/esg/webapp', {
+        tg.ready(); tg.expand();
+        function submitForm() {
+            const title = document.getElementById('title').value;
+            const summary = document.getElementById('summary').value;
+            if (!title || !summary) {
+                alert("제목과 내용을 모두 입력해주세요.");
+                return;
+            }
+            fetch('/api/esg/webapp', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chatId: chatId, action: action })
-            })
-                .then(res => {
-                    if (res.ok) tg.close();
-                    else alert("서버 응답 오류 (3003 포워딩 확인 필요)");
+                body: JSON.stringify({
+                    chatId: tg.initDataUnsafe.user.id,
+                    action: 'CREATE_POST',
+                    title: title,
+                    summary: summary
                 })
-                .catch(err => alert("네트워크 오류: 3003 포트 접근이 원활하지 않습니다."));
+            })
+                .then(res => res.ok ? tg.close() : alert("서버 연결 오류"))
+                .catch(err => alert("네트워크 오류"));
+        }
+        function checkStatus() {
+            fetch('/api/esg/webapp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chatId: tg.initDataUnsafe.user.id, action: 'CHECK_STATUS' })
+            })
+                .then(res => res.ok ? tg.close() : alert("서버 연결 오류"));
         }
     </script>
 </body>
