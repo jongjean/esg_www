@@ -1,32 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 
 <head>
-    <meta charset="utf-8">
-    <title>UCONAI ESG Control</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>UCONAI ESG Control Panel</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
+        :root {
+            --tg-theme-bg-color: #0f172a;
+            --tg-theme-text-color: #f8fafc;
+            --tg-theme-hint-color: #94a3b8;
+            --tg-theme-button-color: #10b981;
+            --tg-theme-button-text-color: #ffffff;
+            --tg-theme-secondary-bg-color: rgba(30, 41, 59, 0.7);
+        }
+
         body {
-            background: #111;
-            color: #fff;
+            margin: 0;
+            padding: 20px;
+            background: var(--tg-theme-bg-color);
+            color: var(--tg-theme-text-color);
             font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 400px;
+            background: var(--tg-theme-secondary-bg-color);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
             text-align: center;
-            padding: 40px;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin: 0 0 8px 0;
+            color: var(--tg-theme-button-color);
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 12px;
+            border: none;
+            border-radius: 12px;
+            background: var(--tg-theme-button-color);
+            color: var(--tg-theme-button-text-color);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .action-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--tg-theme-text-color);
         }
     </style>
 </head>
 
 <body>
-
-    <h2>UCONAI ESG AI Control Panel</h2>
-    <p>WebApp 연결 성공</p>
+    <div class="card">
+        <h1>UCONAI ESG Control</h1>
+        <div id="greeting">사용자 확인 중...</div>
+    </div>
+    <div style="width: 100%; max-width: 400px;">
+        <button class="action-btn" onclick="sendToBot('CREATE_POST')">✨ 새 기사 작성</button>
+        <button class="action-btn secondary" onclick="sendToBot('CHECK_STATUS')">📊 현재 상태 확인</button>
+        <button class="action-btn secondary" onclick="Telegram.WebApp.close()">닫기</button>
+    </div>
 
     <script>
         const tg = window.Telegram.WebApp;
+        tg.ready();
         tg.expand();
-        console.log("Telegram initData:", tg.initData);
-    </script>
 
+        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+            document.getElementById('greeting').innerText = `안녕하세요, ${tg.initDataUnsafe.user.first_name}님!`;
+        }
+
+        function sendToBot(action) {
+            const chatId = tg.initDataUnsafe.user.id;
+
+            // 프록시 설정된 URL로 신호 전송 (기존 3003 포트 직접 접속 대신)
+            fetch('https://uconai.ddns.net/api/esg/webapp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chatId: chatId, action: action })
+            })
+                .then(res => {
+                    if (res.ok) tg.close();
+                    else alert("서버 응답 오류 (3003 포워딩 확인 필요)");
+                })
+                .catch(err => alert("네트워크 오류: 3003 포트 접근이 원활하지 않습니다."));
+        }
+    </script>
 </body>
 
 </html>
